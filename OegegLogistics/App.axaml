@@ -1,28 +1,17 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="OegegLogistics.App"
-             RequestedThemeVariant="Default">
+             RequestedThemeVariant="Dark">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
   
     <Application.Styles>
-        <FluentTheme />
-        
-                <Style Selector="Expander /template/ ToggleButton">
-                    <Setter Property="Background" Value="Transparent"/>
-                    <Setter Property="BorderBrush" Value="Transparent"/>
-                    <Setter Property="Padding" Value="0"/>
-                    <Setter Property="Margin" Value="0"/>
-                </Style>
-                <Style Selector="Expander /template/ ToggleButton:pointerover /template/ Border#ToggleButtonBackground">
-                    <Setter Property="Background" Value="Transparent"/>
-                    <Setter Property="BorderBrush" Value="Transparent"/>
-                </Style>
-                <Style Selector="Expander /template/ ToggleButton:pointerover /template/ Border#ExpandCollapseChevronBorder">
-                    <Setter Property="Background" Value="Transparent"/>
-                    <Setter Property="BorderBrush" Value="Transparent"/>
-                </Style>
-        
-        
+        <FluentTheme>
+            <FluentTheme.Palettes>
+                <ColorPaletteResources x:Key="Light" Accent="#ff0073cf" AltHigh="White" AltLow="White" AltMedium="White" AltMediumHigh="White" AltMediumLow="White" BaseHigh="Black" BaseLow="#ffcccccc" BaseMedium="#ff898989" BaseMediumHigh="#ff5d5d5d" BaseMediumLow="#ff737373" ChromeAltLow="#ff5d5d5d" ChromeBlackHigh="Black" ChromeBlackLow="#ffcccccc" ChromeBlackMedium="#ff5d5d5d" ChromeBlackMediumLow="#ff898989" ChromeDisabledHigh="#ffcccccc" ChromeDisabledLow="#ff898989" ChromeGray="#ff737373" ChromeHigh="#ffcccccc" ChromeLow="#ffececec" ChromeMedium="#ffe6e6e6" ChromeMediumLow="#ffececec" ChromeWhite="White" ListLow="#ffe6e6e6" ListMedium="#ffcccccc" RegionColor="White" />
+                <ColorPaletteResources x:Key="Dark" Accent="#ff608cbf" AltHigh="Black" AltLow="Black" AltMedium="Black" AltMediumHigh="Black" AltMediumLow="Black" BaseHigh="White" BaseLow="#ff3b3c45" BaseMedium="#ff9a9eab" BaseMediumHigh="#ffb2b7c5" BaseMediumLow="#ff6b6d78" ChromeAltLow="#ffb2b7c5" ChromeBlackHigh="Black" ChromeBlackLow="#ffb2b7c5" ChromeBlackMedium="Black" ChromeBlackMediumLow="Black" ChromeDisabledHigh="#ff3b3c45" ChromeDisabledLow="#ff9a9eab" ChromeGray="#ff828692" ChromeHigh="#ff828692" ChromeLow="#ff0f1831" ChromeMedium="#ff1a2136" ChromeMediumLow="#ff303340" ChromeWhite="White" ListLow="#ff1a2136" ListMedium="#ff3b3c45" RegionColor="#ff282a30" />
+            </FluentTheme.Palettes>
+        </FluentTheme>
+
         
     </Application.Styles>
              

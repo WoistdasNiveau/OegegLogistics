@@ -9,6 +9,7 @@ using OegegLogistics.Views;
 
 namespace OegegLogistics;
 
+// the design: https://dribbble.com/shots/6725059/attachments/6725059-Responsive-table-Dark-theme?mode=media
 public partial class App : Application
 {
     public override void Initialize()
