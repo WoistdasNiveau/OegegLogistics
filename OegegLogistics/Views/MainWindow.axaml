@@ -17,10 +17,9 @@
 
     <SplitView IsPaneOpen="True"
                DisplayMode="CompactInline"
-               OpenPaneLength="200">
+               OpenPaneLength="225">
         <SplitView.Pane>
-            <StackPanel Margin="10,0"
-                        Spacing="5">
+            <StackPanel Spacing="5">
                 <StackPanel Margin="0,10,0,0">
                     <TextBlock Text="ÖGEG"
                     FontSize="35"
@@ -33,37 +32,26 @@
                 </StackPanel>
                     
                     <Separator></Separator>
-                    
-                <Expander Header="Fahrzeuge"
-                    HorizontalAlignment="Stretch"
-                          BorderBrush="Transparent"
-                          Background="Transparent">
-                    <Expander.Styles>
-                        <Style Selector="Expander /template/ ToggleButton">
-                            <!-- Make the header completely transparent -->
-                            <Setter Property="Background" Value="Transparent"/>
-                            <Setter Property="BorderBrush" Value="Transparent"/>
-                            <Setter Property="Padding" Value="0"/>
-                            <Setter Property="Margin" Value="0"/>
-                        </Style>
-                        <Style Selector="Expander /template/ ToggleButton:pointerover /template/ Border#ToggleButtonBackground">
-                            <Setter Property="Background" Value="Transparent"/>
-                            <Setter Property="BorderBrush" Value="Transparent"/>
-                        </Style>
-                        <Style Selector="Expander /template/ ToggleButton:pointerover /template/ Border#ExpandCollapseChevronBorder">
-                            <Setter Property="Background" Value="Transparent" />
-                            <Setter Property="BorderBrush" Value="Transparent" />
-                        </Style>
-                        
-                    </Expander.Styles>
-                    <ListBox x:Name="vehicles"
-                             Background="Transparent"
-                             BorderThickness="0"/>
-                </Expander>
-                <Expander Header="Users"
-                          HorizontalAlignment="Stretch"
-                          Styles="{DynamicResource CustomExpanderStyle}">
-                </Expander>
+                    <!-- try with contentcontrol whic happears when tab is selected -->
+                <ListBox>
+                    <ListBox.Items>
+                        <ListBoxItem>
+                            <StackPanel>
+                                <TextBlock Text="Fahrzeuge"/>
+                                <ListBox>
+                                    <ListBox.Items>
+                                        <ListBoxItem>
+                                            <TextBlock Text="Loks"/>
+                                        </ListBoxItem>
+                                    </ListBox.Items>
+                                </ListBox>
+                            </StackPanel>
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            <TextBlock Text="Benutzer"/>
+                        </ListBoxItem>
+                    </ListBox.Items>
+                </ListBox>
             </StackPanel>
         </SplitView.Pane>
         
