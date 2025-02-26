@@ -3,18 +3,47 @@
         xmlns:vm="using:OegegLogistics.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:views="clr-namespace:OegegLogistics.Views"
+        xmlns:views="clr-namespace:OegegLogistics.Main"
+        xmlns:vehicles="clr-namespace:OegegLogistics.Vehicles"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="OegegLogistics.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
+        x:Class="OegegLogistics.Main.MainWindow"
+        x:DataType="views:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="OegegLogistics">
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <vm:MainWindowViewModel/>
+        <views:MainWindowViewModel/>
     </Design.DataContext>
+
+    <Window.Resources>
+        <Pen x:Key="MyPen" 
+             Thickness="1" 
+             Brush="{DynamicResource SystemChromeLowColor}" /> <!-- Change this for light/dark-->
+    
+        <DrawingBrush x:Key="DiagonalLines"  
+                      Stretch="UniformToFill" 
+                      TileMode="Tile" Opacity="0.25" 
+                      DestinationRect="0,0,4,4">
+            <DrawingBrush.Transform>
+                <RotateTransform Angle="20"></RotateTransform>
+            </DrawingBrush.Transform>
+            <DrawingBrush.Drawing>
+                <GeometryDrawing Pen="{StaticResource MyPen}">
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup FillRule="EvenOdd" >
+                            <GeometryCollection >
+                                <LineGeometry StartPoint="0,0" EndPoint="0,3"/>
+                                <LineGeometry StartPoint="2,0" EndPoint="2,3"/>
+                            </GeometryCollection>
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+    
+    </Window.Resources>
 
     <SplitView IsPaneOpen="True"
                DisplayMode="CompactInline"
@@ -46,26 +75,9 @@
             </StackPanel>
         </SplitView.Pane>
         <Grid VerticalAlignment="Stretch"
-              HorizontalAlignment="Stretch">
-            <Grid.Background>
-                <DrawingBrush TileMode="Tile" Stretch="None">
-                    <DrawingBrush.Drawing>
-                        <GeometryDrawing>
-                            <GeometryDrawing.Brush>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                    <GradientStop Color="Red" Offset="0"/>
-                                    <GradientStop Color="Red" Offset="0.5"/>
-                                    <GradientStop Color="White" Offset="0.5"/>
-                                    <GradientStop Color="White" Offset="1"/>
-                                </LinearGradientBrush>
-                            </GeometryDrawing.Brush>
-                            <GeometryDrawing.Geometry>
-                                <RectangleGeometry Rect="10,10,4,4"/>
-                            </GeometryDrawing.Geometry>
-                        </GeometryDrawing>
-                    </DrawingBrush.Drawing>
-                </DrawingBrush>
-            </Grid.Background>
+              HorizontalAlignment="Stretch"
+              Background="{StaticResource DiagonalLines}">
+            <vehicles:VehiclesView/>
         </Grid>
     </SplitView>
 </Window>

@@ -1,7 +1,6 @@
-using System.Linq;
 using Avalonia.Controls;
 
-namespace OegegLogistics.Views;
+namespace OegegLogistics.Main;
 
 public partial class MainWindow : Window
 {
@@ -9,4 +8,5 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
     }
+
 }

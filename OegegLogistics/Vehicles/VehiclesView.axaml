@@ -1,0 +1,68 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vehicles="clr-namespace:OegegLogistics.Vehicles"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="OegegLogistics.Vehicles.VehiclesView"
+             x:DataType="vehicles:VehiclesViewModel">
+    
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vehicles:VehiclesViewModel/>
+    </Design.DataContext>
+    
+    <StackPanel Orientation="Vertical"
+                Margin="20">
+        <Grid ColumnDefinitions="0.2*, 0.2*, 0.5*, 0.05*, 0.05*">
+            <Label Content="Fahrzeuge"
+                   Grid.Column="0"/>
+            <ComboBox PlaceholderText="Fahrzeuge filtern"
+                      Background="Transparent"
+                      Grid.Column="1"/>
+            <PathIcon Data="{StaticResource arrow_download_regular}"
+                      Grid.Column="3"
+                      Height="20"
+                      Width="20"/>
+            <PathIcon Data="{StaticResource settings_regular}"
+                      Grid.Column="4"
+                      Height="20"
+                      Width="20"/>
+        </Grid>
+        
+        <DataGrid Margin="0,20"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  GridLinesVisibility="Vertical"
+                  ItemsSource="{Binding Vehicles}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="UIC Nummer"
+                                    Width="*"
+                                    Binding="{Binding UICNumber}"/>
+                <DataGridTextColumn Header="Name"
+                                    Width="*"
+                                    Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Typ"
+                                    Width="*"
+                                    Binding="{Binding Type}"/>
+                <DataGridTextColumn Header="Status"
+                                    Width="*"
+                                    Binding="{Binding Status}"/>
+                <DataGridTextColumn Header="Ort"
+                                    Width="*"
+                                    Binding="{Binding Location}"/>
+                <DataGridTextColumn Header="Anzahl Arbeiten"
+                                    Width="*"
+                                    Binding="{Binding WorkCount}"/>
+                <DataGridTextColumn Header="Priorität"
+                                    Width="*"
+                                    Binding="{Binding Priority}"/>
+                <DataGridTextColumn Header="Zugewiesen"
+                                    Width="*"
+                                    Binding="{Binding ResponsiblePerson}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </StackPanel>
+    
+</UserControl>

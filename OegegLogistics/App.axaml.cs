@@ -1,11 +1,10 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
-using OegegLogistics.ViewModels;
-using OegegLogistics.Views;
+using OegegLogistics.Main;
+using MainWindow = OegegLogistics.Main.MainWindow;
 
 namespace OegegLogistics;
 
