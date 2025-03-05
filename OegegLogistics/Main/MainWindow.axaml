@@ -76,8 +76,52 @@
         </SplitView.Pane>
         <Grid VerticalAlignment="Stretch"
               HorizontalAlignment="Stretch"
-              Background="{StaticResource DiagonalLines}">
-            <vehicles:VehiclesView/>
+              Background="{StaticResource DiagonalLines}"
+              RowDefinitions="0.05*, 0.9*">
+            <Border Grid.Row="0"
+                    Background="{DynamicResource SystemChromeLowColor}">
+                <Grid Margin="10,0">
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Right"
+                                Spacing="40">
+                        <Canvas Width="20"
+                                Height="20"
+                                VerticalAlignment="Center">
+                            <PathIcon Height="15"
+                                      Width="15"
+                                      Foreground="{DynamicResource SystemBaseHighColor}"
+                                      Data="{StaticResource notification_bell}"/>
+                            <Ellipse Fill="{DynamicResource SystemAccentColor}"
+                                     Width="11"
+                                     Height="11"
+                                     Canvas.Left="10" 
+                                     Canvas.Top="9"/>
+                            <TextBlock Text="2" 
+                                       Foreground="White" FontSize="8" FontWeight="Bold"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       Canvas.Left="13" Canvas.Top="10"/>
+                        </Canvas>
+                        <Border Width="2"
+                                Background="{DynamicResource SystemBaseLowColor}"
+                                Margin="0,10"/>
+                        <StackPanel Orientation="Horizontal"
+                                    VerticalAlignment="Center"
+                                    Spacing="15">
+                            <PathIcon Height="15"
+                                      Width="15"
+                                      Data="{StaticResource person_regular}"
+                                      Foreground="{DynamicResource SystemBaseHighColor}"/>
+                            <Label Content="Account Name"
+                                   VerticalAlignment="Center"/>
+                            <PathIcon Height="10"
+                                      Width="10"
+                                      Data="{StaticResource chevron_right_regular}"
+                                      Foreground="{DynamicResource SystemBaseHighColor}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <vehicles:VehiclesView Grid.Row="1"/>
         </Grid>
     </SplitView>
 </Window>
