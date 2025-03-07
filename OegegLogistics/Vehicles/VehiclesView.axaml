@@ -30,8 +30,10 @@
         </ResourceDictionary>
     </UserControl.Resources>
     
+    <Grid RowDefinitions="0.9*, 0.1*">
     <StackPanel Orientation="Vertical"
-                Margin="20">
+                Margin="20"
+                Grid.Row="0">
         <Grid ColumnDefinitions="0.5*, 0.5*">
             <StackPanel Orientation="Horizontal"
                         Grid.Column="0"
@@ -98,5 +100,56 @@
             </DataGrid.Columns>
         </DataGrid>
     </StackPanel>
+        
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Grid.Row="1"
+                    Spacing="20">
+            <Label Content="242 Results"
+                   VerticalAlignment="Center"
+                   Classes="pageNumber"/>
+            <StackPanel Orientation="Horizontal"
+                        Spacing="5"
+                        VerticalAlignment="Center">
+                <Label Content="Jump to page:"
+                       VerticalAlignment="Center"
+                       Classes="pageNumber"/>
+                <TextBox Text="34"
+                         VerticalAlignment="Center"
+                         Classes="pageNumber"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <Button Content="&#x3C;"
+                        VerticalAlignment="Center"
+                        Classes="pageNumber"/>
+                <Button Content="1"
+                        VerticalAlignment="Center"
+                        Classes="pageNumber"/>
+                <Label Content="..."
+                       VerticalAlignment="Bottom"
+                       Classes="pageNumber"/>
+                <Button Content="{Binding CurrentPage.PreviousPage}"
+                        VerticalAlignment="Center"
+                        Classes="pageNumber"/>
+                <Button Content="{Binding CurrentPage.CurrentPage}"
+                        VerticalAlignment="Center"
+                        Classes="pageNumber"/>
+                <Button Content="{Binding CurrentPage.NextPage}"
+                        VerticalAlignment="Center"
+                        Classes="pageNumber"/>
+                <Label Content="..."
+                       VerticalAlignment="Bottom"
+                       Classes="pageNumber"/>
+                <Button Content="{Binding CurrentPage.TotalPages}"
+                        VerticalAlignment="Center"
+                        Classes="pageNumber"/>
+                <Button Content="&#62;"
+                        VerticalAlignment="Center"
+                        Classes="pageNumber"></Button>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
     
 </UserControl>

@@ -25,4 +25,12 @@ public partial class VehiclesViewModel : BaseViewModel
             ResponsiblePerson = "Franz"
         }
     };
+
+    [ObservableProperty]
+    private PageModel _currentPage = new PageModel();
+    
+    // == private methods ==
+    private void SetPageNumbers(uint currentPageNumber)
+    {
+    }
 }

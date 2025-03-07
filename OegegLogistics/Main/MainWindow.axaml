@@ -79,7 +79,8 @@
               Background="{StaticResource DiagonalLines}"
               RowDefinitions="0.05*, 0.9*">
             <Border Grid.Row="0"
-                    Background="{DynamicResource SystemChromeLowColor}">
+                    Background="{DynamicResource SystemChromeLowColor}"
+                    BoxShadow="0 2.5 50 0 black">
                 <Grid Margin="10,0">
                     <StackPanel Orientation="Horizontal"
                                 HorizontalAlignment="Right"

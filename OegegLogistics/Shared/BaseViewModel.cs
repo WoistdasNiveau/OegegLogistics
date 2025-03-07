@@ -2,6 +2,6 @@
 
 namespace OegegLogistics.Shared;
 
-public class BaseViewModel : ObservableObject
+public abstract class BaseViewModel : ObservableObject
 {
 }
