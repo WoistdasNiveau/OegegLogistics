@@ -1,0 +1,67 @@
+﻿<Border xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="OegegLogistics.Shared.Components.PageComponent"
+             Background="Green">
+    
+    <StackPanel Orientation="Horizontal"
+                Spacing="25">
+        <StackPanel Orientation="Horizontal">
+            <Label Content="Zu Seite: "
+                   VerticalAlignment="Center"/>
+            <TextBox Margin="0,5"
+                     VerticalAlignment="Center"/>
+        </StackPanel>
+    
+           <StackPanel Orientation="Horizontal"
+                       Spacing="10">
+                  <Label Content="&lt;"
+                         VerticalAlignment="Center"/>
+        <StackPanel Orientation="Horizontal"
+                    Spacing="-4">
+            <Label x:Name="firstPageLabel"
+                   Content="1"
+                   VerticalAlignment="Center"
+                   Tapped="PageLabelTapped"/>
+            <Label x:Name="startDotLabel"
+                   Content="..."
+                   VerticalAlignment="Center"
+                   Tapped="PageLabelTapped"/>
+            <Label x:Name="previousPageLabel"
+                   Content="3"
+                   VerticalAlignment="Center"
+                   Tapped="PageLabelTapped"/>
+            <Label x:Name="currentPageLabel"
+                   Content="4"
+                   FontSize="16"
+                   VerticalAlignment="Center"
+                   Tapped="PageLabelTapped"/>
+            <Label x:Name="nextPageLabel"
+                   Content="5"
+                   VerticalAlignment="Center"
+                   Tapped="PageLabelTapped"/>
+            <Label x:Name="endDotLabel"
+                   Content="..."
+                   VerticalAlignment="Center"
+                   Tapped="PageLabelTapped"/>
+            <Label x:Name="maxPageLabel"
+                   Content="7"
+                   VerticalAlignment="Center"
+                   Tapped="PageLabelTapped"/>
+        </StackPanel>
+                  <Label Content="&gt;"
+                         VerticalAlignment="Center"/>
+           </StackPanel>
+           
+           <ListBox>
+                  <ListBox.ItemsPanel>
+                         <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"></WrapPanel>
+                         </ItemsPanelTemplate>
+                  </ListBox.ItemsPanel>
+           </ListBox>
+    </StackPanel>
+    
+</Border>
