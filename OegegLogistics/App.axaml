@@ -20,6 +20,12 @@
         <Style Selector="Button.pageNumber">
             <Setter Property="Background" Value="Transparent"/>
         </Style>
+        
+        <Style Selector="Button:disabled /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="Foreground" Value="{DynamicResource ButtonForegroundDisabled}" />
+        </Style>
 
     </Application.Styles>
              
