@@ -54,14 +54,6 @@
                   <Label Content="&gt;"
                          VerticalAlignment="Center"/>
            </StackPanel>
-           
-           <ListBox>
-                  <ListBox.ItemsPanel>
-                         <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal"></WrapPanel>
-                         </ItemsPanelTemplate>
-                  </ListBox.ItemsPanel>
-           </ListBox>
     </StackPanel>
     
 </Border>

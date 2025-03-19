@@ -25,7 +25,7 @@ public partial class PageComponent : Border
             if(value < 1)
                 return;
             SetValue(MaxPageProperty, value);
-            UpdateMaxMage(value);
+            UpdateMaxPage(value);
         }
     }
     
@@ -54,6 +54,7 @@ public partial class PageComponent : Border
     public PageComponent()
     {
         InitializeComponent();
+        MaxPage = 100;
         
         pageLables = new List<Label>
         {
@@ -78,9 +79,9 @@ public partial class PageComponent : Border
         nextPageLabel.Content = currentPage + 1;
     }
 
-    private void UpdateMaxMage(uint maxPage)
+    private void UpdateMaxPage(uint maxPage)
     {
-        nextPageLabel.Content = maxPage;
+        maxPageLabel.Content = maxPage;
     }
     
     private void PageLabelTapped(object? sender, TappedEventArgs e)
@@ -88,29 +89,49 @@ public partial class PageComponent : Border
         uint pageNumber;
         if(sender is not Label label || label.Content == null || label.Content.Equals("...") || !uint.TryParse(label.Content.ToString(), out pageNumber))
             return;
-
-        if (pageNumber == 1 || pageNumber == MaxPage)
-        {
-            HandelPageNumberEdgeCase(pageNumber == 1);
-            return;
-        }
         
-        UpdateCurrentPage(pageNumber);
+        if(pageNumber <= 0 || pageNumber > MaxPage)
+            return;
+        
+        CurrentPage = pageNumber;
+        HandelPageNumberEdgeCase();
     }
 
-    private void HandelPageNumberEdgeCase(bool isFirstPage = true)
+    private void HandelPageNumberEdgeCase()
     {
-        if (isFirstPage)
+        if (CurrentPage >= MaxPage - 2)
+        {
+            pageLables[5].Content = MaxPage - 1;
+            pageLables[4].Content = MaxPage - 2;
+            pageLables[3].Content = MaxPage - 3;
+            pageLables[2].Content = MaxPage - 4;
+            pageLables[1].Content = "...";
+
+            pageLables.First(t => t.Content.ToString() == CurrentPage.ToString()).FontSize = 16;
+            pageLables.Where(t => t.Content.ToString() != CurrentPage.ToString()).ToList().ForEach(f => f.FontSize = 14);
+        }
+        else if (CurrentPage <= 3)
         {
             pageLables.Skip(1)
+                .Take(4)
                 .ToList()
-                .ForEach((t => t.Content = pageLables.IndexOf(t) + 2));
+                .ForEach(label => label.Content =pageLables.IndexOf(label) + 1);
+            pageLables[5].Content = "...";
+            
+            pageLables.First(t => t.Content.ToString() == CurrentPage.ToString()).FontSize = 16;
+            pageLables.Where(t => t.Content.ToString() != CurrentPage.ToString()).ToList().ForEach(f => f.FontSize = 14);
         }
         else
         {
-            pageLables.Skip(2)
-                .ToList()
-                .ForEach((t => t.Content = pageLables.Count - pageLables.IndexOf(t)));
+            List<Label> labels = pageLables.Skip(1).ToList();
+            labels[0].Content = "...";
+            labels[1].Content = CurrentPage - 1;
+            labels[2].Content = CurrentPage;
+            labels[3].Content = CurrentPage + 1;
+            labels[4].Content = "...";
+            
+            pageLables.First(t => t.Content.ToString() == CurrentPage.ToString()).FontSize = 16;
+            pageLables.Where(t => t.Content.ToString() != CurrentPage.ToString()).ToList().ForEach(f => f.FontSize = 14);
         }
     }
     #endregion
