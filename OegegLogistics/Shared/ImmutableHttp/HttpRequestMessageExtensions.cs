@@ -4,6 +4,7 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using HttpRequestMessage = OegegLogistics.Shared.ImmutableHttp.HttpRequestMessage;
 
@@ -51,5 +52,16 @@ public static class HttpRequestMessageExtensions
     public static HttpRequestMessage WithHeaders(this HttpRequestMessage request, IDictionary<string, string> headers)
     {
         return request with { Headers = headers};
+    }
+
+    public static async Task<T> ExecuteAsync<T>(this HttpRequestMessage request, HttpClient client,
+        CancellationToken cancellationToken = default)
+    {
+        HttpResponseMessage responseMessage = await client.SendAsync(request, cancellationToken).ConfigureAwait(false);
+
+        responseMessage.EnsureSuccessStatusCode();
+        
+        await using Stream stream = await responseMessage.Content.ReadAsStreamAsync().ConfigureAwait(false);
+        return await JsonSerializer.DeserializeAsync<T>(stream, cancellationToken: cancellationToken).ConfigureAwait(false);
     }
 }
