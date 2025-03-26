@@ -105,7 +105,9 @@
         <components:PageComponent Grid.Row="1"
                                   HorizontalAlignment="Right"
                                   VerticalAlignment="Bottom"
-                                  Margin="0,10"/>
+                                  Margin="0,10"
+                                  CurrentPage="{Binding CurrentPage.CurrentPage}"
+                                  MaxPage="{Binding CurrentPage.TotalPages}"/>
         
         <!--<StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right"

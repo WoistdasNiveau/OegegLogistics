@@ -1,9 +1,12 @@
+using System;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
+using Microsoft.Extensions.DependencyInjection;
 using OegegLogistics.Main;
+using OegegLogistics.Vehicles;
 using MainWindow = OegegLogistics.Main.MainWindow;
 
 namespace OegegLogistics;
@@ -18,6 +21,13 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        IServiceCollection collection = new ServiceCollection();
+
+        collection.AddHttpClient<VehiclesViewModel>(client =>
+        {
+            client.BaseAddress = new Uri("Test");
+        });
+        
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 

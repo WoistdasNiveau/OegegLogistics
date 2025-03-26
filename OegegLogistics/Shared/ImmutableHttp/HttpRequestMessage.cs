@@ -17,7 +17,9 @@ public sealed record HttpRequestMessage(
         IDictionary<string, string>? Headers = null,
         HttpRequestOptions? Options = null)
         : IDisposable
-    {
+{
+        public static HttpRequestMessage Empty = new HttpRequestMessage();
+        
         public static Version DefaultRequestVersion => HttpVersion.Version11;
         public static HttpVersionPolicy DefaultVersionPolicy => HttpVersionPolicy.RequestVersionOrLower;
 
