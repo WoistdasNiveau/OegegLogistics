@@ -122,7 +122,7 @@
                     </StackPanel>
                 </Grid>
             </Border>
-            <vehicles:VehiclesView Grid.Row="1"/>
+            <ContentControl Grid.Row="1" Content="{Binding VehiclesView}"/>
         </Grid>
     </SplitView>
 </Window>
