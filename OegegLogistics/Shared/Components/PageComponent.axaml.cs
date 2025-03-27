@@ -59,8 +59,6 @@ public partial class PageComponent : Border
     public PageComponent()
     {
         InitializeComponent();
-        MaxPage = 100;
-        
         pageLables = new List<Button>
         {
             firstPageLabel,
@@ -98,6 +96,14 @@ public partial class PageComponent : Border
 
     private void HandelPageNumberEdgeCase()
     {
+        if (MaxPage <= 3)
+        {
+            bool otherLabelsVisible = MaxPage > 3;
+            currentPageLabel.IsVisible = otherLabelsVisible;
+            nextPageLabel.IsVisible = otherLabelsVisible;
+            endDotLabel.IsVisible = otherLabelsVisible;
+            maxPageLabel.IsVisible = otherLabelsVisible;
+        }
         if (CurrentPage >= MaxPage - 2)
         {
             pageLables[5].Content = MaxPage - 1;
@@ -133,11 +139,11 @@ public partial class PageComponent : Border
         currentButton.FontSize = 16;
         currentButton.Opacity = 1;
         
-        pageLables.Where(t => t.Content.ToString() != CurrentPage.ToString()).ToList().ForEach(f =>
+        pageLables.Where(t => t.Content?.ToString() != CurrentPage.ToString()).ToList().ForEach(f =>
         {
             f.FontSize = 14;
             f.Opacity = 0.5;
-            f.IsEnabled = !f.Content.Equals("...");
+            f.IsEnabled = !f.Content?.Equals("...") ?? false;
         });
     }
     
@@ -156,12 +162,13 @@ public partial class PageComponent : Border
                 break;
         }
     }
-    #endregion
-
+    
     private void EnterPageBox_OnDropDownClosed(object? sender, EventArgs e)
     {
         if(sender is not AutoCompleteBox autoCompleteBox || autoCompleteBox.SelectedItem == null || autoCompleteBox.IsDropDownOpen)
             return;
         CurrentPage = uint.Parse(autoCompleteBox.SelectedItem.ToString());
     }
+    
+    #endregion
 }
