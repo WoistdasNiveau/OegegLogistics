@@ -3,34 +3,14 @@ using OegegLogistics.ViewModels.Enums;
 
 namespace OegegLogistics.Shared;
 
-public class PageModel
+public partial class PageModel : ObservableObject
 {
-    public PageState PageState { get; set; } = PageState.Middle;
-    public uint TotalPages { get; set; }
-    public uint PreviousPage { get; private set; }
-    public uint NextPage { get; private set; }
+    [ObservableProperty]
+    public PageState _pageState = PageState.Middle;
+    
+    [ObservableProperty]
+    public uint _totalPages = 100;
 
-    public uint CurrentPage
-    {
-        get => GetCurrentPage();
-        set => SetCurrentPage(value);
-    }
-
-    private uint _currentPage;
-
-    private void SetCurrentPage(uint pageNumber)
-    {
-        PreviousPage = pageNumber > 1 ? pageNumber - 1 : 1;
-        _currentPage = pageNumber;
-        NextPage = pageNumber < TotalPages ? pageNumber + 1 : TotalPages;
-        
-        PageState = PreviousPage == 1 ? PageState.Start 
-            : NextPage == TotalPages ? PageState.End
-            : PageState.Middle;
-    }
-
-    private uint GetCurrentPage()
-    {
-        return _currentPage;
-    }
+    [ObservableProperty]
+    public uint _currentPage;
 }

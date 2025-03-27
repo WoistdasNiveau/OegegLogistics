@@ -17,7 +17,8 @@ public partial class PageComponent : Border
 
     public static readonly StyledProperty<uint> MaxPageProperty =
         AvaloniaProperty.Register<PageComponent, uint>(
-            nameof(MaxPage));
+            nameof(MaxPage),
+            defaultValue: 1);
 
     public uint MaxPage
     {
@@ -27,7 +28,7 @@ public partial class PageComponent : Border
             if(value < 1)
                 return;
             SetValue(MaxPageProperty, value);
-            UpdateMaxPage(value);
+            PopulatePageLabels();
             enterPageBox.ItemsSource = Enumerable.Range(1, (int)value);
         }
     }
@@ -46,7 +47,8 @@ public partial class PageComponent : Border
                 return;
             SetValue(CurrentPageProperty, value);
             
-            HandelPageNumberEdgeCase();
+            //HandelPageNumberEdgeCase();
+            PopulatePageLabels();
             enterPageBox.SelectedItem = value;
         }
     }
@@ -55,31 +57,50 @@ public partial class PageComponent : Border
     
     // == private fields ==
     private List<Button> pageLables;
+    private List<string> pageNames;
 
     public PageComponent()
     {
         InitializeComponent();
-        pageLables = new List<Button>
-        {
-            firstPageLabel,
-            startDotLabel,
-            previousPageLabel,
-            currentPageLabel,
-            nextPageLabel,
-            endDotLabel,
-            maxPageLabel
-        };
         
-        HandelPageNumberEdgeCase();
+        PopulatePageLabels();
+        
+        //HandelPageNumberEdgeCase();
     }
     
     // == private methods ==
 
     #region private methods
 
+    private void PopulatePageLabels()
+    {
+        pageNames = new List<string>();
+        this.IsVisible = MaxPage > 1;
+        if (MaxPage <= 7)
+        {
+            for (int i = 1; i <= MaxPage; i++)
+            {
+                pageNames.Add(i.ToString());
+            }
+        }
+        else
+        {
+            pageNames.Add("1");
+            pageNames.Add("...");
+            pageNames.Add($"{CurrentPage - 1}");
+            pageNames.Add($"{CurrentPage}");
+            pageNames.Add($"{CurrentPage + 1}");
+            pageNames.Add("...");
+            pageNames.Add(MaxPage.ToString());
+        }
+        
+        SetButtonStyle();
+    }
+    
+
     private void UpdateMaxPage(uint maxPage)
     {
-        maxPageLabel.Content = maxPage;
+        PopulatePageLabels();
     }
     
     private void PageLabelTapped(object? sender, RoutedEventArgs e)
@@ -94,7 +115,7 @@ public partial class PageComponent : Border
         CurrentPage = pageNumber;
     }
 
-    private void HandelPageNumberEdgeCase()
+    /*private void HandelPageNumberEdgeCase()
     {
         if (MaxPage <= 3)
         {
@@ -131,20 +152,20 @@ public partial class PageComponent : Border
         }
         
         SetButtonStyle();
-    }
+    } */
 
     private void SetButtonStyle()
     {
-        Button currentButton = pageLables.First(t => t.Content.ToString() == CurrentPage.ToString());
-        currentButton.FontSize = 16;
-        currentButton.Opacity = 1;
-        
-        pageLables.Where(t => t.Content?.ToString() != CurrentPage.ToString()).ToList().ForEach(f =>
-        {
-            f.FontSize = 14;
-            f.Opacity = 0.5;
-            f.IsEnabled = !f.Content?.Equals("...") ?? false;
-        });
+        //Button currentButton = pageLables.First(t => t.Content.ToString() == CurrentPage.ToString());
+        //currentButton.FontSize = 16;
+        //currentButton.Opacity = 1;
+        //
+        //pageLables.Where(t => t.Content?.ToString() != CurrentPage.ToString()).ToList().ForEach(f =>
+        //{
+        //    f.FontSize = 14;
+        //    f.Opacity = 0.5;
+        //    f.IsEnabled = !f.Content?.Equals("...") ?? false;
+        //});
     }
     
     private void SwitchPageButtonClicked(object? sender, RoutedEventArgs e)

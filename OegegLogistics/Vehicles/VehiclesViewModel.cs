@@ -30,7 +30,7 @@ public partial class VehiclesViewModel : BaseViewModel
     };
 
     [ObservableProperty]
-    private PageModel _currentPage = new PageModel();
+    private PageModel _currentPage;
     
     // == private fields ==
     private readonly HttpClient _client;
@@ -40,6 +40,8 @@ public partial class VehiclesViewModel : BaseViewModel
     public VehiclesViewModel(HttpClient client)
     {
         _client = client;
+        
+        CurrentPage = new PageModel();
     }
 
     // == private methods ==

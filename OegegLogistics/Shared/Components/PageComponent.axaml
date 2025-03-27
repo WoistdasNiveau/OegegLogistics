@@ -2,6 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:components="clr-namespace:OegegLogistics.Shared.Components"
              mc:Ignorable="d"
              x:Class="OegegLogistics.Shared.Components.PageComponent">
     
@@ -18,45 +19,26 @@
         </StackPanel>
     
            <StackPanel Orientation="Horizontal">
-                  <Button Content="&lt;"
+                  <Button x:Name="previousPageButton"
+                          Content="&lt;"
                          VerticalAlignment="Center"
                          Background="Transparent"
                          Click="SwitchPageButtonClicked"/>
         <StackPanel Orientation="Horizontal"
                     Spacing="-10">
-            <Button x:Name="firstPageLabel"
-                    Content="1"
-                    VerticalAlignment="Center"
-                    Click="PageLabelTapped"
-                    Background="Transparent"/>
-            <Button x:Name="startDotLabel"
-                    Content="..."
-                    VerticalAlignment="Center"
-                    Click="PageLabelTapped"
-                    Background="Transparent"/>
-            <Button x:Name="previousPageLabel"
-                    VerticalAlignment="Center"
-                    Click="PageLabelTapped"
-                    Background="Transparent"/>
-            <Button x:Name="currentPageLabel"
-                    VerticalAlignment="Center"
-                    Click="PageLabelTapped"
-                    Background="Transparent"/>
-            <Button x:Name="nextPageLabel"
-                    VerticalAlignment="Center"
-                    Click="PageLabelTapped"
-                    Background="Transparent"/>
-            <Button x:Name="endDotLabel"
-                    Content="..."
-                    VerticalAlignment="Center"
-                    Click="PageLabelTapped"
-                    Background="Transparent"/>
-            <Button x:Name="maxPageLabel"
-                    VerticalAlignment="Center"
-                    Click="PageLabelTapped"
-                    Background="Transparent"/>
+                <ListBox x:Name="PageBox">
+                        <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                        <Button Content="{Binding .}"
+                                                VerticalAlignment="Center"
+                                                Background="Transparent"
+                                                Click="PageLabelTapped"/>
+                                </DataTemplate>
+                        </ListBox.ItemTemplate>
+                </ListBox>
         </StackPanel>
-                  <Button Content="&gt;"
+                  <Button x:Name="nextPageButton"
+                          Content="&gt;"
                           VerticalAlignment="Center"
                           Background="Transparent"
                           Click="SwitchPageButtonClicked"/>
