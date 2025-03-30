@@ -1,0 +1,38 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:OegegLogistics.Shared.Components">
+    <Design.PreviewWith>
+        <controls:SwitchPageComponent />
+    </Design.PreviewWith>
+
+    <Style Selector="controls|SwitchPageComponent">
+        <!-- Set Defaults -->
+        <Setter Property="Template">
+            <ControlTemplate>
+                <StackPanel Orientation="Horizontal"
+                            Spacing="20">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Zu Seite: "
+                               VerticalAlignment="Center"/>
+                        <AutoCompleteBox VerticalAlignment="Center"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="&lt;"
+                               VerticalAlignment="Center"/>
+                        <ListBox VerticalAlignment="Center"
+                                 ItemsSource="{TemplateBinding PageNumbers}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding .}"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <Button Content="&gt;"
+                                VerticalAlignment="Center"/>
+                    </StackPanel>
+                </StackPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>
