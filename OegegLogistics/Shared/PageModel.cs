@@ -6,7 +6,7 @@ namespace OegegLogistics.Shared;
 public class PageModel
 {
     public PageState PageState { get; set; } = PageState.Middle;
-    public uint TotalPages { get; set; }
+    public uint TotalPages { get; set; } = 10;
     public uint PreviousPage { get; private set; }
     public uint NextPage { get; private set; }
 

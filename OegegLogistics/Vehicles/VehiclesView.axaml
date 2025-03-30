@@ -102,12 +102,12 @@
         </DataGrid>
     </StackPanel>
         
-        <components:PageComponent Grid.Row="1"
-                                  HorizontalAlignment="Right"
-                                  VerticalAlignment="Bottom"
-                                  Margin="0,10"
-                                  CurrentPage="{Binding CurrentPage.CurrentPage, Mode=OneWayToSource}"
-                                  MaxPage="{Binding CurrentPage.TotalPages}"/>
+        <components:SwitchPageComponent Grid.Row="1"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Bottom"
+                                        Margin="0,10"
+                                        CurrentPageNumber="{Binding CurrentPage.CurrentPage, Mode=OneWayToSource}"
+                                        MaxPageNumber="{Binding CurrentPage.TotalPages}"/>
         
         
     </Grid>

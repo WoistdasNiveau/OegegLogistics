@@ -1,0 +1,62 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:OegegLogistics.Shared.Components">
+    <Design.PreviewWith>
+        <controls:SwitchPageComponent />
+    </Design.PreviewWith>
+
+    <Style Selector="controls|SwitchPageComponent">
+        <!-- Set Defaults -->
+        <Setter Property="Template">
+            <ControlTemplate>
+                <StackPanel Orientation="Horizontal"
+                            Spacing="25">
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Zu Seite: "
+                               VerticalAlignment="Center" />
+                        <AutoCompleteBox x:Name="enterPageBox"
+                                         FilterMode="Contains"
+                                         Margin="0, 5"
+                                         VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="&lt;"
+                                VerticalAlignment="Center"
+                                Background="Transparent"/>
+                        <StackPanel Orientation="Horizontal"
+                                    Spacing="-10">
+                            <Button x:Name="firstPageLabel"
+                                    Content="1"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent" />
+                            <Button x:Name="startDotLabel"
+                                    Content="..."
+                                    VerticalAlignment="Center"
+                                    Background="Transparent" />
+                            <Button x:Name="previousPageLabel"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent" />
+                            <Button x:Name="currentPageLabel"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent" />
+                            <Button x:Name="nextPageLabel"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent" />
+                            <Button x:Name="endDotLabel"
+                                    Content="..."
+                                    VerticalAlignment="Center"
+                                    Background="Transparent" />
+                            <Button x:Name="maxPageLabel"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent" />
+                        </StackPanel>
+                        <Button Content="&gt;"
+                                VerticalAlignment="Center"
+                                Background="Transparent"/>
+                    </StackPanel>
+                </StackPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

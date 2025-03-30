@@ -12,6 +12,7 @@
             </FluentTheme.Palettes>
         </FluentTheme>
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+        <StyleInclude Source="Shared/Components/SwitchPageComponent.axaml"/>
         
         <Style Selector="TextBox.pageNumber, Button.pageNumber, Label.pageNumber">
             <Setter Property="FontSize" Value="12"/>
