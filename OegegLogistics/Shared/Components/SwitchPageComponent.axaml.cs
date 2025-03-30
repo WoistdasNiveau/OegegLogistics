@@ -1,9 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Controls.Templates;
+using Avalonia.Interactivity;
+using Avalonia.VisualTree;
 using OegegLogistics.Shared.Extensions;
 
 namespace OegegLogistics.Shared.Components;
@@ -37,7 +41,7 @@ public class SwitchPageComponent : TemplatedControl
         }
     }
 
-    private static readonly StyledProperty<ObservableCollection<string>> PageNumbersProperty = AvaloniaProperty.Register<SwitchPageComponent, ObservableCollection<string>>(
+    public static readonly StyledProperty<ObservableCollection<string>> PageNumbersProperty = AvaloniaProperty.Register<SwitchPageComponent, ObservableCollection<string>>(
         nameof(PageNumbers),
         defaultValue: new ObservableCollection<string>());
 
@@ -53,19 +57,44 @@ public class SwitchPageComponent : TemplatedControl
         MaxPageNumber = 100;
     }
 
+    protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+    {
+        base.OnApplyTemplate(e);
+
+        if(this.GetTemplateChildren().FirstOrDefault(t => t.Name?.Equals("PART_PageButtons") ?? false) is not ItemsRepeater pageButtonsRepeater)
+            return;
+
+        pageButtonsRepeater.ElementPrepared += PageButtonsRepeaterOnElementPrepared;
+    }
+
+    private void PageButtonsRepeaterOnElementPrepared(object? sender, ItemsRepeaterElementPreparedEventArgs e)
+    {
+        if(e.Element is not Button button)
+            return;
+        button.Click += PageButtonClicked;
+    }
+
+    private void PageButtonClicked(object? sender, RoutedEventArgs e)
+    {
+        uint test;
+        uint.TryParse((sender as Button)?.Content?.ToString() ?? string.Empty, out test);
+        CurrentPage = test;
+    }
+
+
     // == private methods ==
     private void UpdatePageNumbers()
     {
         PageNumbers.Clear();
         if (MaxPageNumber <= 7)
         {
-            PageNumbers.AddRange(GetPageNumbers(7).Select(n => n.ToString()).OrderDescending());
+            PageNumbers.AddRange(GetPageNumbers(7).Select(n => n.ToString()));
         }
         else
         {
             if (CurrentPage <= 5)
             {
-                PageNumbers.AddRange(GetPageNumbers(5).Select(n => n.ToString()).OrderDescending());
+                PageNumbers.AddRange(GetPageNumbers(5).Select(n => n.ToString()));
                 PageNumbers.Add("...");
                 PageNumbers.Add(MaxPageNumber.ToString());
             }
@@ -103,6 +132,18 @@ public class SwitchPageComponent : TemplatedControl
         {
             yield return (uint)i;
         }
+    }
+    
+    private void PageLabelTapped(object? sender, RoutedEventArgs e)
+    {
+        uint pageNumber;
+        if(sender is not Button label || label.Content == null || label.Content.Equals("...") || !uint.TryParse(label.Content.ToString(), out pageNumber))
+            return;
+        
+        if(pageNumber <= 0 || pageNumber > MaxPageNumber)
+            return;
+        
+        CurrentPage = pageNumber;
     }
 }
 

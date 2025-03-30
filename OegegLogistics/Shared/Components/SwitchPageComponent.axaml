@@ -20,14 +20,21 @@
                     <StackPanel Orientation="Horizontal">
                         <Button Content="&lt;"
                                VerticalAlignment="Center"/>
-                        <ListBox VerticalAlignment="Center"
-                                 ItemsSource="{TemplateBinding PageNumbers}">
-                            <ListBox.ItemTemplate>
+                        <ItemsRepeater VerticalAlignment="Center"
+                                       x:Name="PART_PageButtons"
+                                    ItemsSource="{TemplateBinding PageNumbers}">
+                            <ItemsRepeater.Layout>
+                                <StackLayout Spacing="10"
+                                             Orientation="Horizontal"/>
+                            </ItemsRepeater.Layout>
+                            <ItemsRepeater.ItemTemplate>
                                 <DataTemplate>
-                                    <Label Content="{Binding .}"/>
+                                    <Button Content="{Binding .}"
+                                            VerticalAlignment="Center"
+                                            Background="Transparent"/>
                                 </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
                         <Button Content="&gt;"
                                 VerticalAlignment="Center"/>
                     </StackPanel>

@@ -112,7 +112,7 @@
         <components:SwitchPageComponent Grid.Row="1"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Bottom"
-                                        Margin="0,10"/>
+                                        Margin="15,0"/>
         
         
     </Grid>
