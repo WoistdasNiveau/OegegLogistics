@@ -41,6 +41,10 @@ public partial class VehiclesViewModel : BaseViewModel
     {
         _client = client;
     }
+    
+    public VehiclesViewModel()
+    {
+    }
 
     // == private methods ==
     private async Task GetVehiclesAsync()

@@ -2,30 +2,58 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:components="clr-namespace:OegegLogistics.Shared.Components"
+             xmlns:createVehicle="clr-namespace:OegegLogistics.CreateVehicle"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="OegegLogistics.CreateVehicle.UICNumberView">
+             x:Class="OegegLogistics.CreateVehicle.UICNumberView"
+             x:DataType="createVehicle:CreateVehicleViewModel">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <createVehicle:CreateVehicleViewModel />
+    </Design.DataContext>
+
     <Grid RowDefinitions="0.1*, 0.8*, 0.1*">
-        <Label Grid.Row="0" Content="UIC Nummer eingeben"/>
+        <Label Grid.Row="0" Content="UIC Nummer"
+               FontSize="25"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center" />
         <Grid Grid.Row="1"
               ColumnDefinitions="*,*,*,*,*"
               HorizontalAlignment="Stretch">
-            <TextBox Grid.Column="0"
-                     Margin="10"/>
-            <TextBox Grid.Column="1"
-                     Margin="10"/>
-            <TextBox Grid.Column="2"
-                     Margin="10"/>
-            <TextBox Grid.Column="3"
-                     Margin="10"/>
-            <TextBox Grid.Column="4"
-                     Margin="10"/>
+
+            <components:UICNumberComponent Grid.Column="0"
+                                           Margin="10"
+                                           UicModel="{Binding InterOperability}"
+                                           SelectionChangedCommand="{Binding HandleUicModelSelectionChangedCommand}"/>
+            <components:UICNumberComponent Grid.Column="0"
+                                           Margin="10"
+                                           UicModel="{Binding CountryCode}"
+                                           SelectionChangedCommand="{Binding HandleUicModelSelectionChangedCommand}" />
+            <components:UICNumberComponent Grid.Column="0"
+                                           Margin="10"
+                                           UicModel="{Binding VehicelType}"
+                                           SelectionChangedCommand="{Binding HandleUicModelSelectionChangedCommand}" />
+            <components:UICNumberComponent Grid.Column="0"
+                                           Margin="10"
+                                           UicModel="{Binding VelocityHeating}"
+                                           SelectionChangedCommand="{Binding HandleUicModelSelectionChangedCommand}" />
+            <components:UICNumberComponent Grid.Column="0"
+                                           Margin="10"
+                                           UicModel="{Binding SerialNumber}"
+                                           SelectionChangedCommand="{Binding HandleUicModelSelectionChangedCommand}" />
+            <components:UICNumberComponent Grid.Column="0"
+                                           Margin="10"
+                                           UicModel="{Binding SelfCheck}"
+                                           SelectionChangedCommand="{Binding HandleUicModelSelectionChangedCommand}" />
         </Grid>
         <StackPanel Grid.Row="2"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     Spacing="10">
-            <Button Content="Abbrechen"/>
-            <Button Content="Fortfahren"/>
+            <Button Content="Abbrechen" />
+            <Button Content="Fortfahren" />
         </StackPanel>
     </Grid>
 </UserControl>
