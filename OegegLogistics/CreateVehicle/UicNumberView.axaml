@@ -5,7 +5,7 @@
              xmlns:components="clr-namespace:OegegLogistics.Shared.Components"
              xmlns:createVehicle="clr-namespace:OegegLogistics.CreateVehicle"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="OegegLogistics.CreateVehicle.UICNumberView"
+             x:Class="OegegLogistics.CreateVehicle.UicNumberView"
              x:DataType="createVehicle:CreateVehicleViewModel">
 
     <Design.DataContext>

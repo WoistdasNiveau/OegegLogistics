@@ -31,6 +31,7 @@ public partial class App : Application
 
         collection.AddViews();
         collection.AddViewModels();
+        collection.AddServices();
         collection.AddNavigation();
         collection.AddMvvmNavigation();
         

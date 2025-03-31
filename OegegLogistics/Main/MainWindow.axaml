@@ -77,7 +77,7 @@
                     <Separator></Separator>
                     <!-- try with contentcontrol whic happears when tab is selected -->
                 <TreeView>
-                    <TreeViewItem Header="Fahrzeuge">
+                    <TreeViewItem Header="Fahrzeuge" Tapped="InputElement_OnTapped">
                         <TreeViewItem Header="Loks"/>
                         <TreeViewItem Header="Waggons"/>
                     </TreeViewItem>

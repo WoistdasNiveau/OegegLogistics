@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Mvvm.Navigation;
+using OegegLogistics.CreateVehicle;
 using OegegLogistics.Main;
+using OegegLogistics.Navigation;
 using OegegLogistics.Shared;
 using OegegLogistics.Vehicles;
 
@@ -13,6 +15,7 @@ namespace OegegLogistics
         {
             services.AddTransient<MainWindow>();
             services.AddTransient<VehiclesView>();
+            services.AddTransient<UicNumberView>();
 
             return services;
         }
@@ -21,6 +24,14 @@ namespace OegegLogistics
         {
             services.AddTransient<MainWindowViewModel>();
             services.AddTransient<VehiclesViewModel>();
+            services.AddTransient<CreateVehicleViewModel>();
+
+            return services;
+        }
+        
+        public static IServiceCollection AddServices(this IServiceCollection services)
+        {
+            services.AddTransient<NavigationService>();
 
             return services;
         }
