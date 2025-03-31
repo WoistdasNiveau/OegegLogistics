@@ -22,31 +22,18 @@
         <Grid Grid.Row="1"
               ColumnDefinitions="*,*,*,*,*"
               HorizontalAlignment="Stretch">
-
-            <components:UICNumberComponent Grid.Column="0"
-                                           Margin="10"
-                                           UicModel="{Binding InterOperability}"
-                                           SelectionChangedCommand="{Binding HandleUicModelSelectionChangedCommand}"/>
-            <components:UICNumberComponent Grid.Column="0"
-                                           Margin="10"
-                                           UicModel="{Binding CountryCode}"
-                                           SelectionChangedCommand="{Binding HandleUicModelSelectionChangedCommand}" />
-            <components:UICNumberComponent Grid.Column="0"
-                                           Margin="10"
-                                           UicModel="{Binding VehicelType}"
-                                           SelectionChangedCommand="{Binding HandleUicModelSelectionChangedCommand}" />
-            <components:UICNumberComponent Grid.Column="0"
-                                           Margin="10"
-                                           UicModel="{Binding VelocityHeating}"
-                                           SelectionChangedCommand="{Binding HandleUicModelSelectionChangedCommand}" />
-            <components:UICNumberComponent Grid.Column="0"
-                                           Margin="10"
-                                           UicModel="{Binding SerialNumber}"
-                                           SelectionChangedCommand="{Binding HandleUicModelSelectionChangedCommand}" />
-            <components:UICNumberComponent Grid.Column="0"
-                                           Margin="10"
-                                           UicModel="{Binding SelfCheck}"
-                                           SelectionChangedCommand="{Binding HandleUicModelSelectionChangedCommand}" />
+            
+            <ItemsRepeater ItemsSource="{Binding UicNumber.UicSegments}">
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate>
+                        <components:UICNumberComponent Margin="10"
+                                                       Description="{Binding Description}"
+                                                       ItemsSource="{Binding PossibleItems}"
+                                                       SelectionChanged="{Binding }"/>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+            
         </Grid>
         <StackPanel Grid.Row="2"
                     Orientation="Horizontal"

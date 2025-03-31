@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -10,35 +12,20 @@ namespace OegegLogistics.CreateVehicle;
 public partial class CreateVehicleViewModel : BaseViewModel
 {
     [ObservableProperty]
-    private UICModel _interOperability;
-
-    [ObservableProperty]
-    private UICModel _countryCode;
-
-    [ObservableProperty]
-    private UICModel _vehicelType;
-    
-    [ObservableProperty]
-    private UICModel _velocityHeating;
-     
-    [ObservableProperty]
-    private UICModel _serialNumber;
-    
-    [ObservableProperty]
-    private UICModel _selfCheck;
+    private UicNumber _uicNumber = UicNumber.Empty.WithSegments(new List<UicSegment>()
+    {
+        UicSegment.CreateUicSegment(31, "test"),
+        UicSegment.CreateUicSegment(20, "test"),
+        UicSegment.CreateUicSegment(41, "test"),
+        UicSegment.CreateUicSegment(85, "test"),
+        UicSegment.CreateUicSegment(112, "test"),
+        UicSegment.CreateUicSegment(1, "test"),
+    });
     
     // == commands ==
     [RelayCommand]
-    public void HandleUicModelSelectionChanged(UICModel model)
+    public void SelectionChanged(uint number)
     {
-        var interOperability = model.GetType().Name switch
-        {
-            nameof(InteroperabilityModel) => InterOperability = model,
-            nameof(CountryCodeModel) => CountryCode = model,
-            nameof(VehicleTypeModel) => VehicelType = model,
-            nameof(VelocityHeatingModel) => VelocityHeating = model,
-            nameof(SerialNumberModel) => SerialNumber = model,
-            _ => null
-        };
+        Console.WriteLine("w");
     }
 }   

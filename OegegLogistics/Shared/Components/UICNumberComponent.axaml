@@ -1,33 +1,23 @@
 ﻿<Styles xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="using:OegegLogistics.Shared.Components"
-        xmlns:converters="clr-namespace:OegegLogistics.Converters"
         xmlns:models="clr-namespace:OegegLogistics.Models">
     <Design.PreviewWith>
         <controls:UICNumberComponent />
     </Design.PreviewWith>
 
-    <Style Selector="controls|UICNumberComponent ">
-        
-        <Style.Resources>
-            <converters:UicModelNameConverter x:Key="NameConverter"/>
-        </Style.Resources>
+    <Style Selector="controls|UICNumberComponent">
         <!-- Set Defaults -->
         <Setter Property="Template">
             <ControlTemplate>
                 <StackPanel Spacing="10">
-                <Label Content="{TemplateBinding UicModel, Converter={StaticResource NameConverter}}"
+                <Label Content="{TemplateBinding Title}"
                        Target="{Binding #textBlock}"
                        HorizontalAlignment="Center"/>
                 <AutoCompleteBox Name="textBlock"
-                                 ItemsSource="{TemplateBinding UicModel.Descriptions}">
-                    <AutoCompleteBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock x:DataType="models:UICModel" Text="{Binding Description }"/>
-                        </DataTemplate>
-                    </AutoCompleteBox.ItemTemplate>
+                                 ItemsSource="{TemplateBinding ItemsSource}">
                 </AutoCompleteBox>
-                <TextBlock Text="{TemplateBinding UicModel.Description}"
+                <TextBlock Text="{TemplateBinding Description}"
                            HorizontalAlignment="Center"/>
                 </StackPanel>
             </ControlTemplate>

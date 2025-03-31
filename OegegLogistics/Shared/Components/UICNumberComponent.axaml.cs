@@ -1,62 +1,74 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections;
 using System.Linq;
 using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.VisualTree;
-using OegegLogistics.Models;
 
 namespace OegegLogistics.Shared.Components;
 
 public class UICNumberComponent : TemplatedControl
 {
-    public static readonly StyledProperty<UICModel> UicModelProperty = AvaloniaProperty.Register<UICNumberComponent, UICModel>(
-        nameof(UicModel));
+    public static readonly StyledProperty<string> TitleProperty = AvaloniaProperty.Register<UICNumberComponent, string>(
+        nameof(Title));
 
-    public UICModel UicModel
+    public string Title
     {
-        get => GetValue(UicModelProperty);
-        set => SetValue(UicModelProperty, value);
+        get => GetValue(TitleProperty);
+        set => SetValue(TitleProperty, value);
     }
 
-    public static readonly StyledProperty<ICommand?> SelectionChangedCommandProperty = AvaloniaProperty.Register<UICNumberComponent, ICommand?>(
-        nameof(SelectionChangedCommand));
+    public static readonly StyledProperty<IEnumerable> ItemsSourceProperty = AvaloniaProperty.Register<UICNumberComponent, IEnumerable>(
+        nameof(ItemsSource));
 
-    public ICommand? SelectionChangedCommand
+    public IEnumerable ItemsSource
     {
-        get => GetValue(SelectionChangedCommandProperty);
-        set => SetValue(SelectionChangedCommandProperty, value);
+        get => GetValue(ItemsSourceProperty);
+        set => SetValue(ItemsSourceProperty, value);
     }
 
-    public static readonly StyledProperty<UICModel> SelectionChangedCommandParameterProperty = AvaloniaProperty.Register<UICNumberComponent, UICModel>(
-        nameof(SelectionChangedCommandParameter));
+    public static readonly StyledProperty<string> DescriptionProperty = AvaloniaProperty.Register<UICNumberComponent, string>(
+        nameof(Description));
 
-    public UICModel SelectionChangedCommandParameter
+    public string Description
     {
-        get => GetValue(SelectionChangedCommandParameterProperty);
-        set => SetValue(SelectionChangedCommandParameterProperty, value);
+        get => GetValue(DescriptionProperty);
+        set => SetValue(DescriptionProperty, value);
     }
 
-    private void UicModelSelectionChanged(object? sender, SelectionChangedEventArgs e)
-    {
-        if(sender is not UICNumberComponent uicNumberComponent)
-            return;
-        if(SelectionChangedCommand != null && SelectionChangedCommand.CanExecute(uicNumberComponent.UicModel))
-            SelectionChangedCommand.Execute(uicNumberComponent.UicModel);
-    }
+    public static readonly StyledProperty<ICommand?> SelectionChangedProperty = AvaloniaProperty.Register<UICNumberComponent, ICommand?>(
+        nameof(SelectionChanged));
 
+    public ICommand? SelectionChanged
+    {
+        get => GetValue(SelectionChangedProperty);
+        set => SetValue(SelectionChangedProperty, value);
+    }
+    
+    // == private fields ==
+    private AutoCompleteBox _autoCompleteBox;
+    
+    // == private methods ==
+    
+    
+    // == override methods ==
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
     {
         base.OnApplyTemplate(e);
+        
+        _autoCompleteBox = this.GetVisualChildren().OfType<StackPanel>().First().GetVisualChildren().OfType<AutoCompleteBox>().First();
+        
+        _autoCompleteBox.SelectionChanged += CompleteBoxOnSelectionChanged;
+    }
 
-        if (this.GetVisualChildren().First() is not StackPanel stackPanel)
-            return;
-        
-        List<Control> children = stackPanel.Children.ToList();
-        AutoCompleteBox autoCompleteBox = children.OfType<AutoCompleteBox>().FirstOrDefault()!;
-        
-        autoCompleteBox.SelectionChanged += UicModelSelectionChanged;
+    private void CompleteBoxOnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if(sender is not UICNumberComponent component) return;
+
+        if (SelectionChanged is not null && SelectionChanged.CanExecute(_autoCompleteBox.SelectedItem))
+        {
+            SelectionChanged.Execute(_autoCompleteBox.SelectedItem);
+        }
     }
 }
