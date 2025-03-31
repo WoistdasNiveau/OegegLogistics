@@ -20,16 +20,21 @@
                HorizontalAlignment="Center"
                VerticalAlignment="Center" />
         <Grid Grid.Row="1"
-              ColumnDefinitions="*,*,*,*,*"
               HorizontalAlignment="Stretch">
             
-            <ItemsRepeater ItemsSource="{Binding UicNumber.UicSegments}">
+            <ItemsRepeater ItemsSource="{Binding UicNumber.UicSegments}"
+                           HorizontalAlignment="Center">
+                <ItemsRepeater.Layout>
+                    <StackLayout Spacing="20"
+                                 Orientation="Horizontal"/>
+                </ItemsRepeater.Layout>
+                
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>
                         <components:UICNumberComponent Margin="10"
-                                                       Description="{Binding Description}"
+                                                       Title="{Binding Description}"
                                                        ItemsSource="{Binding PossibleItems}"
-                                                       SelectionChanged="{Binding }"/>
+                                                       SelectionChanged="{Binding $parent[ItemsRepeater].((createVehicle:CreateVehicleViewModel)DataContext).SelectionChangedCommand}"/>
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>
             </ItemsRepeater>

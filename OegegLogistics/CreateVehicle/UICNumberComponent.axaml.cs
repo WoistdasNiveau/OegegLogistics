@@ -57,7 +57,7 @@ public class UICNumberComponent : TemplatedControl
     {
         base.OnApplyTemplate(e);
         
-        _autoCompleteBox = this.GetVisualChildren().OfType<StackPanel>().First().GetVisualChildren().OfType<AutoCompleteBox>().First();
+        _autoCompleteBox = this.GetVisualChildren().OfType<Grid>().First().GetVisualChildren().OfType<AutoCompleteBox>().First();
         
         _autoCompleteBox.SelectionChanged += CompleteBoxOnSelectionChanged;
     }

@@ -36,5 +36,9 @@
         <DependentUpon>MainWindow.axaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Update="CreateVehicle\UICNumberComponent.axaml.cs">
+        <DependentUpon>UICNumberComponent.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
     </ItemGroup>
 </Project>

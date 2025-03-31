@@ -10,16 +10,21 @@
         <!-- Set Defaults -->
         <Setter Property="Template">
             <ControlTemplate>
-                <StackPanel Spacing="10">
+                <Grid RowDefinitions="Auto,*,Auto"
+                      HorizontalAlignment="Stretch">
                 <Label Content="{TemplateBinding Title}"
                        Target="{Binding #textBlock}"
-                       HorizontalAlignment="Center"/>
+                       HorizontalAlignment="Center"
+                       Grid.Row="0"/>
                 <AutoCompleteBox Name="textBlock"
-                                 ItemsSource="{TemplateBinding ItemsSource}">
+                                 ItemsSource="{TemplateBinding ItemsSource}"
+                                 HorizontalAlignment="Center"
+                                 Grid.Row="1">
                 </AutoCompleteBox>
                 <TextBlock Text="{TemplateBinding Description}"
-                           HorizontalAlignment="Center"/>
-                </StackPanel>
+                           HorizontalAlignment="Center"
+                           Grid.Row="2"/>
+                </Grid>
             </ControlTemplate>
         </Setter>
     </Style>
