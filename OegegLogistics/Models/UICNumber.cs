@@ -98,5 +98,7 @@ public static class UicValidation
         {
             throw new ArgumentException(string.Join(',', validationResults));
         }
+
+        return value;
     }
 }
