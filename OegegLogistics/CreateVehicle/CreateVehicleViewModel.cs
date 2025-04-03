@@ -20,6 +20,10 @@ public partial class CreateVehicleViewModel : BaseViewModel
         .WithSegment(UicSegment.CreateUicSegment<UicSerialNumberSegment>(322, "UicSerialNumberSegment"))
         .WithSegment(UicSegment.CreateUicSegment<UicSelfCheckSegment>(3, "UicSelfCheckSegment"));
 
+    public CreateVehicleViewModel()
+    {
+    }
+
     // == commands ==
     [RelayCommand]
     public void SelectionChanged(uint number)

@@ -19,6 +19,7 @@
                 <AutoCompleteBox Name="textBlock"
                                  ItemsSource="{TemplateBinding ItemsSource}"
                                  HorizontalAlignment="Center"
+                                 SelectedItem="{TemplateBinding SelectedItem}"
                                  Grid.Row="1">
                 </AutoCompleteBox>
                 <TextBlock Text="{TemplateBinding Description}"

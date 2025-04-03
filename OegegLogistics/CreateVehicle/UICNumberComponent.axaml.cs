@@ -22,6 +22,15 @@ public class UICNumberComponent : TemplatedControl
     public static readonly StyledProperty<IEnumerable> ItemsSourceProperty = AvaloniaProperty.Register<UICNumberComponent, IEnumerable>(
         nameof(ItemsSource));
 
+    public static readonly StyledProperty<object> SelectedItemProperty = AvaloniaProperty.Register<UICNumberComponent, object>(
+        nameof(SelectedItem));
+
+    public object SelectedItem
+    {
+        get => GetValue(SelectedItemProperty);
+        set => SetValue(SelectedItemProperty, value);
+    }
+
     public IEnumerable ItemsSource
     {
         get => GetValue(ItemsSourceProperty);

@@ -66,7 +66,7 @@ public static class UicNumberExtensions
             _ => throw new ArgumentException(message: "Invalid UicSegment type", paramName: nameof(T)),
         };
     }
-    public static UicSegment WithPossibleValues(this UicSegment uicSegment, List<UicSegment> segments)
+    public static UicSegment WithPossibleValues(this UicSegment uicSegment, IEnumerable<UicSegment> segments)
     {
         return uicSegment  with { PossibleItems = segments };
     }

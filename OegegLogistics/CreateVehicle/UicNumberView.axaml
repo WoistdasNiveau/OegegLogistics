@@ -26,27 +26,39 @@
             <components:UICNumberComponent Grid.Column="0"
                                            Margin="10"
                                            Title="Austauschverfahren"
-                                           ItemsSource="{Binding UicNumber.UicInteroperabilitySegment.PossibleItems}"/>
+                                           ItemsSource="{Binding UicNumber.UicInteroperabilitySegment.PossibleItems}"
+                                           SelectedItem="{Binding UicNumber.UicInteroperabilitySegment.Number}"
+                                           Description="{Binding UicNumber.UicInteroperabilitySegment.Description}"/>
             <components:UICNumberComponent  Grid.Column="1"
                                             Margin="10"
                                             Title="Ländercode"
-                                            ItemsSource="{Binding UicNumber.UicCountryCodeSegment.PossibleItems}"/>
+                                            ItemsSource="{Binding UicNumber.UicCountryCodeSegment.PossibleItems}"
+                                            SelectedItem="{Binding UicNumber.UicCountryCodeSegment.Number}"
+                                            Description="{Binding UicNumber.UicCountryCodeSegment.Description}"/>
             <components:UICNumberComponent  Grid.Column="2"
                                             Margin="10"
                                             Title="Type"
-                                            ItemsSource="{Binding UicNumber.UicTypeSegment.PossibleItems}"/>
+                                            ItemsSource="{Binding UicNumber.UicTypeSegment.PossibleItems}"
+                                            SelectedItem="{Binding UicNumber.UicTypeSegment.Number}"
+                                            Description="{Binding UicNumber.UicTypeSegment.Description}"/>
             <components:UICNumberComponent  Grid.Column="3"
                                             Margin="10"
                                             Title="Geschwindigkeit und Heizung"
-                                            ItemsSource="{Binding UicNumber.UicVelocityHeatingSegment.PossibleItems}"/>
+                                            ItemsSource="{Binding UicNumber.UicVelocityHeatingSegment.PossibleItems}"
+                                            SelectedItem="{Binding UicNumber.UicVelocityHeatingSegment.Number}"
+                                            Description="{Binding UicNumber.UicVelocityHeatingSegment.Description}"/>
             <components:UICNumberComponent  Grid.Column="4"
                                             Margin="10"
                                             Title="Laufende Nummber"
-                                            ItemsSource="{Binding UicNumber.UicSerialNumberSegment.PossibleItems}"/>
+                                            ItemsSource="{Binding UicNumber.UicSerialNumberSegment.PossibleItems}"
+                                            SelectedItem="{Binding UicNumber.UicSerialNumberSegment.Number}"
+                                            Description="{Binding UicNumber.UicSerialNumberSegment.Description}"/>
             <components:UICNumberComponent  Grid.Column="5"
                                             Margin="10"
                                             Title="Selbstkontrolle"
-                                            ItemsSource="{Binding UicNumber.UicSelfCheckSegment.PossibleItems}"/>
+                                            ItemsSource="{Binding UicNumber.UicSelfCheckSegment.PossibleItems}"
+                                            SelectedItem="{Binding UicNumber.UicSelfCheckSegment.Number}"
+                                            Description="{Binding UicNumber.UicSelfCheckSegment.Description}"/>
 
             
         </Grid>
