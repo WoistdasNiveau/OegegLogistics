@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Avalonia.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using Mvvm.Navigation;
+using OegegLogistics.CreateVehicle;
 using OegegLogistics.Shared;
 
 namespace OegegLogistics.Navigation;
@@ -26,6 +27,9 @@ public class NavigationService
 
     public async Task NavigateNewWindowAsync<T>()
     {
+        var s = typeof(T);
+        var o = new CreateVehicleViewModel();
+        var z = new UicNumberView(new CreateVehicleViewModel());
         T view = _serviceProvider.GetRequiredService<T>();
         Window window = new Window();
         window.Content = view;

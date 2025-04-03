@@ -20,24 +20,34 @@
                HorizontalAlignment="Center"
                VerticalAlignment="Center" />
         <Grid Grid.Row="1"
+              ColumnDefinitions="*,*,*,*,*,*"
               HorizontalAlignment="Stretch">
             
-            <ItemsRepeater ItemsSource="{Binding UicNumber.UicSegments}"
-                           HorizontalAlignment="Center">
-                <ItemsRepeater.Layout>
-                    <StackLayout Spacing="20"
-                                 Orientation="Horizontal"/>
-                </ItemsRepeater.Layout>
-                
-                <ItemsRepeater.ItemTemplate>
-                    <DataTemplate>
-                        <components:UICNumberComponent Margin="10"
-                                                       Title="{Binding Description}"
-                                                       ItemsSource="{Binding PossibleItems}"
-                                                       SelectionChanged="{Binding $parent[ItemsRepeater].((createVehicle:CreateVehicleViewModel)DataContext).SelectionChangedCommand}"/>
-                    </DataTemplate>
-                </ItemsRepeater.ItemTemplate>
-            </ItemsRepeater>
+            <components:UICNumberComponent Grid.Column="0"
+                                           Margin="10"
+                                           Title="Austauschverfahren"
+                                           ItemsSource="{Binding UicNumber.UicInteroperabilitySegment.PossibleItems}"/>
+            <components:UICNumberComponent  Grid.Column="1"
+                                            Margin="10"
+                                            Title="Ländercode"
+                                            ItemsSource="{Binding UicNumber.UicCountryCodeSegment.PossibleItems}"/>
+            <components:UICNumberComponent  Grid.Column="2"
+                                            Margin="10"
+                                            Title="Type"
+                                            ItemsSource="{Binding UicNumber.UicTypeSegment.PossibleItems}"/>
+            <components:UICNumberComponent  Grid.Column="3"
+                                            Margin="10"
+                                            Title="Geschwindigkeit und Heizung"
+                                            ItemsSource="{Binding UicNumber.UicVelocityHeatingSegment.PossibleItems}"/>
+            <components:UICNumberComponent  Grid.Column="4"
+                                            Margin="10"
+                                            Title="Laufende Nummber"
+                                            ItemsSource="{Binding UicNumber.UicSerialNumberSegment.PossibleItems}"/>
+            <components:UICNumberComponent  Grid.Column="5"
+                                            Margin="10"
+                                            Title="Selbstkontrolle"
+                                            ItemsSource="{Binding UicNumber.UicSelfCheckSegment.PossibleItems}"/>
+
             
         </Grid>
         <StackPanel Grid.Row="2"

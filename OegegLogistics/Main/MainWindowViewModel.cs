@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Mvvm.Navigation;
 using OegegLogistics.CreateVehicle;
+using OegegLogistics.Models;
 using OegegLogistics.Navigation;
 using OegegLogistics.Shared;
 using OegegLogistics.Vehicles;

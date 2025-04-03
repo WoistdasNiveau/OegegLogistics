@@ -12,60 +12,13 @@ namespace OegegLogistics.CreateVehicle;
 public partial class CreateVehicleViewModel : BaseViewModel
 {
     [ObservableProperty]
-    private UicNumber _uicNumber = UicNumber.Empty.WithSegments(new List<UicSegment>()
-    {
-        UicSegment.CreateUicSegment(31, "test")
-            .WithPossibleValues(new List<UicSegment>()
-            {
-                UicSegment.CreateUicSegment(51, "fsdgh"),
-                UicSegment.CreateUicSegment(56, "adfh"),
-                UicSegment.CreateUicSegment(45, "dfgjh"),
-                UicSegment.CreateUicSegment(8325, "cv"),
-                UicSegment.CreateUicSegment(61, "teswet"),
-                UicSegment.CreateUicSegment(161, "tebfdst"),
-            }),
-        UicSegment.CreateUicSegment(20, "test").WithPossibleValues(new List<UicSegment>()
-        {
-            UicSegment.CreateUicSegment(51, "fsdgh"),
-            UicSegment.CreateUicSegment(56, "adfh"),
-            UicSegment.CreateUicSegment(45, "dfgjh"),
-            UicSegment.CreateUicSegment(8325, "cv"),
-            UicSegment.CreateUicSegment(61, "teswet"),
-            UicSegment.CreateUicSegment(161, "tebfdst"),
-        }),
-        UicSegment.CreateUicSegment(41, "test").WithPossibleValues(new List<UicSegment>()
-        {
-            UicSegment.CreateUicSegment(51, "fsdgh"),
-            UicSegment.CreateUicSegment(56, "adfh"),
-            UicSegment.CreateUicSegment(45, "dfgjh"),
-            UicSegment.CreateUicSegment(8325, "cv"),
-            UicSegment.CreateUicSegment(61, "teswet"),
-            UicSegment.CreateUicSegment(161, "tebfdst"),
-        }),
-        UicSegment.CreateUicSegment(85, "test").WithPossibleValues(new List<UicSegment>()
-        {
-            UicSegment.CreateUicSegment(51, "fsdgh"),
-            UicSegment.CreateUicSegment(56, "adfh"),
-            UicSegment.CreateUicSegment(45, "dfgjh"),
-            UicSegment.CreateUicSegment(8325, "cv"),
-            UicSegment.CreateUicSegment(61, "teswet"),
-            UicSegment.CreateUicSegment(161, "tebfdst"),
-        }),
-        UicSegment.CreateUicSegment(112, "test").WithPossibleValues(new List<UicSegment>()
-        {
-            UicSegment.CreateUicSegment(51, "fsdgh"),
-            UicSegment.CreateUicSegment(56, "adfh"),
-            UicSegment.CreateUicSegment(45, "dfgjh"),
-            UicSegment.CreateUicSegment(8325, "cv"),
-            UicSegment.CreateUicSegment(61, "teswet"),
-            UicSegment.CreateUicSegment(161, "tebfdst"),
-        }),
-        UicSegment.CreateUicSegment(1, "test"),
-    });
-
-    public CreateVehicleViewModel()
-    {
-    }
+    private UicNumber _uicNumber = UicNumber.Empty
+        .WithSegment(UicSegment.CreateUicSegment<UicInteroperabilitySegment>(32, "Interoperability"))
+        .WithSegment(UicSegment.CreateUicSegment<UicCountryCodeSegment>(67, "Country code"))
+        .WithSegment(UicSegment.CreateUicSegment<UicTypeSegment>(31, "UicTypeSegment"))
+        .WithSegment(UicSegment.CreateUicSegment<UicVelocityHeatingSegment>(82, "UicVelocityHeatingSegment"))
+        .WithSegment(UicSegment.CreateUicSegment<UicSerialNumberSegment>(322, "UicSerialNumberSegment"))
+        .WithSegment(UicSegment.CreateUicSegment<UicSelfCheckSegment>(3, "UicSelfCheckSegment"));
 
     // == commands ==
     [RelayCommand]

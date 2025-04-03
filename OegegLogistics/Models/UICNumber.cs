@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Text;
 
 namespace OegegLogistics.Models;
@@ -20,13 +21,14 @@ public abstract record UicSegment(uint Number, string Description, IEnumerable<U
 {
     public static T CreateEmpty<T>() where T : UicSegment
     {
-        return CreateUicSegment<T>(0);
+        return CreateUicSegment<T>(0, typeof(T).Name);
     }
     public static T CreateUicSegment<T>(uint number, string description = "") where T : UicSegment
     {
         if (_factories.TryGetValue(typeof(T), out var factory))
         {
-            return (T)factory(number, description).ValidateUicSegment();
+            T element = (T)factory(number, description).ValidateUicSegment();
+            return element with { PossibleItems = [element] };
         }
 
         throw new ArgumentException($"Invalid UicSegment type: {typeof(T).Name}", nameof(T));
@@ -81,11 +83,11 @@ public static class UicValidation
             case UicCountryCodeSegment:
             case UicTypeSegment:
             case UicVelocityHeatingSegment:
-                if(value.Number < 10 || value.Number >= 100)
+                if(value.Number != 0 && value.Number < 10 || value.Number >= 100)
                     validationResults.Add($"{value.GetType()} must be between 10 and 100");
                 break;
             case UicSerialNumberSegment:
-                if(value.Number < 100 || value.Number >= 1000)
+                if(value.Number != 0 && value.Number < 100 || value.Number >= 1000)
                     validationResults.Add("Serial number must be between 100 and 1000");
                 break;
             case UicSelfCheckSegment:
