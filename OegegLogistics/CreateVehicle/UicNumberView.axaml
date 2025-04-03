@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:components="clr-namespace:OegegLogistics.Shared.Components"
              xmlns:createVehicle="clr-namespace:OegegLogistics.CreateVehicle"
+             xmlns:models="clr-namespace:OegegLogistics.Models"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="OegegLogistics.CreateVehicle.UicNumberView"
              x:DataType="createVehicle:CreateVehicleViewModel">
@@ -28,7 +29,13 @@
                                            Title="Austauschverfahren"
                                            ItemsSource="{Binding UicNumber.UicInteroperabilitySegment.PossibleItems}"
                                            SelectedItem="{Binding UicNumber.UicInteroperabilitySegment.Number}"
-                                           Description="{Binding UicNumber.UicInteroperabilitySegment.Description}"/>
+                                           Description="{Binding UicNumber.UicInteroperabilitySegment.Description}">
+                <components:UICNumberComponent.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock x:DataType="models:UicSegment" Text="{Binding Number}"/>
+                    </DataTemplate>
+                </components:UICNumberComponent.ItemTemplate>
+            </components:UICNumberComponent>
             <components:UICNumberComponent  Grid.Column="1"
                                             Margin="10"
                                             Title="Ländercode"

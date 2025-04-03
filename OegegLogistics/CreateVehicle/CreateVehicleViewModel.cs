@@ -13,7 +13,12 @@ public partial class CreateVehicleViewModel : BaseViewModel
 {
     [ObservableProperty]
     private UicNumber _uicNumber = UicNumber.Empty
-        .WithSegment(UicSegment.CreateUicSegment<UicInteroperabilitySegment>(32, "Interoperability"))
+        .WithSegment(UicSegment.CreateUicSegment<UicInteroperabilitySegment>(32, "Interoperability")
+            .WithPossibleValues([UicSegment.CreateUicSegment<UicInteroperabilitySegment>(22,""),
+                UicSegment.CreateUicSegment<UicInteroperabilitySegment>(22,""),
+                UicSegment.CreateUicSegment<UicInteroperabilitySegment>(35,""),
+                UicSegment.CreateUicSegment<UicInteroperabilitySegment>(12,""),
+                UicSegment.CreateUicSegment<UicInteroperabilitySegment>(86,""),]))
         .WithSegment(UicSegment.CreateUicSegment<UicCountryCodeSegment>(67, "Country code"))
         .WithSegment(UicSegment.CreateUicSegment<UicTypeSegment>(31, "UicTypeSegment"))
         .WithSegment(UicSegment.CreateUicSegment<UicVelocityHeatingSegment>(82, "UicVelocityHeatingSegment"))

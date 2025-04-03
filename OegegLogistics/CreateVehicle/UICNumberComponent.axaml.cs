@@ -4,6 +4,7 @@ using System.Windows.Input;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Markup.Xaml.Templates;
 using Avalonia.VisualTree;
 
 namespace OegegLogistics.Shared.Components;
@@ -21,7 +22,13 @@ public class UICNumberComponent : TemplatedControl
 
     public static readonly StyledProperty<IEnumerable> ItemsSourceProperty = AvaloniaProperty.Register<UICNumberComponent, IEnumerable>(
         nameof(ItemsSource));
-
+    
+    public IEnumerable ItemsSource
+    {
+        get => GetValue(ItemsSourceProperty);
+        set => SetValue(ItemsSourceProperty, value);
+    }
+    
     public static readonly StyledProperty<object> SelectedItemProperty = AvaloniaProperty.Register<UICNumberComponent, object>(
         nameof(SelectedItem));
 
@@ -31,10 +38,13 @@ public class UICNumberComponent : TemplatedControl
         set => SetValue(SelectedItemProperty, value);
     }
 
-    public IEnumerable ItemsSource
+    public static readonly StyledProperty<DataTemplate> ItemTemplateProperty = AvaloniaProperty.Register<UICNumberComponent, DataTemplate>(
+        nameof(ItemTemplate));
+
+    public DataTemplate ItemTemplate
     {
-        get => GetValue(ItemsSourceProperty);
-        set => SetValue(ItemsSourceProperty, value);
+        get => GetValue(ItemTemplateProperty);
+        set => SetValue(ItemTemplateProperty, value);
     }
 
     public static readonly StyledProperty<string> DescriptionProperty = AvaloniaProperty.Register<UICNumberComponent, string>(
