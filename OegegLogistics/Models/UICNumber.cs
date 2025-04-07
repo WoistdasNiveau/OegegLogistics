@@ -43,6 +43,16 @@ public abstract record UicSegment(uint Number, string Description, IEnumerable<U
         { typeof(UicSerialNumberSegment), (num, desc) => new UicSerialNumberSegment(num, desc) },
         { typeof(UicSelfCheckSegment), (num, _) => new UicSelfCheckSegment(num) }
     };
+
+    public virtual bool Equals(UicSegment? other)
+    {
+        return other is not null && Number == other.Number;
+    }
+
+    public override int GetHashCode()
+    {
+        return Number.GetHashCode();
+    }
 }
 public sealed record UicInteroperabilitySegment(uint Number, string Description = "") : UicSegment(Number, Description);
 public sealed record UicCountryCodeSegment(uint Number, string Description = "") : UicSegment(Number, Description);
