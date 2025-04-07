@@ -80,6 +80,11 @@ public static class UicNumberExtensions
     {
         return uicSegment  with { PossibleItems = segments };
     }
+    
+    public static UicSegment WithNumber(this UicSegment segment, uint number)
+    {
+        return segment with { Number = number };
+    }
 }
 
 public static class UicValidation

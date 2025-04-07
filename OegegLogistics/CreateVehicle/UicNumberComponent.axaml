@@ -45,6 +45,7 @@
                            HorizontalAlignment="Center"
                            Grid.Row="0"/>
                     <TextBox Name="textBox"
+                             MaxLength="3"
                              IsEnabled="{TemplateBinding IsBoxEnabled}"
                              Grid.Row="1"
                              HorizontalAlignment="Center"

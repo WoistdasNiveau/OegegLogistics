@@ -29,26 +29,42 @@ public partial class CreateVehicleViewModel : BaseViewModel
     
     [ObservableProperty]
     private UicSegment _selectedUicSegment;
+
+    [ObservableProperty]
+    private uint? _uicSerialNumber;
     
     // == public methods ==
     partial void OnSelectedUicSegmentChanged(UicSegment value)
     {
         switch (value)
         {
+            case null:
+                return;
             case UicInteroperabilitySegment uicInteroperabilitySegment:
-                UicNumber = UicNumber with {UicInteroperabilitySegment = uicInteroperabilitySegment};
+                UicNumber = UicNumber.WithSegment(UicNumber.UicInteroperabilitySegment.WithNumber(uicInteroperabilitySegment.Number));
                 break;
             case UicCountryCodeSegment uicCountryCodeSegment:
-                UicNumber = UicNumber with {UicCountryCodeSegment = uicCountryCodeSegment};
+                UicNumber = UicNumber.WithSegment(UicNumber.UicCountryCodeSegment.WithNumber(uicCountryCodeSegment.Number));
                 break;
             case UicTypeSegment uicTypeSegment:
-                UicNumber = UicNumber with {UicTypeSegment = uicTypeSegment};
-                break;
+                UicNumber = UicNumber.WithSegment(UicNumber.UicTypeSegment.WithNumber(uicTypeSegment.Number))
+                    ;break;
             case UicVelocityHeatingSegment uicVelocityHeatingSegment:
-                UicNumber = UicNumber with {UicVelocityHeatingSegment = uicVelocityHeatingSegment};
+                UicNumber = UicNumber.WithSegment(UicNumber.UicVelocityHeatingSegment.WithNumber(uicVelocityHeatingSegment.Number));
+                break;
+            case UicSerialNumberSegment uicSerialNumberSegment:
+                UicNumber = UicNumber.WithSegment(UicNumber.UicSerialNumberSegment.WithNumber(uicSerialNumberSegment.Number));
                 break;
             default:
                 throw new ArgumentOutOfRangeException("no valid uic segment{}", value.ToString());
         }
+    }
+
+    partial void OnUicSerialNumberChanged(uint? oldValue, uint? newValue)
+    {
+        if(newValue == null)
+            return;
+        
+        OnSelectedUicSegmentChanged(UicSegment.CreateUicSegment<UicSerialNumberSegment>((uint)newValue));
     }
 }   
