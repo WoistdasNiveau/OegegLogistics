@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -9,7 +11,7 @@ using OegegLogistics.Shared;
 
 namespace OegegLogistics.CreateVehicle;
 
-public partial class CreateVehicleViewModel : BaseViewModel
+public partial class CreateVehicleViewModel : BaseViewModel 
 {
     [ObservableProperty]
     private UicNumber _uicNumber = UicNumber.Empty
@@ -24,15 +26,29 @@ public partial class CreateVehicleViewModel : BaseViewModel
         .WithSegment(UicSegment.CreateUicSegment<UicVelocityHeatingSegment>(82, "UicVelocityHeatingSegment"))
         .WithSegment(UicSegment.CreateUicSegment<UicSerialNumberSegment>(322, "UicSerialNumberSegment"))
         .WithSegment(UicSegment.CreateUicSegment<UicSelfCheckSegment>(3, "UicSelfCheckSegment"));
-
-    public CreateVehicleViewModel()
+    
+    [ObservableProperty]
+    private UicSegment _selectedUicSegment;
+    
+    // == public methods ==
+    partial void OnSelectedUicSegmentChanged(UicSegment value)
     {
-    }
-
-    // == commands ==
-    [RelayCommand]
-    public void SelectionChanged(uint number)
-    {
-        Console.WriteLine("w");
+        switch (value)
+        {
+            case UicInteroperabilitySegment uicInteroperabilitySegment:
+                UicNumber = UicNumber with {UicInteroperabilitySegment = uicInteroperabilitySegment};
+                break;
+            case UicCountryCodeSegment uicCountryCodeSegment:
+                UicNumber = UicNumber with {UicCountryCodeSegment = uicCountryCodeSegment};
+                break;
+            case UicTypeSegment uicTypeSegment:
+                UicNumber = UicNumber with {UicTypeSegment = uicTypeSegment};
+                break;
+            case UicVelocityHeatingSegment uicVelocityHeatingSegment:
+                UicNumber = UicNumber with {UicVelocityHeatingSegment = uicVelocityHeatingSegment};
+                break;
+            default:
+                throw new ArgumentOutOfRangeException("no valid uic segment{}", value.ToString());
+        }
     }
 }   

@@ -4,6 +4,7 @@
         xmlns:models="clr-namespace:OegegLogistics.Models">
     <Design.PreviewWith>
         <controls:UICNumberComponent />
+        <controls:UICNumberComponent Classes="text"/>
     </Design.PreviewWith>
 
     <Style Selector="controls|UICNumberComponent">
@@ -17,15 +18,40 @@
                        HorizontalAlignment="Center"
                        Grid.Row="0"/>
                 <AutoCompleteBox Name="textBlock"
+                                 ValueMemberBinding="{Binding Number, DataType=models:UicSegment}"
                                  ItemsSource="{TemplateBinding ItemsSource}"
                                  HorizontalAlignment="Center"
-                                 SelectedItem="{TemplateBinding SelectedItem}"
                                  Grid.Row="1"
-                                 ItemTemplate="{TemplateBinding ItemTemplate}">
+                                 ItemTemplate="{TemplateBinding ItemTemplate}"
+                                 SelectedItem="{TemplateBinding SelectedItem, Mode=TwoWay}"
+                                 FilterMode="{TemplateBinding FilterMode}">
                 </AutoCompleteBox>
                 <TextBlock Text="{TemplateBinding Description}"
                            HorizontalAlignment="Center"
                            Grid.Row="2"/>
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+    
+    <Style Selector="controls|UICNumberComponent.text">
+        <!-- Set Defaults -->
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Grid RowDefinitions="Auto,*,Auto"
+                      HorizontalAlignment="Stretch">
+                    <Label Content="{TemplateBinding Title}"
+                           Target="{Binding #textBox}"
+                           HorizontalAlignment="Center"
+                           Grid.Row="0"/>
+                    <TextBox Name="textBox"
+                             IsEnabled="{TemplateBinding IsBoxEnabled}"
+                             Grid.Row="1"
+                             HorizontalAlignment="Center"
+                             Text="{TemplateBinding SelectedItem, Mode=TwoWay}"/>
+                    <TextBlock Text="{TemplateBinding Description}"
+                               HorizontalAlignment="Center"
+                               Grid.Row="2"/>
                 </Grid>
             </ControlTemplate>
         </Setter>
