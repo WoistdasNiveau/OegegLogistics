@@ -27,9 +27,6 @@ public class NavigationService
 
     public async Task NavigateNewWindowAsync<T>()
     {
-        var s = typeof(T);
-        var o = new CreateVehicleViewModel();
-        var z = new UicNumberView(new CreateVehicleViewModel());
         T view = _serviceProvider.GetRequiredService<T>();
         Window window = new Window();
         window.Content = view;

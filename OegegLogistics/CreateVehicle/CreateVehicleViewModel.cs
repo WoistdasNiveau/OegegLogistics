@@ -1,31 +1,18 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
-using Avalonia.Controls;
+using System.Linq;
+using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using OegegLogistics.Models;
 using OegegLogistics.Shared;
+using OegegLogistics.Shared.Services;
 
 namespace OegegLogistics.CreateVehicle;
 
 public partial class CreateVehicleViewModel : BaseViewModel 
 {
     [ObservableProperty]
-    private UicNumber _uicNumber = UicNumber.Empty
-        .WithSegment(UicSegment.CreateUicSegment<UicInteroperabilitySegment>(32, "Interoperability")
-            .WithPossibleValues([UicSegment.CreateUicSegment<UicInteroperabilitySegment>(22,""),
-                UicSegment.CreateUicSegment<UicInteroperabilitySegment>(22,""),
-                UicSegment.CreateUicSegment<UicInteroperabilitySegment>(35,""),
-                UicSegment.CreateUicSegment<UicInteroperabilitySegment>(12,""),
-                UicSegment.CreateUicSegment<UicInteroperabilitySegment>(86,""),]))
-        .WithSegment(UicSegment.CreateUicSegment<UicCountryCodeSegment>(67, "Country code"))
-        .WithSegment(UicSegment.CreateUicSegment<UicTypeSegment>(31, "UicTypeSegment"))
-        .WithSegment(UicSegment.CreateUicSegment<UicVelocityHeatingSegment>(82, "UicVelocityHeatingSegment"))
-        .WithSegment(UicSegment.CreateUicSegment<UicSerialNumberSegment>(322, "UicSerialNumberSegment"))
-        .WithSegment(UicSegment.CreateUicSegment<UicSelfCheckSegment>(3, "UicSelfCheckSegment"));
+    private UicNumber _uicNumber = UicNumber.Empty;
     
     [ObservableProperty]
     private UicSegment _selectedUicSegment;
@@ -33,7 +20,17 @@ public partial class CreateVehicleViewModel : BaseViewModel
     [ObservableProperty]
     private uint? _uicSerialNumber;
     
+    // == private fields ==
+    private readonly JsonService _jonService;
+    
     // == public methods ==
+    public CreateVehicleViewModel(JsonService jonService)
+    {
+        _jonService = jonService;
+
+        SetupUicNumber();
+    }
+
     partial void OnSelectedUicSegmentChanged(UicSegment value)
     {
         switch (value)
@@ -66,5 +63,39 @@ public partial class CreateVehicleViewModel : BaseViewModel
             return;
         
         OnSelectedUicSegmentChanged(UicSegment.CreateUicSegment<UicSerialNumberSegment>((uint)newValue));
+    }
+    
+    // == private methods ==
+    private async Task SetupUicNumber()
+    {
+        UicNumber = UicNumber with {
+            UicInteroperabilitySegment = await PopulateCountryCodes<UicInteroperabilitySegment>(), 
+            UicCountryCodeSegment = await PopulateCountryCodes<UicCountryCodeSegment>(), 
+            UicTypeSegment = await PopulateCountryCodes<UicTypeSegment>(), 
+            UicSerialNumberSegment = UicSegment.CreateEmpty<UicSerialNumberSegment>(), 
+            UicVelocityHeatingSegment = await PopulateCountryCodes<UicVelocityHeatingSegment>(), 
+            UicSelfCheckSegment = UicSegment.CreateEmpty<UicSelfCheckSegment>()
+        };
+        Console.WriteLine("3");
+    }
+
+    private async Task<T> PopulateCountryCodes<T>() where T : UicSegment
+    {
+        Dictionary<string, string> countries = await _jonService.ReadJsonFileAsync(
+            typeof(T).Name switch
+            {
+                nameof(UicInteroperabilitySegment) => JsonService.INTEROPERABILITIES_LOCATION,
+                nameof(UicCountryCodeSegment) => JsonService.COUNTRYCODES_LOCATION,
+                nameof(UicTypeSegment) => JsonService.TYPE_LOCATION,
+                nameof(UicVelocityHeatingSegment) => JsonService.VELOCITYHEATING_LOCATION,
+            });
+            countries.Add("---", "default");
+        
+        T countrySegment = UicSegment.CreateEmpty<T>()
+            .WithNumber("00", "default")
+            .WithPossibleValues(countries.Select(t => 
+                UicSegment.CreateUicSegment<T>(t.Key, t.Value)));
+        
+        return countrySegment;
     }
 }   

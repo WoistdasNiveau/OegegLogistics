@@ -24,7 +24,8 @@ public class UICNumberComponent : TemplatedControl
     }
 
     public static readonly StyledProperty<IEnumerable> ItemsSourceProperty = AvaloniaProperty.Register<UICNumberComponent, IEnumerable>(
-        nameof(ItemsSource));
+        nameof(ItemsSource),
+        defaultBindingMode: BindingMode.OneWay);
     
     public IEnumerable ItemsSource
     {

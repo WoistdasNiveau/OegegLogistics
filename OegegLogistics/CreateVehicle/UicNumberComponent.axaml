@@ -19,7 +19,7 @@
                        Grid.Row="0"/>
                 <AutoCompleteBox Name="textBlock"
                                  ValueMemberBinding="{Binding Number, DataType=models:UicSegment}"
-                                 ItemsSource="{TemplateBinding ItemsSource}"
+                                 ItemsSource="{TemplateBinding ItemsSource, Mode=OneWay}"
                                  HorizontalAlignment="Center"
                                  Grid.Row="1"
                                  ItemTemplate="{TemplateBinding ItemTemplate}"

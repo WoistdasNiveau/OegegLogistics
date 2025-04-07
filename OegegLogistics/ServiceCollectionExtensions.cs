@@ -4,6 +4,7 @@ using OegegLogistics.CreateVehicle;
 using OegegLogistics.Main;
 using OegegLogistics.Navigation;
 using OegegLogistics.Shared;
+using OegegLogistics.Shared.Services;
 using OegegLogistics.Vehicles;
 
 namespace OegegLogistics
@@ -32,6 +33,7 @@ namespace OegegLogistics
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddTransient<NavigationService>();
+            services.AddTransient<JsonService>();
 
             return services;
         }
