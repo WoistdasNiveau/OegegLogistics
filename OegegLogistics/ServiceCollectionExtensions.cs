@@ -17,6 +17,7 @@ namespace OegegLogistics
             services.AddTransient<MainWindow>();
             services.AddTransient<VehiclesView>();
             services.AddTransient<UicNumberView>();
+            services.AddTransient<SelectVehiceTypeView>();
 
             return services;
         }
