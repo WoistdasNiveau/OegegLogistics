@@ -100,7 +100,7 @@ public static class UicNumberExtensions
 
 public static class UicValidation
 {
-    public static UicSegment ValidateUicSegment(this UicSegment value)
+    public static T ValidateUicSegment<T>(this T value) where T : UicSegment
     {
         if (value.Number == "---")
             return value;
