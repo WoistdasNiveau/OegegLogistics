@@ -5,6 +5,7 @@ using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Styling;
@@ -20,22 +21,21 @@ public partial class SelectVehiceTypeView : UserControl
     public SelectVehiceTypeView()
     {
         InitializeComponent();
+        
+        Loaded += OnLoaded;
     }
 
-    protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
+    private void OnLoaded(object? sender, RoutedEventArgs e)
     {
-        base.OnApplyTemplate(e);
-
         TranslateTransform translateTransform = LocoSvg.RenderTransform as TranslateTransform ?? new TranslateTransform();
         LocoSvg.RenderTransform = translateTransform;
         
         _width = LocoSvg.Bounds.Width;
-        _startX = -_width -2000;
+        _startX = -_width -20;
         _endX = (Bounds.Width - _width) / 2 - LocoSvg.Margin.Left;
         
         translateTransform.X = _startX;
     }
-    
 
     private async void InputElement_OnPointerEntered(object? sender, PointerEventArgs e)
     {
