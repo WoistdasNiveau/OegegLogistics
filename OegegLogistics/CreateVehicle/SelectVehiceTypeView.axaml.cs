@@ -22,17 +22,20 @@ public partial class SelectVehiceTypeView : UserControl
     {
         InitializeComponent();
         
-        Loaded += OnLoaded;
+        SizeChanged += OnSizeChanged;
     }
 
-    private void OnLoaded(object? sender, RoutedEventArgs e)
+    private void OnSizeChanged(object? sender, SizeChangedEventArgs e)
     {
         TranslateTransform translateTransform = LocoSvg.RenderTransform as TranslateTransform ?? new TranslateTransform();
         LocoSvg.RenderTransform = translateTransform;
         
         _width = LocoSvg.Bounds.Width;
         _startX = -_width -20;
-        _endX = (Bounds.Width - _width) / 2 - LocoSvg.Margin.Left;
+        var grid = this.Content as Grid;
+        double col0Width = grid?.ColumnDefinitions[0].ActualWidth ?? Bounds.Width * 0.3;
+
+        _endX = (col0Width - _width) / 2;
         
         translateTransform.X = _startX;
     }
