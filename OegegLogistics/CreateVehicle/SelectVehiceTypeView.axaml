@@ -4,8 +4,37 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="OegegLogistics.CreateVehicle.SelectVehiceTypeView">
-    <PathIcon Data="{DynamicResource 4010}"
-              Foreground="Aqua"
-              Height="250"
-              Width="250"/>
+    <Grid ColumnDefinitions="0.3*, 0.7*">
+        <Svg x:Name="LocoSvg"
+             Grid.ColumnSpan="2"
+             Grid.Column="0"
+             Path="/Assets/Images/Svg/4010.svg"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Center">
+            <Svg.RenderTransform>
+                <TranslateTransform X="-700"/>
+            </Svg.RenderTransform>
+        </Svg>
+        <Border Background="{DynamicResource SystemChromeMediumColor}"
+                Grid.Column="0">
+            <StackPanel Margin="0,30"
+                         Spacing="10">
+                <TextBlock Text="Fahrzeugtype"
+                           HorizontalAlignment="Center"
+                           Classes="Title"/>
+                <ListBox HorizontalAlignment="Center"
+                         Background="Transparent">
+                    <ListBox.Items>
+                        <ListBoxItem Content="Lokomotive"
+                                     Margin="0,10"
+                                     PointerEntered="InputElement_OnPointerEntered"/>
+                        <ListBoxItem Content="Personenwaggon"
+                                     Margin="0,10"/>
+                        <ListBoxItem Content="Güterwaggon"
+                                     Margin="0,10"/>
+                    </ListBox.Items>
+                </ListBox>
+            </StackPanel>
+        </Border>
+    </Grid>
 </UserControl>
