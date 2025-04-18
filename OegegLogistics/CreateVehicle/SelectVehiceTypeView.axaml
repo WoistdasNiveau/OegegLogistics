@@ -4,7 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="OegegLogistics.CreateVehicle.SelectVehiceTypeView">
-    <Grid ColumnDefinitions="0.3*, 0.7*">
+    <Grid ColumnDefinitions="0.2*, 0.8*">
+        <!--<Canvas Grid.Column="0"
+                Grid.ColumnSpan="2"
+                x:Name="Canvas">
+                <Svg Path="/Assets/Images/Svg/4010.svg"
+                     x:Name="Svg"/>
+        </Canvas> -->
         <Svg x:Name="LocoSvg"
              Grid.ColumnSpan="2"
              Grid.Column="0"
