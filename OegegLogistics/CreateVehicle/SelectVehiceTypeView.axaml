@@ -14,11 +14,12 @@
         <Svg x:Name="LocoSvg"
              Grid.ColumnSpan="2"
              Grid.Column="0"
-             Path="/Assets/Images/Svg/4010.svg"
-             HorizontalAlignment="Stretch"
-             VerticalAlignment="Center">
+             Path="/Assets/Images/Svg/4010.svg">
             <Svg.RenderTransform>
-                <TranslateTransform X="-700"/>
+                <TransformGroup>
+                    <TranslateTransform X="-700"/>
+                    <ScaleTransform ScaleX="1" ScaleY="1"/>
+                </TransformGroup>
             </Svg.RenderTransform>
         </Svg>
         <Border Background="{DynamicResource SystemChromeMediumColor}"
@@ -33,7 +34,8 @@
                     <ListBox.Items>
                         <ListBoxItem Content="Lokomotive"
                                      Margin="0,10"
-                                     PointerEntered="InputElement_OnPointerEntered"/>
+                                     PointerEntered="InputElement_OnPointerEntered"
+                                     Tapped="LocomotiveTapped"/>
                         <ListBoxItem Content="Personenwaggon"
                                      Margin="0,10"/>
                         <ListBoxItem Content="Güterwaggon"
