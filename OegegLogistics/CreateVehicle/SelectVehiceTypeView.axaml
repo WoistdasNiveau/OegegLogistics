@@ -9,19 +9,25 @@
         
         <Grid Column="0"
               ColumnSpan="2"
-              ColumnDefinitions="*,*,*"
-              x:Name="SvgGrid"
-              Background="Green">
-            <Svg Path="/Assets/Images/Svg/4010.svg"
-                 x:Name="Svg"
-                 Grid.Column="0"
-                 Grid.ColumnSpan="3"/>
-            <TextBox Grid.Column="1"
-                     Watermark="00 00 0000 000 - 0"/>
+              x:Name="SvgGrid">
+            <Canvas x:Name="SvgCanvas"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+        
+                <Viewbox x:Name="SvgViewbox"
+                         Stretch="Uniform">
+                    <Svg x:Name="Svg"
+                         Path="/Assets/Images/Svg/4010.svg"/>
+                </Viewbox>
+
+                <TextBox Watermark="00 00 0000 000 - 0"
+                         x:Name="OverlayTextBox"
+                         ZIndex="3"/>
+            </Canvas>
             
             <Grid.RenderTransform>
                 <TransformGroup>
-                    <TranslateTransform X="0"
+                    <TranslateTransform X="-5000"
                                         Y="0"/>
                     <ScaleTransform ScaleX="1"
                                     ScaleY="1"/>
@@ -45,7 +51,8 @@
         </Canvas> -->
         
         <Border Background="{DynamicResource SystemChromeMediumColor}"
-                Grid.Column="0">
+                Grid.Column="0"
+                x:Name="selectBorder">
             <StackPanel Margin="0,30"
                          Spacing="10">
                 <TextBlock Text="Fahrzeugtype"

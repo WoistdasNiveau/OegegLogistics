@@ -20,20 +20,30 @@ public partial class SelectVehiceTypeView : UserControl
     private double _width;
     private double _height;
     private IServiceProvider _serviceProvider;
+    private bool _isLocoShowing;
+    private double _relativeTextBoxX = 0.47;
+    private double _relativeTextBoxY = 0.6;
     public SelectVehiceTypeView(IServiceProvider serviceProvider)
     {
         InitializeComponent();
         _serviceProvider = serviceProvider;
         
         SizeChanged += OnSizeChanged;
-        Svg.SizeChanged += (sender, args) =>
+        
+        SvgGrid.SizeChanged += (_, _) =>
         {
-            if (Svg.Bounds.Height > 0 && Svg.Bounds.Width > 0)
-            {
-                SvgGrid.MaxHeight = Svg.Bounds.Height;
-                SvgGrid.MaxWidth = Svg.Bounds.Width;   
-            }
+            var gridSize = SvgGrid.Bounds;
+
+            SvgCanvas.Width = gridSize.Width;
+            SvgCanvas.Height = gridSize.Height;
+
+            SvgViewbox.Width = gridSize.Width;
+            SvgViewbox.Height = gridSize.Height;
+
+            Canvas.SetLeft(SvgViewbox, 0);
+            Canvas.SetTop(SvgViewbox, 0);
         };
+        SvgCanvas.SizeChanged += (_, _) => UpdateOverlayPosition();
     }
 
     private void OnSizeChanged(object? sender, SizeChangedEventArgs e)
@@ -41,50 +51,15 @@ public partial class SelectVehiceTypeView : UserControl
         Svg.Margin = new Thickness(0,0, 0, 0);
         _width = e.NewSize.Width;
         _height = e.NewSize.Height;
-
-        if(SvgGrid.RenderTransform is not TransformGroup transformGroup
-           || transformGroup.Children.OfType<TranslateTransform>().FirstOrDefault() is not { } translateTransform
-           || transformGroup.Children.OfType<ScaleTransform>().FirstOrDefault() is not { } scaleTransform)
-            return;
-        
-        
-        
-        return;
-
-        Animation animation = new Animation()
-        {
-            Duration = TimeSpan.FromSeconds(1),
-            Children =
-            {
-                new KeyFrame()
-                {
-                    Setters =
-                    {
-                        new Setter() { Property = Avalonia.Svg.Skia.Svg.MarginProperty, Value = new Thickness(0) }
-                    },
-                    KeyTime = TimeSpan.FromSeconds(0)
-                },
-                new KeyFrame()
-                {
-                    Setters =
-                    {
-                        new Setter()
-                            { Property = Avalonia.Svg.Skia.Svg.MarginProperty, Value = new Thickness(-300, 0, 0, 0) }
-                    },
-                    KeyTime = TimeSpan.FromSeconds(1)
-                }
-            }
-        };
-
-        animation.RunAsync(Svg);
     }
 
     private async void InputElement_OnPointerEntered(object? sender, PointerEventArgs e)
     {
-        if(SvgGrid.RenderTransform is not TransformGroup transformGroup
-           || transformGroup.Children.OfType<TranslateTransform>().FirstOrDefault() is not { } translateTransform
-           || transformGroup.Children.OfType<ScaleTransform>().FirstOrDefault() is not { } scaleTransform)
+        if(_isLocoShowing)
             return;
+        
+        _isLocoShowing = true;
+        TranslateTransform translateTransform = GetTransform<TranslateTransform>((SvgGrid.RenderTransform as TransformGroup)!);
 
         Animation animation = new Animation()
         {
@@ -102,17 +77,74 @@ public partial class SelectVehiceTypeView : UserControl
                 {
                     Setters =
                     {
-                        new Setter(TranslateTransform.XProperty, -_width + baseGrid.ColumnDefinitions[0].Width.Value + Svg.Width / 2)
+                        new Setter(TranslateTransform.XProperty, -_width + baseGrid.ColumnDefinitions[0].ActualWidth + SvgCanvas.Bounds.Width / 2)
                     },
                     KeyTime = TimeSpan.FromSeconds(1)
                 },
             }
         };
         
-        animation.RunAsync(SvgGrid);
+        await animation.RunAsync(SvgGrid);
     }
 
     private async void LocomotiveTapped(object? sender, TappedEventArgs e)
     {
+        TranslateTransform translateTransform = GetTransform<TranslateTransform>((SvgGrid.RenderTransform as TransformGroup)!);
+        ScaleTransform scaleTransform = GetTransform<ScaleTransform>((SvgGrid.RenderTransform as TransformGroup)!);
+        
+        Animation animation = new Animation()
+        {
+            Duration = TimeSpan.FromSeconds(1),
+            Easing = new ExponentialEaseOut(),
+            FillMode = FillMode.Forward,
+            Children =
+            {
+                new KeyFrame()
+                {
+                    Setters =
+                    {
+                        new Setter(TranslateTransform.XProperty, translateTransform.X),
+                        new Setter(ScaleTransform.ScaleXProperty, scaleTransform.ScaleX),
+                        new Setter(ScaleTransform.ScaleYProperty, scaleTransform.ScaleY)
+                    },
+                    KeyTime = TimeSpan.FromSeconds(0)
+                },
+                new KeyFrame()
+                {
+                    Setters =
+                    {
+                        new Setter(TranslateTransform.XProperty, (_width - SvgCanvas.Bounds.Width) / 2),
+                        new Setter(TranslateTransform.YProperty, translateTransform.Y - SvgCanvas.Bounds.Width * 0.05),
+                        new Setter(ScaleTransform.ScaleXProperty, 2.5),
+                        new Setter(ScaleTransform.ScaleYProperty, 2.5),
+                    },
+                    KeyTime = TimeSpan.FromSeconds(1)
+                },
+            }
+        };
+        selectBorder.IsVisible = false;
+        await animation.RunAsync(SvgGrid);
+    }
+
+    private T GetTransform<T>(TransformGroup transformGroup) where T : Transform
+    {
+        return transformGroup.Children.OfType<T>().FirstOrDefault()!;
+    }
+    
+    private void UpdateOverlayPosition()
+    {
+        double canvasWidth = SvgCanvas.Bounds.Width;
+        double canvasHeight = SvgCanvas.Bounds.Height;
+
+        // Make sure the TextBlock is measured
+        OverlayTextBox.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+        var textSize = OverlayTextBox.DesiredSize;
+
+        // Convert percentage to absolute position
+        double x = canvasWidth * _relativeTextBoxX - textSize.Width / 2;
+        double y = canvasHeight * _relativeTextBoxY - textSize.Height / 2;
+
+        Canvas.SetLeft(OverlayTextBox, x);
+        Canvas.SetTop(OverlayTextBox, y);
     }
 }
