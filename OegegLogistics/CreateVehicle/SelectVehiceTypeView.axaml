@@ -4,24 +4,45 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="OegegLogistics.CreateVehicle.SelectVehiceTypeView">
-    <Grid ColumnDefinitions="0.2*, 0.8*">
+    <Grid ColumnDefinitions="0.2*, 0.8*"
+          x:Name="baseGrid">
+        
+        <Grid Column="0"
+              ColumnSpan="2"
+              ColumnDefinitions="*,*,*"
+              x:Name="SvgGrid">
+            <Svg Path="/Assets/Images/Svg/4010.svg"
+                 x:Name="Svg"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="3"/>
+            <TextBox Grid.Column="1"
+                     Watermark="00 00 0000 000 - 0"/>
+            
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <TranslateTransform X="0"
+                                        Y="0"/>
+                    <ScaleTransform ScaleX="1"
+                                    ScaleY="1"/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+            
+        </Grid>
+        
         <!--<Canvas Grid.Column="0"
                 Grid.ColumnSpan="2"
-                x:Name="Canvas">
+                x:Name="Canvas"
+                ZIndex="1">
+            <Canvas x:Name="CanvasGroup"
+                    Background="Green"
+                    ZIndex="2">
                 <Svg Path="/Assets/Images/Svg/4010.svg"
                      x:Name="Svg"/>
+                <TextBox  Watermark="00 00 0000 000 - 0"
+                          Canvas.Bottom="0.3"/>
+            </Canvas>
         </Canvas> -->
-        <Svg x:Name="LocoSvg"
-             Grid.ColumnSpan="2"
-             Grid.Column="0"
-             Path="/Assets/Images/Svg/4010.svg">
-            <Svg.RenderTransform>
-                <TransformGroup>
-                    <TranslateTransform X="-700"/>
-                    <ScaleTransform ScaleX="1" ScaleY="1"/>
-                </TransformGroup>
-            </Svg.RenderTransform>
-        </Svg>
+        
         <Border Background="{DynamicResource SystemChromeMediumColor}"
                 Grid.Column="0">
             <StackPanel Margin="0,30"

@@ -18,8 +18,7 @@ public partial class SelectVehiceTypeView : UserControl
 {
     // == private fields ==
     private double _width;
-    private double _startX;
-    private double _endX;
+    private double _height;
     private IServiceProvider _serviceProvider;
     public SelectVehiceTypeView(IServiceProvider serviceProvider)
     {
@@ -31,121 +30,81 @@ public partial class SelectVehiceTypeView : UserControl
 
     private void OnSizeChanged(object? sender, SizeChangedEventArgs e)
     {
-        //Svg.Margin = new Thickness(0,0, 0, 0);
-        //double width = e.NewSize.Width;
-        //double height = e.NewSize.Height;
-        //
-        //Svg.Width = width;
-        //Svg.Height = height;
-        //
-        //Canvas.SetLeft(Svg, width / 3 - width);
-        //Canvas.SetBottom(Svg, height / 2 - height);
-        
-        TranslateTransform translateTransform = LocoSvg.RenderTransform as TranslateTransform ?? new TranslateTransform();
-        LocoSvg.RenderTransform = translateTransform;
-        
-        _width = LocoSvg.Bounds.Width;
-        _startX = -_width -20;
-        var grid = this.Content as Grid;
-        double col0Width = grid?.ColumnDefinitions[0].ActualWidth ?? Bounds.Width * 0.3;
+        Svg.Margin = new Thickness(0,0, 0, 0);
+        _width = e.NewSize.Width;
+        _height = e.NewSize.Height;
 
-        _endX = (-_width / 1.5 + col0Width) /2;
+        if(SvgGrid.RenderTransform is not TransformGroup transformGroup
+           || transformGroup.Children.OfType<TranslateTransform>().FirstOrDefault() is not { } translateTransform
+           || transformGroup.Children.OfType<ScaleTransform>().FirstOrDefault() is not { } scaleTransform)
+            return;
         
-        translateTransform.X = _startX;
+        
+        
+        return;
+
+        Animation animation = new Animation()
+        {
+            Duration = TimeSpan.FromSeconds(1),
+            Children =
+            {
+                new KeyFrame()
+                {
+                    Setters =
+                    {
+                        new Setter() { Property = Avalonia.Svg.Skia.Svg.MarginProperty, Value = new Thickness(0) }
+                    },
+                    KeyTime = TimeSpan.FromSeconds(0)
+                },
+                new KeyFrame()
+                {
+                    Setters =
+                    {
+                        new Setter()
+                            { Property = Avalonia.Svg.Skia.Svg.MarginProperty, Value = new Thickness(-300, 0, 0, 0) }
+                    },
+                    KeyTime = TimeSpan.FromSeconds(1)
+                }
+            }
+        };
+
+        animation.RunAsync(Svg);
     }
 
     private async void InputElement_OnPointerEntered(object? sender, PointerEventArgs e)
     {
-        //Canvas.SetLeft(Svg, Svg.Width / 2);
-        //Canvas.SetBottom(Svg, Svg.Height / 4);
+        if(SvgGrid.RenderTransform is not TransformGroup transformGroup
+           || transformGroup.Children.OfType<TranslateTransform>().FirstOrDefault() is not { } translateTransform
+           || transformGroup.Children.OfType<ScaleTransform>().FirstOrDefault() is not { } scaleTransform)
+            return;
 
-        if (LocoSvg.RenderTransform is not TransformGroup group) return;
         Animation animation = new Animation()
         {
             Duration = TimeSpan.FromSeconds(1),
-            Easing = new CubicEaseOut(),
+            Easing = new ExponentialEaseOut(),
             FillMode = FillMode.Forward,
             Children =
             {
                 new KeyFrame()
                 {
-                    Cue = new Cue(0d),
-                    Setters =
-                    {
-                        new Setter(TranslateTransform.XProperty, _startX)
-                    }
+                    Setters = { new Setter(TranslateTransform.XProperty, -_width) },
+                    KeyTime = TimeSpan.FromSeconds(0)
                 },
                 new KeyFrame()
                 {
-                    Cue = new Cue(1d),
                     Setters =
                     {
-                        new Setter(TranslateTransform.XProperty, _endX)
-                    }
-                }
+                        new Setter(TranslateTransform.XProperty, -_width + baseGrid.ColumnDefinitions[0].Width.Value + Svg.Width / 2)
+                    },
+                    KeyTime = TimeSpan.FromSeconds(1)
+                },
             }
         };
-        await animation.RunAsync(LocoSvg);
-
+        
+        animation.RunAsync(SvgGrid);
     }
 
     private async void LocomotiveTapped(object? sender, TappedEventArgs e)
     {
-        if (LocoSvg.RenderTransform is not TransformGroup group) return;
-        var translate = group.Children.OfType<TranslateTransform>().FirstOrDefault();
-        var scale = group.Children.OfType<ScaleTransform>().FirstOrDefault();
-
-        if (translate == null || scale == null)
-            return;
-
-        var grid = this.Content as Grid;
-        double viewWidth = grid?.Bounds.Width ?? Bounds.Width;
-        double viewHeight = grid?.Bounds.Height ?? Bounds.Height;
-
-        double locoWidth = LocoSvg.Bounds.Width;
-        double locoHeight = LocoSvg.Bounds.Height;
-
-        double targetScale = 2.0;
-
-        double scaledWidth = locoWidth * targetScale;
-        double scaledHeight = locoHeight * targetScale;
-
-        // Position LocoSvg in the center while scaled
-        double targetX = (viewWidth - scaledWidth) / 2;
-        double targetY = (viewHeight - scaledHeight) / 2;
-
-        Animation animation = new Animation()
-        {
-            Duration = TimeSpan.FromSeconds(0.8),
-            Easing = new CubicEaseOut(),
-            FillMode = FillMode.Forward,
-            Children =
-            {
-                new KeyFrame()
-                {
-                    Cue = new Cue(0d),
-                    Setters =
-                    {
-                        new Setter(ScaleTransform.ScaleXProperty, scale.ScaleX),
-                        new Setter(ScaleTransform.ScaleYProperty, scale.ScaleY),
-                        new Setter(TranslateTransform.XProperty, translate.X),
-                        new Setter(TranslateTransform.YProperty, translate.Y)
-                    }
-                },
-                new KeyFrame()
-                {
-                    Cue = new Cue(1d),
-                    Setters =
-                    {
-                        new Setter(ScaleTransform.ScaleXProperty, targetScale),
-                        new Setter(ScaleTransform.ScaleYProperty, targetScale),
-                        new Setter(TranslateTransform.XProperty, targetX),
-                        new Setter(TranslateTransform.YProperty, targetY)
-                    }
-                }
-            }
-        };
-
-        await animation.RunAsync(LocoSvg);
     }
 }
