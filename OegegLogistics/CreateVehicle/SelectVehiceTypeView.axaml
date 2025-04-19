@@ -10,7 +10,8 @@
         <Grid Column="0"
               ColumnSpan="2"
               ColumnDefinitions="*,*,*"
-              x:Name="SvgGrid">
+              x:Name="SvgGrid"
+              Background="Green">
             <Svg Path="/Assets/Images/Svg/4010.svg"
                  x:Name="Svg"
                  Grid.Column="0"

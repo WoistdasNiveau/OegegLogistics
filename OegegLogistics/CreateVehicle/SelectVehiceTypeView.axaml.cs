@@ -26,6 +26,14 @@ public partial class SelectVehiceTypeView : UserControl
         _serviceProvider = serviceProvider;
         
         SizeChanged += OnSizeChanged;
+        Svg.SizeChanged += (sender, args) =>
+        {
+            if (Svg.Bounds.Height > 0 && Svg.Bounds.Width > 0)
+            {
+                SvgGrid.MaxHeight = Svg.Bounds.Height;
+                SvgGrid.MaxWidth = Svg.Bounds.Width;   
+            }
+        };
     }
 
     private void OnSizeChanged(object? sender, SizeChangedEventArgs e)
