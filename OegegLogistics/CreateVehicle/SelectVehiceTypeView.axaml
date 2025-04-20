@@ -22,6 +22,7 @@
 
                 <TextBox Watermark="00 00 0000 000 - 0"
                          x:Name="OverlayTextBox"
+                         Classes="UicNumber"
                          ZIndex="3"/>
             </Canvas>
             

@@ -22,7 +22,7 @@ public partial class SelectVehiceTypeView : UserControl
     private IServiceProvider _serviceProvider;
     private bool _isLocoShowing;
     private double _relativeTextBoxX = 0.47;
-    private double _relativeTextBoxY = 0.6;
+    private double _relativeTextBoxY = 0.61;
     public SelectVehiceTypeView(IServiceProvider serviceProvider)
     {
         InitializeComponent();
