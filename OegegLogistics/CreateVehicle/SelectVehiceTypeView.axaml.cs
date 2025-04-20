@@ -147,4 +147,23 @@ public partial class SelectVehiceTypeView : UserControl
         Canvas.SetLeft(OverlayTextBox, x);
         Canvas.SetTop(OverlayTextBox, y);
     }
+
+    private bool _isUpdating = false;
+    private void OverlayTextBox_OnTextChanged(object? sender, TextChangedEventArgs e)
+    {
+        if(_isUpdating || sender is not TextBox textBox || string.IsNullOrWhiteSpace(textBox.Text))
+            return;
+        
+    }
+
+    private void OverlayTextBox_OnKeyDown(object? sender, KeyEventArgs e)
+    {
+        
+        if(sender is not TextBox textBox || string.IsNullOrWhiteSpace(textBox.Text))
+            return;
+
+        textBox.Text = string.Join("",
+            textBox.Text.Select((c, i) => ((i+1) % 2 == 0 && i != 0 ? " " : "") + c));
+        textBox.SelectionStart = textBox.Text.Length;
+    }
 }
