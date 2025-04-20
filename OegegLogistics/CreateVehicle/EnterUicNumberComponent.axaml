@@ -1,0 +1,31 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:OegegLogistics.CreateVehicle">
+    <Design.PreviewWith>
+        <controls:EnterUicNumberComponent />
+    </Design.PreviewWith>
+
+    <Style Selector="controls|EnterUicNumberComponent">
+        <!-- Set Defaults -->
+        <Setter Property="Template">
+            <ControlTemplate>
+                    <Canvas x:Name="SvgCanvas"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch">
+        
+                        <Viewbox x:Name="SvgViewbox"
+                                 Stretch="Uniform">
+                            <Svg x:Name="Svg"
+                                 Path="{TemplateBinding SvgPath}"/>
+                        </Viewbox>
+
+                        <TextBox Watermark="{TemplateBinding WaterMark}"
+                                 Classes="UicNumber"
+                                 x:Name="OverlayTextBox"
+                                 Background="Transparent"
+                                 ZIndex="3"/>
+                    </Canvas>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

@@ -10,6 +10,7 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Styling;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Svg;
 
 namespace OegegLogistics.CreateVehicle;
@@ -28,7 +29,7 @@ public partial class SelectVehiceTypeView : UserControl
         InitializeComponent();
         _serviceProvider = serviceProvider;
         
-        SizeChanged += OnSizeChanged;
+        /*SizeChanged += OnSizeChanged;
         
         SvgGrid.SizeChanged += (_, _) =>
         {
@@ -43,15 +44,15 @@ public partial class SelectVehiceTypeView : UserControl
             Canvas.SetLeft(SvgViewbox, 0);
             Canvas.SetTop(SvgViewbox, 0);
         };
-        SvgCanvas.SizeChanged += (_, _) => UpdateOverlayPosition();
+        SvgCanvas.SizeChanged += (_, _) => UpdateOverlayPosition(); */
     }
 
-    private void OnSizeChanged(object? sender, SizeChangedEventArgs e)
+    /*private void OnSizeChanged(object? sender, SizeChangedEventArgs e)
     {
         Svg.Margin = new Thickness(0,0, 0, 0);
         _width = e.NewSize.Width;
         _height = e.NewSize.Height;
-    }
+    } */
 
     private async void InputElement_OnPointerEntered(object? sender, PointerEventArgs e)
     {
@@ -70,14 +71,14 @@ public partial class SelectVehiceTypeView : UserControl
             {
                 new KeyFrame()
                 {
-                    Setters = { new Setter(TranslateTransform.XProperty, -_width) },
+                    Setters = { new Setter(TranslateTransform.XProperty, -uicComponent.Width) },
                     KeyTime = TimeSpan.FromSeconds(0)
                 },
                 new KeyFrame()
                 {
                     Setters =
                     {
-                        new Setter(TranslateTransform.XProperty, -_width + baseGrid.ColumnDefinitions[0].ActualWidth + SvgCanvas.Bounds.Width / 2)
+                        new Setter(TranslateTransform.XProperty, -uicComponent.Width + baseGrid.ColumnDefinitions[0].ActualWidth + uicComponent.SvgCanvasBounds.Width / 2)
                     },
                     KeyTime = TimeSpan.FromSeconds(1)
                 },
@@ -113,8 +114,8 @@ public partial class SelectVehiceTypeView : UserControl
                 {
                     Setters =
                     {
-                        new Setter(TranslateTransform.XProperty, (_width - SvgCanvas.Bounds.Width) / 2),
-                        new Setter(TranslateTransform.YProperty, translateTransform.Y - SvgCanvas.Bounds.Width * 0.05),
+                        new Setter(TranslateTransform.XProperty, (uicComponent.Width - uicComponent.SvgCanvasBounds.Width) / 2),
+                        new Setter(TranslateTransform.YProperty, translateTransform.Y - uicComponent.SvgCanvasBounds.Width * 0.05),
                         new Setter(ScaleTransform.ScaleXProperty, 2.5),
                         new Setter(ScaleTransform.ScaleYProperty, 2.5),
                     },
@@ -131,7 +132,7 @@ public partial class SelectVehiceTypeView : UserControl
         return transformGroup.Children.OfType<T>().FirstOrDefault()!;
     }
     
-    private void UpdateOverlayPosition()
+    /*private void UpdateOverlayPosition()
     {
         double canvasWidth = SvgCanvas.Bounds.Width;
         double canvasHeight = SvgCanvas.Bounds.Height;
@@ -146,5 +147,5 @@ public partial class SelectVehiceTypeView : UserControl
 
         Canvas.SetLeft(OverlayTextBox, x);
         Canvas.SetTop(OverlayTextBox, y);
-    }
+    } */
 }

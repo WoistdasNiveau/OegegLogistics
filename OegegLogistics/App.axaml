@@ -14,6 +14,7 @@
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
         <StyleInclude Source="Shared/Components/SwitchPageComponent.axaml"/>
         <StyleInclude Source="CreateVehicle/UICNumberComponent.axaml"/>
+        <StyleInclude Source="CreateVehicle/EnterUicNumberComponent.axaml"/>
         
         <Style Selector="TextBox.pageNumber, Button.pageNumber, Label.pageNumber">
             <Setter Property="FontSize" Value="12"/>
@@ -31,6 +32,33 @@
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="Foreground" Value="{DynamicResource ButtonForegroundDisabled}" />
+        </Style>
+        
+        <Style Selector="TextBox.UicNumber:pointerover">
+            <Setter Property="Foreground" Value="{DynamicResource TextControlForegroundPointerOver}" />
+
+            <Style Selector="^ /template/ Border#PART_BorderElement">
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="Background" Value="Transparent" />
+            </Style>
+
+            <Style Selector="^ /template/ TextBlock#PART_Watermark">
+                <Setter Property="Foreground" Value="{DynamicResource TextControlPlaceholderForegroundPointerOver}" />
+            </Style>
+        </Style>
+        
+        <Style Selector="TextBox.UicNumber:focus">
+            <Setter Property="Foreground" Value="{DynamicResource TextControlForegroundFocused}" />
+
+            <Style Selector="^ /template/ TextBlock#PART_Watermark">
+                <Setter Property="Foreground" Value="{DynamicResource TextControlPlaceholderForegroundFocused}" />
+            </Style>
+
+            <Style Selector="^ /template/ Border#PART_BorderElement">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0" />
+            </Style>
         </Style>
 
     </Application.Styles>

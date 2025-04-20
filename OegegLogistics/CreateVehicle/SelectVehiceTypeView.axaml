@@ -2,14 +2,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:createVehicle="clr-namespace:OegegLogistics.CreateVehicle"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="OegegLogistics.CreateVehicle.SelectVehiceTypeView">
+    
+    <Design.DataContext>
+        <createVehicle:CreateVehicleViewModel/>
+    </Design.DataContext>
+    
     <Grid ColumnDefinitions="0.2*, 0.8*"
           x:Name="baseGrid">
         
-        <Grid Column="0"
+        <Grid Grid.Column="0"
               ColumnSpan="2"
               x:Name="SvgGrid">
+            
+            <createVehicle:EnterUicNumberComponent x:Name="uicComponent"
+                                                   SvgPath="/Assets/Images/Svg/4010.svg">
+            
+            </createVehicle:EnterUicNumberComponent>
+            <!--
             <Canvas x:Name="SvgCanvas"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch">
@@ -21,9 +33,11 @@
                 </Viewbox>
 
                 <TextBox Watermark="00 00 0000 000 - 0"
+                         Classes="UicNumber"
                          x:Name="OverlayTextBox"
+                         Background="Transparent"
                          ZIndex="3"/>
-            </Canvas>
+            </Canvas> -->
             
             <Grid.RenderTransform>
                 <TransformGroup>
