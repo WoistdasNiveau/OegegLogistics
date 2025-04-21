@@ -24,7 +24,7 @@
                          x:Name="OverlayTextBox"
                          Classes="UicNumber"
                          TextChanged="OverlayTextBox_OnTextChanged"
-                         KeyDown="OverlayTextBox_OnKeyDown"
+                         KeyUp="OverlayTextBox_OnKeyDown"
                          ZIndex="3"/>
             </Canvas>
             

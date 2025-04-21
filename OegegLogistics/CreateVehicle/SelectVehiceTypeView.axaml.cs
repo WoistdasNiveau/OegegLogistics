@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Avalonia;
 using Avalonia.Animation;
@@ -162,8 +163,17 @@ public partial class SelectVehiceTypeView : UserControl
         if(sender is not TextBox textBox || string.IsNullOrWhiteSpace(textBox.Text))
             return;
 
-        textBox.Text = string.Join("",
-            textBox.Text.Select((c, i) => ((i+1) % 2 == 0 && i != 0 ? " " : "") + c));
+        List<char> text = new List<char>();
+        for (int i = 0; i < textBox.Text.Length; i++)
+        {
+            if (i != 0 && i % 2 == 0)
+            {
+                text.Add(' ');
+            }
+            text.Add(textBox.Text[i]);
+        }
+        
+        textBox.Text = string.Join("", text);
         textBox.SelectionStart = textBox.Text.Length;
     }
 }
