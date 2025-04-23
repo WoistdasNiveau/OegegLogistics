@@ -149,31 +149,29 @@ public partial class SelectVehiceTypeView : UserControl
         Canvas.SetTop(OverlayTextBox, y);
     }
 
-    private bool _isUpdating = false;
-    private void OverlayTextBox_OnTextChanged(object? sender, TextChangedEventArgs e)
+    private void OverlayTextBox_OnKeyUp(object? sender, KeyEventArgs e)
     {
-        if(_isUpdating || sender is not TextBox textBox || string.IsNullOrWhiteSpace(textBox.Text))
-            return;
-        
-    }
-
-    private void OverlayTextBox_OnKeyDown(object? sender, KeyEventArgs e)
-    {
-        
-        if(sender is not TextBox textBox || string.IsNullOrWhiteSpace(textBox.Text))
+        int textLength = OverlayTextBox.Text.Length;
+        if(textLength > 15)
             return;
 
-        List<char> text = new List<char>();
-        for (int i = 0; i < textBox.Text.Length; i++)
+        if (textLength >= 15 && OverlayTextBox.Text[14] != ' ')
         {
-            if (i != 0 && i % 2 == 0)
-            {
-                text.Add(' ');
-            }
-            text.Add(textBox.Text[i]);
+            OverlayTextBox.Text = OverlayTextBox.Text.Insert(14, "-");
+        }
+        else if (textLength >= 11 && OverlayTextBox.Text[10] != ' ')
+        {
+            OverlayTextBox.Text = OverlayTextBox.Text.Insert(10, " ");
+        }
+        else if (textLength >= 6 && OverlayTextBox.Text[5] != ' ')
+        {
+            OverlayTextBox.Text = OverlayTextBox.Text.Insert(5, " ");
+        }
+        else if (textLength >= 3 && OverlayTextBox.Text[2] != ' ')
+        {
+            OverlayTextBox.Text = OverlayTextBox.Text.Insert(2, " ");
         }
         
-        textBox.Text = string.Join("", text);
-        textBox.SelectionStart = textBox.Text.Length;
+        OverlayTextBox.CaretIndex = OverlayTextBox.Text?.Length ?? 0;
     }
 }

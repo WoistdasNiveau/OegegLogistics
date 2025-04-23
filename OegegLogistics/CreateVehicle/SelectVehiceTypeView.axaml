@@ -23,8 +23,8 @@
                 <TextBox Watermark="00 00 0000 000 - 0"
                          x:Name="OverlayTextBox"
                          Classes="UicNumber"
-                         TextChanged="OverlayTextBox_OnTextChanged"
-                         KeyUp="OverlayTextBox_OnKeyDown"
+                         MaxLength="16"
+                         KeyUp="OverlayTextBox_OnKeyUp"
                          ZIndex="3"/>
             </Canvas>
             
