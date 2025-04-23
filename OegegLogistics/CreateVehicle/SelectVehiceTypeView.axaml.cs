@@ -138,11 +138,9 @@ public partial class SelectVehiceTypeView : UserControl
         double canvasWidth = SvgCanvas.Bounds.Width;
         double canvasHeight = SvgCanvas.Bounds.Height;
 
-        // Make sure the TextBlock is measured
         OverlayTextBox.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
         var textSize = OverlayTextBox.DesiredSize;
 
-        // Convert percentage to absolute position
         double x = canvasWidth * _relativeTextBoxX - textSize.Width / 2;
         double y = canvasHeight * _relativeTextBoxY - textSize.Height / 2;
 
