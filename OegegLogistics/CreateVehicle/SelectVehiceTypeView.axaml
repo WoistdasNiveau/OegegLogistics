@@ -25,6 +25,7 @@
                          Classes="UicNumber"
                          MaxLength="16"
                          KeyUp="OverlayTextBox_OnKeyUp"
+                         KeyDown="OverlayTextBox_OnKeyDown"
                          ZIndex="3"/>
             </Canvas>
             

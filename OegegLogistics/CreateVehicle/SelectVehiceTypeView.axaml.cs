@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Animation.Easings;
@@ -151,27 +152,45 @@ public partial class SelectVehiceTypeView : UserControl
 
     private void OverlayTextBox_OnKeyUp(object? sender, KeyEventArgs e)
     {
-        int textLength = OverlayTextBox.Text.Length;
-        if(textLength > 15)
-            return;
-
-        if (textLength >= 15 && OverlayTextBox.Text[14] != ' ')
-        {
-            OverlayTextBox.Text = OverlayTextBox.Text.Insert(14, "-");
-        }
-        else if (textLength >= 11 && OverlayTextBox.Text[10] != ' ')
-        {
-            OverlayTextBox.Text = OverlayTextBox.Text.Insert(10, " ");
-        }
-        else if (textLength >= 6 && OverlayTextBox.Text[5] != ' ')
-        {
-            OverlayTextBox.Text = OverlayTextBox.Text.Insert(5, " ");
-        }
-        else if (textLength >= 3 && OverlayTextBox.Text[2] != ' ')
-        {
-            OverlayTextBox.Text = OverlayTextBox.Text.Insert(2, " ");
-        }
+        bool indexToLast = OverlayTextBox.CaretIndex == OverlayTextBox.Text.Length;
+        string text = Regex.Replace(OverlayTextBox.Text.Replace(" ", "").Replace("-", ""), "[a-zA-Z]", "");
+        string newText= string.Empty;
         
-        OverlayTextBox.CaretIndex = OverlayTextBox.Text?.Length ?? 0;
+        for (int i = 0; i < text.Length; i++)
+        {
+            if (i == 2 || i == 4 || i == 8 && text[i] != ' ')
+            {
+                newText += " ";
+            }
+            else if (i == 11)
+            {
+                newText += " - ";
+            }
+            newText += text[i];
+        }
+        OverlayTextBox.Text = newText;
+        if(indexToLast)
+            OverlayTextBox.CaretIndex = OverlayTextBox.Text?.Length ?? 0;
+    }
+
+    private void OverlayTextBox_OnKeyDown(object? sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Back || e.Key == Key.Delete || e.Key == Key.Tab ||
+            e.Key == Key.Left || e.Key == Key.Right || e.Key == Key.Enter)
+        {
+            base.OnKeyDown(e);
+        }
+        else
+        {
+            var keyString = e.Key.ToString();
+            if (!Regex.IsMatch(keyString, @"^D[0-9]$") && !Regex.IsMatch(keyString, @"^NumPad[0-9]$"))
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                base.OnKeyDown(e);
+            }
+        }
     }
 }
