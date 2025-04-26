@@ -3,22 +3,27 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:createVehicle="clr-namespace:OegegLogistics.CreateVehicle"
+        xmlns:shared="clr-namespace:OegegLogistics.Shared"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="OegegLogistics.CreateVehicle.CreateVehicleWindow"
+        x:DataType="createVehicle:CreateVehicleWindowViewModel"
         Title="CreateVehicleWindow">
         
         <Grid x:Name="root"
               RowDefinitions="*,Auto">
-            <Grid ColumnDefinitions="*,*"
-                  Grid.Row="1"
-                  Background="{DynamicResource SystemChromeLowColor}">
+                <ContentControl Grid.Row="0"
+                                Content="{Binding Navigator.CurrentView}"/>
+                <Grid ColumnDefinitions="*,*"
+                      Grid.Row="1"
+                      Background="{DynamicResource SystemChromeLowColor}">
                 <Button Grid.Column="0"
                         HorizontalAlignment="Left"
                         Content="Zurück"
                         Margin="10"
                         Foreground="{DynamicResource SystemAccentColor}"
                         BorderBrush="{DynamicResource SystemAccentColor}"
-                        Background="Transparent"/>
+                        Background="Transparent"
+                        Command="{Binding ReturnClickedCommand}"/>
                 <Button Grid.Column="1"
                         HorizontalAlignment="Right"
                         Content="Weiter"

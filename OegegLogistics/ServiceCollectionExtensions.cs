@@ -12,12 +12,18 @@ namespace OegegLogistics
 
     public static partial class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddViews(this IServiceCollection services)
+        public static IServiceCollection AddWindows(this IServiceCollection services)
         {
             services.AddTransient<MainWindow>();
+            services.AddTransient<CreateVehicleWindow>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddViews(this IServiceCollection services)
+        {
             services.AddTransient<VehiclesView>();
-            services.AddTransient<UicNumberView>();
-            services.AddTransient<SelectVehiceTypeView>();
+            services.AddTransient<SelectVehicleTypeView>();
 
             return services;
         }
@@ -27,6 +33,7 @@ namespace OegegLogistics
             services.AddTransient<MainWindowViewModel>();
             services.AddTransient<VehiclesViewModel>();
             services.AddTransient<CreateVehicleViewModel>();
+            services.AddTransient<CreateVehicleWindowViewModel>();
 
             return services;
         }
@@ -41,8 +48,12 @@ namespace OegegLogistics
 
         public static void AddNavigation(this IServiceCollection collection)
         {
-            //collection.AddSingleton<Mvvm.Navigation.Navigation>();
-            collection.AddSingleton<Navigator<BaseViewModel>>();
+            collection.AddTransient<Navigator<BaseViewModel>>();
+        }
+        
+        public static void AddModels(this IServiceCollection collection)
+        {
+            collection.AddSingleton<CreateVehicleData>();
         }
     }
 }

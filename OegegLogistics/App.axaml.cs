@@ -29,11 +29,13 @@ public partial class App : Application
             client.BaseAddress = new Uri("Test");
         });
 
+        collection.AddWindows();
         collection.AddViews();
         collection.AddViewModels();
         collection.AddServices();
         collection.AddNavigation();
         collection.AddMvvmNavigation();
+        collection.AddModels();
         
         IServiceProvider provider = collection.BuildServiceProvider();
         

@@ -22,17 +22,21 @@ public class NavigationService
     // == public methods ==
     public async Task NavigateAsync<T>() where T : BaseViewModel
     {
-        
+        _navigator.Navigate<T>();
     }
 
     public async Task NavigateNewWindowAsync<W, T>() where W : Window where T :UserControl
     {
-        T view = _serviceProvider.GetRequiredService<T>();
-        Window window = typeof(W).Name switch
+        var e = typeof(W);
+        try
         {
-            nameof(CreateVehicleWindow) => CreateVehicleWindow.Create(view),
-            _ => throw new ArgumentException($"Could not find type of {typeof(W)}")
-        };
-        window.Show();
+            W window = _serviceProvider.GetRequiredService<W>();
+            window.Show();
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception);
+            throw;
+        }
     }
 }

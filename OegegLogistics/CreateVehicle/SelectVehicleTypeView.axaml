@@ -2,8 +2,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:createVehicle="clr-namespace:OegegLogistics.CreateVehicle"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="OegegLogistics.CreateVehicle.SelectVehiceTypeView">
+             x:Class="OegegLogistics.CreateVehicle.SelectVehicleTypeView"
+             x:DataType="createVehicle:SelectVehicleTypeViewModel">
     <Grid ColumnDefinitions="0.2*, 0.8*"
           x:Name="baseGrid">
         
@@ -26,7 +28,8 @@
                          MaxLength="16"
                          KeyUp="OverlayTextBox_OnKeyUp"
                          KeyDown="OverlayTextBox_OnKeyDown"
-                         ZIndex="3"/>
+                         ZIndex="3"
+                         Text="{Binding UicNumber}"/>
             </Canvas>
             
             <Grid.RenderTransform>
@@ -39,20 +42,6 @@
             </Grid.RenderTransform>
             
         </Grid>
-        
-        <!--<Canvas Grid.Column="0"
-                Grid.ColumnSpan="2"
-                x:Name="Canvas"
-                ZIndex="1">
-            <Canvas x:Name="CanvasGroup"
-                    Background="Green"
-                    ZIndex="2">
-                <Svg Path="/Assets/Images/Svg/4010.svg"
-                     x:Name="Svg"/>
-                <TextBox  Watermark="00 00 0000 000 - 0"
-                          Canvas.Bottom="0.3"/>
-            </Canvas>
-        </Canvas> -->
         
         <Border Background="{DynamicResource SystemChromeLowColor}"
                 Grid.Column="0"
