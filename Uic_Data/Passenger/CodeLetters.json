@@ -1,0 +1,21 @@
+{
+	"A" : "Personenwagen 1. Klasse",
+	"B" : "Personenwagen 2. Klasse",
+	"AB" : "Personenwagen 1. und 2. Klasse",
+	"BD" : "Personenwagen 2. Klasse mit Gepäckabteil",
+	"BR" : "Personenwagen 2. Klasse mit Speise-, Buffet-, Barabteil",
+	"WL" : "Schlafwagen",
+	"WR" : "Speisewagen",
+	"Salon" : "Salonwagen",
+	"SR" : "Gesellschaftswagen",
+	"D" : "Gepäckwagen",
+	"DD" : "Doppelstockwagen für Autotransport",
+	"b" : "Bücherwagen",
+	"c" : "Liegeplätze",
+	"k" : "Zugführerkabine",
+	"m" : "Wagen mit eienr Länge über Puffer von mehr als 24m",
+	"p" : "Personenwagen mit Mittelgang",
+	"s" : "Gepäckwagen mit Seitengang",
+	"x" : "Expressgutwagen",
+	"z" : "Wagen mit elektrischen Einrichtungen, die aus der durchgeneden Zugsammelschiene versorgt werden"
+}

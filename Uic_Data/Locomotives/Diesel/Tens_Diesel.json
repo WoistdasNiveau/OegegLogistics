@@ -1,0 +1,10 @@
+﻿{
+  "0-19": "Schnellzuglokomotive über 2000 PS",
+  "20-39": "Güterzuglokomotive über 2000 PS",
+  "40-59": "Universallokomotive von 1000 bis 2000 PS",
+  "60-64": "Verschublojkomotive bis 1000 PS, 2 angetriebene Achsen",
+  "65-69": "Verschublokomotive bis 1000 PS, 3 angetriebene Achsen",
+  "70-79": "Verschublokomotive bis 1000 PS, 4 angetriebene Achsen",
+  "80-89": "Sonderbauart",
+  "90-99": "Schmalspurlokomotive"
+}

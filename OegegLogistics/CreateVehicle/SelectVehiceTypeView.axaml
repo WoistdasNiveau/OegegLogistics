@@ -54,7 +54,7 @@
             </Canvas>
         </Canvas> -->
         
-        <Border Background="{DynamicResource SystemChromeMediumColor}"
+        <Border Background="{DynamicResource SystemChromeLowColor}"
                 Grid.Column="0"
                 x:Name="selectBorder">
             <StackPanel Margin="0,30"

@@ -10,4 +10,14 @@ public partial class CreateVehicleWindow : Window
     {
         InitializeComponent();
     }
+
+    public static Window Create(UserControl control)
+    {
+        CreateVehicleWindow window = new();
+        
+        Grid.SetRow(control, 0);
+        window.root.Children.Add(control);
+        
+        return window;
+    }
 }

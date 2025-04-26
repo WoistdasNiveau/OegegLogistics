@@ -12,10 +12,12 @@ using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Styling;
+using Mvvm.Navigation;
 using Svg;
 
 namespace OegegLogistics.CreateVehicle;
 
+[ViewFor<CreateVehicleViewModel>]
 public partial class SelectVehiceTypeView : UserControl
 {
     // == private fields ==
@@ -25,9 +27,10 @@ public partial class SelectVehiceTypeView : UserControl
     private bool _isLocoShowing;
     private double _relativeTextBoxX = 0.47;
     private double _relativeTextBoxY = 0.61;
-    public SelectVehiceTypeView(IServiceProvider serviceProvider)
+    public SelectVehiceTypeView(IServiceProvider serviceProvider, CreateVehicleViewModel createVehicleViewModel)
     {
         InitializeComponent();
+        DataContext = createVehicleViewModel;
         _serviceProvider = serviceProvider;
         
         SizeChanged += OnSizeChanged;

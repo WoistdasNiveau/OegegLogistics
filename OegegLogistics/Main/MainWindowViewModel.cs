@@ -29,6 +29,6 @@ public partial class MainWindowViewModel : BaseViewModel
     [RelayCommand]
     public async Task OpenAddVehicleWindow()
     {
-        await _navigationService.NavigateNewWindowAsync<SelectVehiceTypeView>();
+        await _navigationService.NavigateNewWindowAsync<CreateVehicleWindow, SelectVehiceTypeView>();
     }
 }

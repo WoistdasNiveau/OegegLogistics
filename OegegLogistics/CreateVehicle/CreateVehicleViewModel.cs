@@ -19,6 +19,12 @@ public partial class CreateVehicleViewModel : BaseViewModel
 
     [ObservableProperty]
     private uint? _uicSerialNumber;
+
+    [ObservableProperty]
+    private bool _returnButtonVisible = false;
+
+    [ObservableProperty]
+    private bool _continueButtonVisible = false;
     
     // == private fields ==
     private readonly JsonService _jonService;

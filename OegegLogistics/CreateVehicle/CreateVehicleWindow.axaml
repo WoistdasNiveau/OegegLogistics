@@ -6,4 +6,27 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="OegegLogistics.CreateVehicle.CreateVehicleWindow"
         Title="CreateVehicleWindow">
+        
+        <Grid x:Name="root"
+              RowDefinitions="*,Auto">
+            <Grid ColumnDefinitions="*,*"
+                  Grid.Row="1"
+                  Background="{DynamicResource SystemChromeLowColor}">
+                <Button Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        Content="Zurück"
+                        Margin="10"
+                        Foreground="{DynamicResource SystemAccentColor}"
+                        BorderBrush="{DynamicResource SystemAccentColor}"
+                        Background="Transparent"/>
+                <Button Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        Content="Weiter"
+                        Margin="10"
+                        Foreground="{DynamicResource AccentButtonForeground}"
+                        BorderBrush="{DynamicResource AccentButtonBorderBrush}"
+                        Background="Transparent"/>
+            </Grid>
+        </Grid>
+        
 </Window>

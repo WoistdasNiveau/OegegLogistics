@@ -25,11 +25,14 @@ public class NavigationService
         
     }
 
-    public async Task NavigateNewWindowAsync<T>()
+    public async Task NavigateNewWindowAsync<W, T>() where W : Window where T :UserControl
     {
         T view = _serviceProvider.GetRequiredService<T>();
-        Window window = new Window();
-        window.Content = view;
+        Window window = typeof(W).Name switch
+        {
+            nameof(CreateVehicleWindow) => CreateVehicleWindow.Create(view),
+            _ => throw new ArgumentException($"Could not find type of {typeof(W)}")
+        };
         window.Show();
     }
 }

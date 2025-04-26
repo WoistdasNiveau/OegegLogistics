@@ -1,0 +1,26 @@
+{
+	"00" : "bis 120km/h, Ea+b+c+d",
+	"03" : "bis 120 km/h, Ea",
+	"04" : "bis 120km/h, Ea",
+	"10" : "bis 120km/h, Ea+b+c+d+V, Mittelgang",
+	"13" : "bis 120km/h, Ea+V",
+	"14" : "bis 120km/h, Ea+V, Mittelgang",
+	"30" : "121 bis 140 km/h, Ea+b+c+d",
+	"33" : "121 bis 140 km/h, Ea",
+	"34" : "121 bis 140 km/h, Ea, Mittelgang",
+	"35" : "121 bis 140 km/h, Ea, Schlieren",
+	"40" : "121 bis 140 km/h, Ea+b+c+d+V",
+	"42" : "121 bis 140 km/h, Ea+b+c+d+V",
+	"43" : "121 bis 140 km/h, Ea+V",
+	"50" : "121 bis 160 km/h, Ea+b+c+d+V",
+	"70" : "141 bis 160 km/h, Ea+b+c+d",
+	"71" : "141 bis 160 km/h, Ea+b+c+d",
+	"73" : "141 bis 160 km/h, Ea",
+	"75" : "141 bis 160 km/h, Ea, Neue Generation",
+	"80" : "141 bis 160 km/h, Ea+b+c+d+V",
+	"90" : "ab 160 km/h, Ea+b+c+d",
+	"91" : "ab 160 km/h, Ea+b+c+d",
+	"92" : "ab 160 km/h, Ea+b+c+d",
+	"94" : "ab 160 km/h, Ea"
+}
+	
