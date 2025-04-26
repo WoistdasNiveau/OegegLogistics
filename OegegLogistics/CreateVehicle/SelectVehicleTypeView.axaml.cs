@@ -52,30 +52,21 @@ public partial class SelectVehicleTypeView : UserControl
         };
         SvgCanvas.SizeChanged += (_, _) => UpdateOverlayPosition();
     }
+    
+    private Animation testAnimation;
 
     private async void SelectVehicleTypeViewModelOnReturnClicked(object? sender, EventArgs e)
     {
-        var translateTransform = GetTransform<TranslateTransform>((SvgGrid.RenderTransform as TransformGroup)!);
-        var scaleTransform = GetTransform<ScaleTransform>((SvgGrid.RenderTransform as TransformGroup)!);
-
-        double startX = translateTransform.X;
-        double startY = translateTransform.Y;
-        double startScale = scaleTransform.ScaleX;
-
-        double endX = _width - SvgCanvas.Bounds.Width;
-        double endY = translateTransform.Y + SvgCanvas.Bounds.Width * 0.05;
-        double endScale = 1.0;
-
-        Animation animation = CreateZoomAndMoveAnimation(startX, startY, startScale, endX, endY, endScale);
+        testAnimation.PlaybackDirection = PlaybackDirection.Reverse;
+        await testAnimation.RunAsync(SvgGrid);
         selectBorder.IsVisible = true;
-        await animation.RunAsync(SvgGrid);
-        
+
         /*
         if(!_isLocoShowing)
             return;
         double startX = -_width + baseGrid.ColumnDefinitions[0].ActualWidth + SvgCanvas.Bounds.Width / 2;
         double endX = - _width;
-        
+
         selectBorder.IsVisible = true;
         await MoveSvgGridAsync(startX, endX);
 
@@ -138,6 +129,7 @@ public partial class SelectVehicleTypeView : UserControl
                 },
             }
         };
+        testAnimation = animation;
         selectBorder.IsVisible = false;
         await animation.RunAsync(SvgGrid);
     }
