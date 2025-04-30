@@ -42,7 +42,7 @@ public partial class SelectVehicleTypeView : UserControl
         
         SvgGrid.SizeChanged += (_, _) =>
         {
-            var gridSize = SvgGrid.Bounds;
+            Rect gridSize = SvgGrid.Bounds;
 
             SvgCanvas.Width = gridSize.Width;
             SvgCanvas.Height = gridSize.Height;
@@ -60,41 +60,6 @@ public partial class SelectVehicleTypeView : UserControl
     {
         _zoomAnimation.PlaybackDirection = PlaybackDirection.Reverse;
         await _zoomAnimation.RunAsync(SvgGrid);
-        selectBorder.IsVisible = true;
-        return;
-        
-        Animation animation = new Animation()
-        {
-            Duration = TimeSpan.FromSeconds(1),
-            Easing = new ExponentialEaseOut(),
-            FillMode = FillMode.Forward, 
-            PlaybackDirection = PlaybackDirection.Reverse,
-            Children =
-            {
-                new KeyFrame()
-                {
-                    Setters =
-                    {
-                        new Setter(TranslateTransform.XProperty, -_width + baseGrid.ColumnDefinitions[0].ActualWidth + SvgCanvas.Bounds.Width / 2),
-                        new Setter(ScaleTransform.ScaleXProperty, 1),
-                        new Setter(ScaleTransform.ScaleYProperty, 1)
-                    },
-                    KeyTime = TimeSpan.FromSeconds(0)
-                },
-                new KeyFrame()
-                {
-                    Setters =
-                    {
-                        new Setter(TranslateTransform.XProperty, (_width - SvgCanvas.Bounds.Width) / 2),
-                        new Setter(TranslateTransform.YProperty, - SvgCanvas.Bounds.Width * 0.05),
-                        new Setter(ScaleTransform.ScaleXProperty, 2.5),
-                        new Setter(ScaleTransform.ScaleYProperty, 2.5),
-                    },
-                    KeyTime = TimeSpan.FromSeconds(1)
-                },
-            }
-        };
-        await animation.RunAsync(SvgGrid);
         selectBorder.IsVisible = true;
     }
 
@@ -118,7 +83,7 @@ public partial class SelectVehicleTypeView : UserControl
                 },
                 new KeyFrame
                 {
-                    Setters = { new Setter(TranslateTransform.XProperty, -_width + baseGrid.ColumnDefinitions[0].ActualWidth + SvgCanvas.Bounds.Width / 2) },
+                    Setters = { new Setter(TranslateTransform.XProperty, -this.Bounds.Center.X /2)},
                     KeyTime = TimeSpan.FromSeconds(1)
                 }
             }
@@ -135,7 +100,7 @@ public partial class SelectVehicleTypeView : UserControl
                 {
                     Setters =
                     {
-                        new Setter(TranslateTransform.XProperty, -_width + baseGrid.ColumnDefinitions[0].ActualWidth + SvgCanvas.Bounds.Width / 2),
+                        new Setter(TranslateTransform.XProperty, -this.Bounds.Center.X /2),
                         new Setter(TranslateTransform.YProperty, 0),
                         new Setter(ScaleTransform.ScaleXProperty, 1d),
                         new Setter(ScaleTransform.ScaleYProperty, 1d)
@@ -146,8 +111,8 @@ public partial class SelectVehicleTypeView : UserControl
                 {
                     Setters =
                     {
-                        new Setter(TranslateTransform.XProperty, (_width - SvgCanvas.Bounds.Width) / 2),
-                        new Setter(TranslateTransform.YProperty, - SvgCanvas.Bounds.Width * 0.05),
+                        new Setter(TranslateTransform.XProperty, (this.Bounds.Center.X - SvgCanvas.Bounds.Center.X * 0.75) / 2),
+                        new Setter(TranslateTransform.YProperty,  this.Bounds.Center.Y), //somehow adding values here does not change anything at all
                         new Setter(ScaleTransform.ScaleXProperty, 2.5d),
                         new Setter(ScaleTransform.ScaleYProperty, 2.5d),
                     },
@@ -172,47 +137,6 @@ public partial class SelectVehicleTypeView : UserControl
         _zoomAnimation.PlaybackDirection = PlaybackDirection.Normal;
         await _zoomAnimation.RunAsync(SvgGrid);
         selectBorder.IsVisible = false;
-        return;
-        TranslateTransform translateTransform = GetTransform<TranslateTransform>((SvgGrid.RenderTransform as TransformGroup)!);
-        ScaleTransform scaleTransform = GetTransform<ScaleTransform>((SvgGrid.RenderTransform as TransformGroup)!);
-        
-        Animation animation = new Animation()
-        {
-            Duration = TimeSpan.FromSeconds(1),
-            Easing = new ExponentialEaseOut(),
-            FillMode = FillMode.Forward,
-            Children =
-            {
-                new KeyFrame()
-                {
-                    Setters =
-                    {
-                        new Setter(TranslateTransform.XProperty, -_width + baseGrid.ColumnDefinitions[0].ActualWidth + SvgCanvas.Bounds.Width / 2),
-                        new Setter(ScaleTransform.ScaleXProperty, 1d),
-                        new Setter(ScaleTransform.ScaleYProperty, 1d)
-                    },
-                    KeyTime = TimeSpan.FromSeconds(0)
-                },
-                new KeyFrame()
-                {
-                    Setters =
-                    {
-                        new Setter(TranslateTransform.XProperty, (_width - SvgCanvas.Bounds.Width) / 2),
-                        new Setter(TranslateTransform.YProperty, - SvgCanvas.Bounds.Width * 0.05),
-                        new Setter(ScaleTransform.ScaleXProperty, 2.5d),
-                        new Setter(ScaleTransform.ScaleYProperty, 2.5d),
-                    },
-                    KeyTime = TimeSpan.FromSeconds(1)
-                },
-            }
-        };
-        selectBorder.IsVisible = false;
-        await animation.RunAsync(SvgGrid);
-    }
-
-    private T GetTransform<T>(TransformGroup transformGroup) where T : Transform
-    {
-        return transformGroup.Children.OfType<T>().FirstOrDefault()!;
     }
     
     private void UpdateOverlayPosition()
@@ -221,7 +145,7 @@ public partial class SelectVehicleTypeView : UserControl
         double canvasHeight = SvgCanvas.Bounds.Height;
 
         OverlayTextBox.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
-        var textSize = OverlayTextBox.DesiredSize;
+        Size textSize = OverlayTextBox.DesiredSize;
 
         double x = canvasWidth * _relativeTextBoxX - textSize.Width / 2;
         double y = canvasHeight * _relativeTextBoxY - textSize.Height / 2;
