@@ -28,6 +28,9 @@ public partial class SelectVehicleTypeView : UserControl
     private bool _isLocoShowing;
     private double _relativeTextBoxX = 0.47;
     private double _relativeTextBoxY = 0.61;
+
+    private Animation _slideAnimation;
+    private Animation _zoomAnimation;
     public SelectVehicleTypeView(IServiceProvider serviceProvider, SelectVehicleTypeViewModel selectVehicleTypeViewModel)
     {
         InitializeComponent();
@@ -52,26 +55,47 @@ public partial class SelectVehicleTypeView : UserControl
         };
         SvgCanvas.SizeChanged += (_, _) => UpdateOverlayPosition();
     }
-    
-    private Animation testAnimation;
 
     private async void SelectVehicleTypeViewModelOnReturnClicked(object? sender, EventArgs e)
     {
-        testAnimation.PlaybackDirection = PlaybackDirection.Reverse;
-        await testAnimation.RunAsync(SvgGrid);
+        _zoomAnimation.PlaybackDirection = PlaybackDirection.Reverse;
+        await _zoomAnimation.RunAsync(SvgGrid);
         selectBorder.IsVisible = true;
-
-        /*
-        if(!_isLocoShowing)
-            return;
-        double startX = -_width + baseGrid.ColumnDefinitions[0].ActualWidth + SvgCanvas.Bounds.Width / 2;
-        double endX = - _width;
-
+        return;
+        
+        Animation animation = new Animation()
+        {
+            Duration = TimeSpan.FromSeconds(1),
+            Easing = new ExponentialEaseOut(),
+            FillMode = FillMode.Forward, 
+            PlaybackDirection = PlaybackDirection.Reverse,
+            Children =
+            {
+                new KeyFrame()
+                {
+                    Setters =
+                    {
+                        new Setter(TranslateTransform.XProperty, -_width + baseGrid.ColumnDefinitions[0].ActualWidth + SvgCanvas.Bounds.Width / 2),
+                        new Setter(ScaleTransform.ScaleXProperty, 1),
+                        new Setter(ScaleTransform.ScaleYProperty, 1)
+                    },
+                    KeyTime = TimeSpan.FromSeconds(0)
+                },
+                new KeyFrame()
+                {
+                    Setters =
+                    {
+                        new Setter(TranslateTransform.XProperty, (_width - SvgCanvas.Bounds.Width) / 2),
+                        new Setter(TranslateTransform.YProperty, - SvgCanvas.Bounds.Width * 0.05),
+                        new Setter(ScaleTransform.ScaleXProperty, 2.5),
+                        new Setter(ScaleTransform.ScaleYProperty, 2.5),
+                    },
+                    KeyTime = TimeSpan.FromSeconds(1)
+                },
+            }
+        };
+        await animation.RunAsync(SvgGrid);
         selectBorder.IsVisible = true;
-        await MoveSvgGridAsync(startX, endX);
-
-        _isLocoShowing = false;
-        */
     }
 
     private void OnSizeChanged(object? sender, SizeChangedEventArgs e)
@@ -79,23 +103,76 @@ public partial class SelectVehicleTypeView : UserControl
         Svg.Margin = new Thickness(0,0, 0, 0);
         _width = e.NewSize.Width;
         _height = e.NewSize.Height;
+        
+        _slideAnimation = new Animation()
+        {
+            Duration = TimeSpan.FromSeconds(1),
+            Easing = new ExponentialEaseOut(),
+            FillMode = FillMode.Forward,
+            Children =
+            {
+                new KeyFrame
+                {
+                    Setters = { new Setter(TranslateTransform.XProperty, -_width) },
+                    KeyTime = TimeSpan.FromSeconds(0)
+                },
+                new KeyFrame
+                {
+                    Setters = { new Setter(TranslateTransform.XProperty, -_width + baseGrid.ColumnDefinitions[0].ActualWidth + SvgCanvas.Bounds.Width / 2) },
+                    KeyTime = TimeSpan.FromSeconds(1)
+                }
+            }
+        };
+        
+        _zoomAnimation = new Animation()
+        {
+            Duration = TimeSpan.FromSeconds(1),
+            Easing = new ExponentialEaseOut(),
+            FillMode = FillMode.Forward,
+            Children =
+            {
+                new KeyFrame()
+                {
+                    Setters =
+                    {
+                        new Setter(TranslateTransform.XProperty, -_width + baseGrid.ColumnDefinitions[0].ActualWidth + SvgCanvas.Bounds.Width / 2),
+                        new Setter(TranslateTransform.YProperty, 0),
+                        new Setter(ScaleTransform.ScaleXProperty, 1d),
+                        new Setter(ScaleTransform.ScaleYProperty, 1d)
+                    },
+                    KeyTime = TimeSpan.FromSeconds(0)
+                },
+                new KeyFrame()
+                {
+                    Setters =
+                    {
+                        new Setter(TranslateTransform.XProperty, (_width - SvgCanvas.Bounds.Width) / 2),
+                        new Setter(TranslateTransform.YProperty, - SvgCanvas.Bounds.Width * 0.05),
+                        new Setter(ScaleTransform.ScaleXProperty, 2.5d),
+                        new Setter(ScaleTransform.ScaleYProperty, 2.5d),
+                    },
+                    KeyTime = TimeSpan.FromSeconds(1)
+                },
+            }
+        };
     }
 
     private async void InputElement_OnPointerEntered(object? sender, PointerEventArgs e)
     {
         if(_isLocoShowing)
             return;
-        
-        double startX = -_width;
-        double endX = -_width + baseGrid.ColumnDefinitions[0].ActualWidth + SvgCanvas.Bounds.Width / 2;
 
-        
+        _slideAnimation.PlaybackDirection = PlaybackDirection.Normal;
+        await _slideAnimation.RunAsync(SvgGrid);
         _isLocoShowing = true;
-        await MoveSvgGridAsync(startX, endX);
     }
 
     private async void LocomotiveTapped(object? sender, TappedEventArgs e)
     {
+        _zoomAnimation.PlaybackDirection = PlaybackDirection.Normal;
+        await _zoomAnimation.RunAsync(SvgGrid);
+        selectBorder.IsVisible = false;
+        return;
         TranslateTransform translateTransform = GetTransform<TranslateTransform>((SvgGrid.RenderTransform as TransformGroup)!);
         ScaleTransform scaleTransform = GetTransform<ScaleTransform>((SvgGrid.RenderTransform as TransformGroup)!);
         
@@ -110,9 +187,9 @@ public partial class SelectVehicleTypeView : UserControl
                 {
                     Setters =
                     {
-                        new Setter(TranslateTransform.XProperty, translateTransform.X),
-                        new Setter(ScaleTransform.ScaleXProperty, scaleTransform.ScaleX),
-                        new Setter(ScaleTransform.ScaleYProperty, scaleTransform.ScaleY)
+                        new Setter(TranslateTransform.XProperty, -_width + baseGrid.ColumnDefinitions[0].ActualWidth + SvgCanvas.Bounds.Width / 2),
+                        new Setter(ScaleTransform.ScaleXProperty, 1d),
+                        new Setter(ScaleTransform.ScaleYProperty, 1d)
                     },
                     KeyTime = TimeSpan.FromSeconds(0)
                 },
@@ -121,15 +198,14 @@ public partial class SelectVehicleTypeView : UserControl
                     Setters =
                     {
                         new Setter(TranslateTransform.XProperty, (_width - SvgCanvas.Bounds.Width) / 2),
-                        new Setter(TranslateTransform.YProperty, translateTransform.Y - SvgCanvas.Bounds.Width * 0.05),
-                        new Setter(ScaleTransform.ScaleXProperty, 2.5),
-                        new Setter(ScaleTransform.ScaleYProperty, 2.5),
+                        new Setter(TranslateTransform.YProperty, - SvgCanvas.Bounds.Width * 0.05),
+                        new Setter(ScaleTransform.ScaleXProperty, 2.5d),
+                        new Setter(ScaleTransform.ScaleYProperty, 2.5d),
                     },
                     KeyTime = TimeSpan.FromSeconds(1)
                 },
             }
         };
-        testAnimation = animation;
         selectBorder.IsVisible = false;
         await animation.RunAsync(SvgGrid);
     }
@@ -196,71 +272,5 @@ public partial class SelectVehicleTypeView : UserControl
                 base.OnKeyDown(e);
             }
         }
-    }
-    
-    private async Task MoveSvgGridAsync(double startX, double endX)
-    {
-        var animation = CreateSlideInAnimation(startX, endX);
-        await animation.RunAsync(SvgGrid);
-    }
-    
-    private Animation CreateSlideInAnimation(double startX, double endX)
-    {
-        return new Animation()
-        {
-            Duration = TimeSpan.FromSeconds(1),
-            Easing = new ExponentialEaseOut(),
-            FillMode = FillMode.Forward,
-            Children =
-            {
-                new KeyFrame
-                {
-                    Setters = { new Setter(TranslateTransform.XProperty, startX) },
-                    KeyTime = TimeSpan.FromSeconds(0)
-                },
-                new KeyFrame
-                {
-                    Setters = { new Setter(TranslateTransform.XProperty, endX) },
-                    KeyTime = TimeSpan.FromSeconds(1)
-                }
-            }
-        };
-    }
-
-    private Animation CreateZoomAndMoveAnimation(
-        double startX, double startY, double startScale,
-        double endX, double endY, double endScale)
-    {
-        return new Animation()
-        {
-            Duration = TimeSpan.FromSeconds(1),
-            Easing = new ExponentialEaseOut(),
-            FillMode = FillMode.Forward,
-            Children =
-            {
-                new KeyFrame
-                {
-                    Setters =
-                    {
-                        new Setter(TranslateTransform.XProperty, startX),
-                        new Setter(TranslateTransform.YProperty, startY),
-                        new Setter(ScaleTransform.ScaleXProperty, startScale),
-                        new Setter(ScaleTransform.ScaleYProperty, startScale)
-                    },
-                    KeyTime = TimeSpan.FromSeconds(0)
-                },
-                new KeyFrame
-                {
-                    Setters =
-                    {
-                        new Setter(TranslateTransform.XProperty, endX),
-                        new Setter(TranslateTransform.YProperty, endY),
-                        new Setter(ScaleTransform.ScaleXProperty, endScale),
-                        new Setter(ScaleTransform.ScaleYProperty, endScale)
-                    },
-                    KeyTime = TimeSpan.FromSeconds(1)
-                }
-            }
-        };
     }
 }
