@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
+using OegegLogistics.Navigation;
 using OegegLogistics.Shared;
 using OegegLogistics.ViewModels.Enums;
 using HttpRequestMessage = OegegLogistics.Shared.ImmutableHttp.HttpRequestMessage;
@@ -37,13 +38,9 @@ public partial class VehiclesViewModel : BaseViewModel
     
     // == constructor ==
 
-    public VehiclesViewModel(HttpClient client)
+    public VehiclesViewModel(HttpClient client, NavigationService navigationService) : base(navigationService)
     {
         _client = client;
-    }
-    
-    public VehiclesViewModel()
-    {
     }
 
     // == private methods ==

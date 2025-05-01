@@ -30,7 +30,8 @@
                         Margin="10"
                         Foreground="{DynamicResource AccentButtonForeground}"
                         BorderBrush="{DynamicResource AccentButtonBorderBrush}"
-                        Background="Transparent"/>
+                        Background="Transparent"
+                        Command="{Binding ContinueClickedCommand}"/>
             </Grid>
         </Grid>
         

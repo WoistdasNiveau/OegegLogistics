@@ -27,7 +27,6 @@ public class NavigationService
 
     public async Task NavigateNewWindowAsync<W, T>() where W : Window where T :UserControl
     {
-        var e = typeof(W);
         try
         {
             W window = _serviceProvider.GetRequiredService<W>();

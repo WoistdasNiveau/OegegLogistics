@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Mvvm.Navigation;
+using OegegLogistics.Navigation;
 using OegegLogistics.Shared;
 
 namespace OegegLogistics.CreateVehicle;
@@ -12,7 +13,7 @@ public partial class CreateVehicleWindowViewModel : BaseViewModel
     [ObservableProperty]
     private Navigator<BaseViewModel> _navigator;
 
-    public CreateVehicleWindowViewModel(Navigator<BaseViewModel> navigator)
+    public CreateVehicleWindowViewModel(Navigator<BaseViewModel> navigator, NavigationService navigationService) : base(navigationService)
     {
         _navigator = navigator;
         _navigator.Navigate<SelectVehicleTypeViewModel>();
@@ -21,7 +22,7 @@ public partial class CreateVehicleWindowViewModel : BaseViewModel
     [RelayCommand]
     public async Task ContinueClicked()
     {
-        
+        (Navigator.CurrentViewModel as ICreateVehicleViewModel)?.Continue();
     }
 
     [RelayCommand]

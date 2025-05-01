@@ -16,7 +16,7 @@ public partial class MainWindowViewModel : BaseViewModel
 {
     private readonly NavigationService _navigationService;
     
-    public MainWindowViewModel(VehiclesView vehiclesView, NavigationService navigationService)
+    public MainWindowViewModel(VehiclesView vehiclesView, NavigationService navigationService) : base(navigationService)
     {
         _vehiclesView = vehiclesView;
         _navigationService = navigationService;

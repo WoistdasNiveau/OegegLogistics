@@ -2,7 +2,38 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:createVehicle="clr-namespace:OegegLogistics.CreateVehicle"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="OegegLogistics.CreateVehicle.AddRepairsView">
-    Welcome to Avalonia!
+             x:Class="OegegLogistics.CreateVehicle.AddRepairsView"
+             x:DataType="createVehicle:AddRepairsViewModel">
+    <Grid>
+        <TextBlock Text="{Binding UicNumber}"/>
+        <StackPanel Orientation="Vertical">
+            <Label Content="Momentaner Kilometerstand"
+                   Target="currentKm"/>
+            <TextBox Name="currentKm"/>
+        </StackPanel>
+        
+        <Grid RowDefinitions="Auto, *">
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="0"
+                        Spacing="20">
+            <TextBlock Text="Ausbesserungen"/>
+            <Button Content="+"/>
+            </StackPanel>
+            <ItemsRepeater Grid.Row="1"
+                           ItemsSource="{Binding Repairs}">
+                <ItemsRepeater.ItemTemplate>
+                    <DataTemplate>
+                        <createVehicle:AddRepairControl RepairType="{Binding Type}"
+                                                        RepairTypeNumber="{Binding Number}"
+                                                        RepairTypeName="{Binding Name}"
+                                                        KmLimit="{Binding KilometerLimit}"
+                                                        ToleranceType="{Binding ToleranceType}"
+                                                        Tolerance="{Binding Tolerance}"/>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </Grid>
+    </Grid>
 </UserControl>
