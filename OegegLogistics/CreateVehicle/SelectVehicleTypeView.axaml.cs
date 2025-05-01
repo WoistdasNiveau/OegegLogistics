@@ -156,8 +156,8 @@ public partial class SelectVehicleTypeView : UserControl
 
     private void OverlayTextBox_OnKeyUp(object? sender, KeyEventArgs e)
     {
-        bool indexToLast = OverlayTextBox.CaretIndex == OverlayTextBox.Text.Length;
-        string text = Regex.Replace(OverlayTextBox.Text.Replace(" ", "").Replace("-", ""), "[a-zA-Z]", "");
+        bool indexToLast = OverlayTextBox.CaretIndex == OverlayTextBox?.Text?.Length;
+        string text = Regex.Replace(OverlayTextBox?.Text?.Replace(" ", "").Replace("-", "") ?? string.Empty, "[a-zA-Z]", "");
         string newText= string.Empty;
         
         for (int i = 0; i < text.Length; i++)

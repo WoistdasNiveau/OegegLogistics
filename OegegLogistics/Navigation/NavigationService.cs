@@ -22,7 +22,15 @@ public class NavigationService
     // == public methods ==
     public async Task NavigateAsync<T>() where T : BaseViewModel
     {
-        _navigator.Navigate<T>();
+        try
+        {
+            _navigator.NavigateByType(typeof(T));
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
     public async Task NavigateNewWindowAsync<W, T>() where W : Window where T :UserControl

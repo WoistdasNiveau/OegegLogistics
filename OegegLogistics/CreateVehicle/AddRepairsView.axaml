@@ -6,23 +6,28 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="OegegLogistics.CreateVehicle.AddRepairsView"
              x:DataType="createVehicle:AddRepairsViewModel">
-    <Grid>
-        <TextBlock Text="{Binding UicNumber}"/>
-        <StackPanel Orientation="Vertical">
+    <Grid RowDefinitions="Auto, Auto,*">
+        <TextBlock Text="{Binding UicNumber}"
+                   Grid.Row="0"/>
+        <StackPanel Orientation="Vertical"
+                    Grid.Row="1">
             <Label Content="Momentaner Kilometerstand"
                    Target="currentKm"/>
             <TextBox Name="currentKm"/>
         </StackPanel>
         
-        <Grid RowDefinitions="Auto, *">
+        <Grid RowDefinitions="Auto, *"
+              Grid.Row="2">
             <StackPanel Orientation="Horizontal"
                         Grid.Row="0"
                         Spacing="20">
             <TextBlock Text="Ausbesserungen"/>
-            <Button Content="+"/>
+            <Button Content="+"
+                    Command="{Binding AddRepairCommand}"/>
             </StackPanel>
-            <ItemsRepeater Grid.Row="1"
-                           ItemsSource="{Binding Repairs}">
+            
+            <ScrollViewer Grid.Row="1">
+            <ItemsRepeater ItemsSource="{Binding Repairs}">
                 <ItemsRepeater.ItemTemplate>
                     <DataTemplate>
                         <createVehicle:AddRepairControl RepairType="{Binding Type}"
@@ -34,6 +39,7 @@
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>
             </ItemsRepeater>
+            </ScrollViewer>
         </Grid>
     </Grid>
 </UserControl>

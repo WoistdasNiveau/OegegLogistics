@@ -50,7 +50,7 @@ namespace OegegLogistics
 
         public static void AddNavigation(this IServiceCollection collection)
         {
-            collection.AddTransient<Navigator<BaseViewModel>>();
+            collection.AddSingleton<Navigator<BaseViewModel>>();
         }
         
         public static void AddModels(this IServiceCollection collection)
