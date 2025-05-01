@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -33,7 +34,7 @@ public partial class SelectVehicleTypeViewModel : BaseViewModel, ICreateVehicleV
     [RelayCommand]
     public async Task Continue()
     {
-        
+        _createVehicleData.UicNumber = UicNumber;
     }
 
     [RelayCommand]
@@ -41,4 +42,6 @@ public partial class SelectVehicleTypeViewModel : BaseViewModel, ICreateVehicleV
     {
         ReturnClicked?.Invoke(this, EventArgs.Empty);
     }
+    
+    // == private methods ==
 }

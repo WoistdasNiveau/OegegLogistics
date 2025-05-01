@@ -4,5 +4,5 @@ namespace OegegLogistics.CreateVehicle;
 
 public class CreateVehicleData
 {
-    public UicNumber UicNumber { get; set; }
+    public string UicNumber { get; set; }
 }

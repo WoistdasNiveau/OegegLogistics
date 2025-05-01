@@ -4,6 +4,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Mvvm.Navigation;
 using OegegLogistics.Main;
@@ -15,9 +16,15 @@ namespace OegegLogistics;
 // the design: https://dribbble.com/shots/6725059/attachments/6725059-Responsive-table-Dark-theme?mode=media
 public partial class App : Application
 {
+    public static IConfiguration Configuration { get; private set; }
     public override void Initialize()
     {
         AvaloniaXamlLoader.Load(this);
+        
+        Configuration = new ConfigurationBuilder()
+            .SetBasePath(AppContext.BaseDirectory)
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            .Build();
     }
 
     public override void OnFrameworkInitializationCompleted()

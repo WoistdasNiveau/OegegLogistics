@@ -14,6 +14,7 @@
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
         <StyleInclude Source="Shared/Components/SwitchPageComponent.axaml"/>
         <StyleInclude Source="CreateVehicle/UICNumberComponent.axaml"/>
+        <StyleInclude Source="CreateVehicle/AddRepairControl.axaml"/>
         
         <Style Selector="TextBox.pageNumber, Button.pageNumber, Label.pageNumber">
             <Setter Property="FontSize" Value="12"/>
