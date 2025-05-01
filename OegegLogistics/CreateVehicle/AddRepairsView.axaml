@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:createVehicle="clr-namespace:OegegLogistics.CreateVehicle"
+             xmlns:models="clr-namespace:OegegLogistics.Models"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="OegegLogistics.CreateVehicle.AddRepairsView"
              x:DataType="createVehicle:AddRepairsViewModel">
@@ -25,7 +26,64 @@
             <Button Content="+"
                     Command="{Binding AddRepairCommand}"/>
             </StackPanel>
-            
+            <DataGrid Grid.Row="1"
+                      ItemsSource="{Binding Repairs}"
+                      AutoGenerateColumns="False"
+                      GridLinesVisibility="All">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Typ"
+                                        Binding="{Binding Type}"
+                                        Width="*"/>
+                    
+                    <DataGridTemplateColumn Header="Nummer"
+                                            IsReadOnly="True"
+                                            Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate DataType="models:RepairModel">
+                                <NumericUpDown Text="{Binding Number}"
+                                               Minimum="0"
+                                               Increment="1"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    
+                    <DataGridTextColumn Header="Name"
+                                        Binding="{Binding Name}"
+                                        Width="*"/>
+                    
+                    <DataGridTextColumn Header="Bei Kilometerstand"
+                                        Binding="{Binding KilometerLimit}"
+                                        Width="*"/>
+                    
+                    <DataGridTextColumn Header="Toleranz"
+                                        Binding="{Binding Tolerance}"
+                                        Width="*"/>
+                    
+                    <DataGridTemplateColumn Header="Einheit"
+                                            Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="models:RepairModel">
+                                <ComboBox ItemsSource="{Binding ToleranceTypes}"
+                                          SelectedValue="{Binding ToleranceType}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    
+                    <DataGridTemplateColumn Width="*"
+                                            Header="">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="x"
+                                        Command="{Binding ((createVehicle:AddRepairsViewModel)DataContext).RemoveRepairCommand,
+                                        RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                                        CommandParameter="{Binding .}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    
+                </DataGrid.Columns>
+            </DataGrid>
+            <!--
             <ScrollViewer Grid.Row="1">
             <ItemsRepeater ItemsSource="{Binding Repairs}">
                 <ItemsRepeater.ItemTemplate>
@@ -39,7 +97,7 @@
                     </DataTemplate>
                 </ItemsRepeater.ItemTemplate>
             </ItemsRepeater>
-            </ScrollViewer>
+            </ScrollViewer> -->
         </Grid>
     </Grid>
 </UserControl>

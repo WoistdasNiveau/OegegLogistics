@@ -35,6 +35,11 @@ public partial class AddRepairsViewModel : BaseViewModel, ICreateVehicleViewMode
         Repairs.Add(new RepairModel());
     }
 
+    [RelayCommand]
+    public void RemoveRepair(RepairModel repair)
+    {
+        Repairs.Remove(repair);
+    }
     public Task Continue()
     {
         throw new System.NotImplementedException();
