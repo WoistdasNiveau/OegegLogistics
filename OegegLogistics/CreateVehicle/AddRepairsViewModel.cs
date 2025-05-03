@@ -47,12 +47,7 @@ public partial class AddRepairsViewModel : BaseViewModel, ICreateVehicleViewMode
     [RelayCommand]
     public void RemoveRepair(RepairDisplayViewModel repair)
     {
-        Repairs.Where(t => t.Type == repair.Type && t.SequenceNumber > repair.SequenceNumber)
-            .ToList().ForEach(f => f.SequenceNumber --);
         Repairs.Remove(repair);
-        
-        if(Repairs.Count(t => t.Type == repair.Type)  == 0)
-            Repairs.FirstOrDefault(t => t.Type == repair.Type).SequenceNumber = null;
     }
     
     // == public methods ==
