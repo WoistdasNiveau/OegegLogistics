@@ -33,16 +33,23 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Typ"
                                         Binding="{Binding Type}"
-                                        Width="*"/>
+                                        Width="*">
+                    </DataGridTextColumn>
                     
-                    <DataGridTemplateColumn Header="Nummer"
+                    <DataGridTemplateColumn Header="Sequenz"
                                             IsReadOnly="True"
                                             Width="*">
                         <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate DataType="models:RepairModel">
-                                <NumericUpDown Text="{Binding Number}"
-                                               Minimum="0"
-                                               Increment="1"/>
+                            <DataTemplate DataType="createVehicle:RepairDisplayViewModel">
+                                <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Center"
+                                            Margin="10,0">
+                                    <CheckBox IsChecked="{Binding HasSequence}"/>
+                                    <NumericUpDown Text="{Binding SequenceNumber}"
+                                                   IsEnabled="{Binding HasSequence}"
+                                                   Minimum="0"
+                                                   Increment="1"/>
+                                </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -62,9 +69,11 @@
                     <DataGridTemplateColumn Header="Einheit"
                                             Width="*">
                         <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate x:DataType="models:RepairModel">
-                                <ComboBox ItemsSource="{Binding ToleranceTypes}"
-                                          SelectedValue="{Binding ToleranceType}"/>
+                            <DataTemplate x:DataType="createVehicle:RepairDisplayViewModel">
+                                <ComboBox ItemsSource="{Binding ((createVehicle:AddRepairsViewModel)DataContext).ToleranceTypes,
+                                RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                                          SelectedIndex="0"
+                                          SelectedValue="{Binding ToleranceType, Converter={StaticResource ToleranceTypeToStringConverter}}"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

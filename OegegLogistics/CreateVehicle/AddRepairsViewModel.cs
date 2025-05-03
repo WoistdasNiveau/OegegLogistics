@@ -1,4 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -7,6 +11,7 @@ using OegegLogistics.Models;
 using OegegLogistics.Navigation;
 using OegegLogistics.Shared;
 using OegegLogistics.Shared.Services;
+using OegegLogistics.ViewModels.Enums;
 
 namespace OegegLogistics.CreateVehicle;
 
@@ -17,7 +22,10 @@ public partial class AddRepairsViewModel : BaseViewModel, ICreateVehicleViewMode
     private string _uicNumber;
 
     [ObservableProperty]
-    private ObservableCollection<RepairModel> _repairs = new ObservableCollection<RepairModel>();
+    private ObservableCollection<RepairDisplayViewModel> _repairs = new ObservableCollection<RepairDisplayViewModel>();
+    
+    // == properties ==
+    public List<ToleranceType> ToleranceTypes { get; } = Enum.GetValues<ToleranceType>().ToList();
     
     // == private fields ==
     private readonly CreateVehicleData _createVehicleData;
@@ -32,14 +40,22 @@ public partial class AddRepairsViewModel : BaseViewModel, ICreateVehicleViewMode
     [RelayCommand]
     public void AddRepair()
     {
-        Repairs.Add(new RepairModel());
+        RepairDisplayViewModel newRepair = new RepairDisplayViewModel();
+        Repairs.Add(newRepair);
     }
 
     [RelayCommand]
-    public void RemoveRepair(RepairModel repair)
+    public void RemoveRepair(RepairDisplayViewModel repair)
     {
+        Repairs.Where(t => t.Type == repair.Type && t.SequenceNumber > repair.SequenceNumber)
+            .ToList().ForEach(f => f.SequenceNumber --);
         Repairs.Remove(repair);
+        
+        if(Repairs.Count(t => t.Type == repair.Type)  == 0)
+            Repairs.FirstOrDefault(t => t.Type == repair.Type).SequenceNumber = null;
     }
+    
+    // == public methods ==
     public Task Continue()
     {
         throw new System.NotImplementedException();
