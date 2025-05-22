@@ -28,6 +28,6 @@ public abstract partial class BaseCreateVehicleViewModel : BaseViewModel
     }
     
     // == methods ==
-    public virtual async Task Continue() => throw new System.NotImplementedException();
-    public virtual async Task Return() => throw new System.NotImplementedException();
+    public virtual async Task Continue() => throw new System.NotSupportedException("Continue method was not implemented.");
+    public virtual async Task Return() => throw new System.NotSupportedException("Return method was not implemented.");
 }
