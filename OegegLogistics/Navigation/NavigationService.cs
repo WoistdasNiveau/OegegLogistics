@@ -33,6 +33,19 @@ public class NavigationService
         }
     }
 
+    public async Task NavigateBackAsync()
+    {
+        try
+        {
+            _navigator.NavigateBack();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
     public async Task NavigateNewWindowAsync<W, T>() where W : Window where T :UserControl
     {
         try

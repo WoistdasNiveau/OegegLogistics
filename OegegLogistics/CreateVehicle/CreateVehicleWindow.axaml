@@ -23,7 +23,9 @@
                         Foreground="{DynamicResource SystemAccentColor}"
                         BorderBrush="{DynamicResource SystemAccentColor}"
                         Background="Transparent"
-                        Command="{Binding ReturnClickedCommand}"/>
+                        Command="{Binding  CurrentViewModel.Return}"
+                        IsVisible="{Binding CurrentViewModel.IsReturnButtonVisible}"
+                        IsEnabled="{Binding CurrentViewModel.IsReturnButtonEnabled}"/>
                 <Button Grid.Column="1"
                         HorizontalAlignment="Right"
                         Content="Weiter"
@@ -31,7 +33,9 @@
                         Foreground="{DynamicResource AccentButtonForeground}"
                         BorderBrush="{DynamicResource AccentButtonBorderBrush}"
                         Background="Transparent"
-                        Command="{Binding ContinueClickedCommand}"/>
+                        Command="{Binding CurrentViewModel.Continue}"
+                        IsVisible="{Binding CurrentViewModel.IsContinueButtonVisible}"
+                        IsEnabled="{Binding CurrentViewModel.IsContinueButtonEnabled}"/>
             </Grid>
         </Grid>
         

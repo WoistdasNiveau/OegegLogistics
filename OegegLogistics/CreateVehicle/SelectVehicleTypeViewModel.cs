@@ -8,7 +8,7 @@ using OegegLogistics.Shared;
 
 namespace OegegLogistics.CreateVehicle;
 
-public partial class SelectVehicleTypeViewModel : BaseViewModel, ICreateVehicleViewModel
+public partial class SelectVehicleTypeViewModel : BaseCreateVehicleViewModel
 {
     // == Observable proeprties ==
     [ObservableProperty]
@@ -17,12 +17,10 @@ public partial class SelectVehicleTypeViewModel : BaseViewModel, ICreateVehicleV
     // == public properties ==
     public event EventHandler ReturnClicked;
     
-    // == private fields ==
-    private readonly CreateVehicleData _createVehicleData;
 
-    public SelectVehicleTypeViewModel(CreateVehicleData createVehicleData, NavigationService navigationService) : base(navigationService)
+    public SelectVehicleTypeViewModel(CreateVehicleData createVehicleData, NavigationService navigationService) : base(navigationService, createVehicleData)
     {
-        _createVehicleData = createVehicleData;
+        
     }
     
     // == Relay Commands ==
@@ -33,12 +31,12 @@ public partial class SelectVehicleTypeViewModel : BaseViewModel, ICreateVehicleV
     }
 
     [RelayCommand]
-    public async Task Continue()
+    public override async Task Continue()
     {
         _createVehicleData.UicNumber = UicNumber;
         try
         {
-            await NavigationService.NavigateAsync<AddRepairsViewModel>();
+            await NavigationService.NavigateAsync<SetCurrentKilometersViewModel>();
         }
         catch (Exception e)
         {
@@ -48,7 +46,7 @@ public partial class SelectVehicleTypeViewModel : BaseViewModel, ICreateVehicleV
     }
 
     [RelayCommand]
-    public async Task Return()
+    public override async Task Return()
     {
         ReturnClicked?.Invoke(this, EventArgs.Empty);
     }

@@ -24,6 +24,7 @@ namespace OegegLogistics
         {
             services.AddTransient<VehiclesView>();
             services.AddTransient<SelectVehicleTypeView>();
+            services.AddTransient<SetCurrentKilometersView>();
             services.AddTransient<AddRepairsView>();
 
             return services;
@@ -34,8 +35,9 @@ namespace OegegLogistics
             services.AddTransient<MainWindowViewModel>();
             services.AddTransient<VehiclesViewModel>();
             services.AddTransient<CreateVehicleWindowViewModel>();
-            services.AddTransient<AddRepairsViewModel>();
+            services.AddTransient<SetCurrentKilometersViewModel>();
             services.AddTransient<SelectVehicleTypeViewModel>();
+            services.AddTransient<AddRepairsViewModel>();
 
             return services;
         }

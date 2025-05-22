@@ -1,63 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Mvvm.Navigation;
 using OegegLogistics.Models;
 using OegegLogistics.Navigation;
-using OegegLogistics.Shared;
-using OegegLogistics.Shared.Services;
-using OegegLogistics.ViewModels.Enums;
 
 namespace OegegLogistics.CreateVehicle;
 
-public partial class AddRepairsViewModel : BaseViewModel, ICreateVehicleViewModel
+public partial class AddRepairsViewModel : BaseCreateVehicleViewModel
 {
-    // == observable properties ==
+    // == Observable Properties ==
     [ObservableProperty]
-    private string _uicNumber;
-
+    private ObservableCollection<RepairModel> _repairs = new ObservableCollection<RepairModel>();
+    
     [ObservableProperty]
-    private ObservableCollection<RepairDisplayViewModel> _repairs = new ObservableCollection<RepairDisplayViewModel>();
+    private RepairModel? _selectedRepair;
     
-    // == properties ==
-    public List<ToleranceType> ToleranceTypes { get; } = Enum.GetValues<ToleranceType>().ToList();
-    
-    // == private fields ==
-    private readonly CreateVehicleData _createVehicleData;
-    
-    public AddRepairsViewModel(CreateVehicleData createVehicleData, NavigationService navigationService) : base(navigationService)
+    // == constructors ==
+    public AddRepairsViewModel(CreateVehicleData createVehicleData, NavigationService navigationService) : base(navigationService, createVehicleData)
     {
-        _createVehicleData = createVehicleData;
-        UicNumber = _createVehicleData.UicNumber;
     }
     
     // == Relay Commands ==
     [RelayCommand]
     public void AddRepair()
     {
-        RepairDisplayViewModel newRepair = new RepairDisplayViewModel();
-        Repairs.Add(newRepair);
+        Repairs.Add(new RepairModel());
     }
 
     [RelayCommand]
-    public void RemoveRepair(RepairDisplayViewModel repair)
+    public async Task EditRepair(RepairModel repairModel)
     {
-        Repairs.Remove(repair);
+        
+    }
+
+    [RelayCommand]
+    public void RemoveRepair()
+    {
+        if(SelectedRepair is null)
+            return;
+        
+        Repairs.Remove(SelectedRepair);
     }
     
     // == public methods ==
-    public Task Continue()
-    {
-        throw new System.NotImplementedException();
-    }
 
-    public Task Return()
+    public override async Task Return()
     {
-        throw new System.NotImplementedException();
+        await NavigationService.NavigateBackAsync();
     }
 }
