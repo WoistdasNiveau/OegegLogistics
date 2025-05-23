@@ -13,6 +13,7 @@
         </FluentTheme>
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
         <StyleInclude Source="Shared/Components/SwitchPageComponent.axaml"/>
+        <StyleInclude Source="Shared/Components/LabelTextComponent.axaml"/>
         <StyleInclude Source="CreateVehicle/UICNumberComponent.axaml"/>
         <StyleInclude Source="CreateVehicle/AddRepairControl.axaml"/>
         

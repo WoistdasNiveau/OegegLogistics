@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using OegegLogistics.Models;
@@ -23,9 +24,11 @@ public partial class AddRepairsViewModel : BaseCreateVehicleViewModel
     
     // == Relay Commands ==
     [RelayCommand]
-    public void AddRepair()
+    public async Task AddRepair()
     {
-        Repairs.Add(new RepairModel());
+        RepairModel repairModel = new RepairModel();
+        await NavigationService.ShowDialogAsync<AddRepairDialog>(repairModel);
+        Repairs.Add(repairModel);
     }
 
     [RelayCommand]

@@ -26,6 +26,7 @@ namespace OegegLogistics
             services.AddTransient<SelectVehicleTypeView>();
             services.AddTransient<SetCurrentKilometersView>();
             services.AddTransient<AddRepairsView>();
+            services.AddTransient<AddRepairDialog>();
 
             return services;
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Microsoft.Extensions.DependencyInjection;
 using Mvvm.Navigation;
 using OegegLogistics.CreateVehicle;
@@ -56,6 +57,26 @@ public class NavigationService
         catch (Exception exception)
         {
             Console.WriteLine(exception);
+            throw;
+        }
+    }
+
+    public async Task ShowDialogAsync<U>(object? dataContext = default) where U : UserControl
+    {
+        try
+        {
+            Window window = (TopLevel.GetTopLevel(_navigator.CurrentView as UserControl) as Window)!;
+            Window dialog = new Window();
+            UserControl control = _serviceProvider.GetRequiredService<U>();
+            if(dataContext != null)
+                control.DataContext = dataContext;
+            dialog.Content = control;
+            
+            await dialog.ShowDialog(window);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
             throw;
         }
     }

@@ -24,14 +24,7 @@
                             <TextBox Name="typeBox"
                                      Text="{TemplateBinding RepairType}"/>
                         </StackPanel>
-                        <StackPanel Orientation="Vertical">
-                        <Label Content="Nummer"
-                               Target="{Binding #NumericUpDown}"/>
-                        <NumericUpDown Name="NumericUpDown"
-                                       Increment="1"
-                                       Minimum="0"
-                                       Text="{TemplateBinding RepairTypeNumber}"/>
-                        </StackPanel>
+                        
                         <StackPanel Orientation="Vertical">
                             <Label Content="Name"
                                    Target="{Binding #NameBox}"/>
