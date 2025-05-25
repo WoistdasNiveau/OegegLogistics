@@ -42,7 +42,8 @@
                                            VerticalAlignment="Stretch"
                                            HorizontalAlignment="Stretch"
                                            LabelText="Kilometerlimit"
-                                           TextBoxText="{Binding NewRepair.KilometerLimit}"/>
+                                           TextBoxText="{Binding NewRepair.KilometerLimit}"
+                                           Classes="numbers"/>
             
             <components:ToleranceControl Grid.Row="2"
                                          Grid.Column="2"

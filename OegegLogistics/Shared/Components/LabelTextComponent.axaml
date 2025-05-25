@@ -17,4 +17,15 @@
             </ControlTemplate>
         </Setter>
     </Style>
+    
+    <Style Selector="controls|LabelTextComponent.numbers">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <StackPanel Orientation="Vertical">
+                    <Label Content="{TemplateBinding LabelText}"/>
+                    <controls:NumberTextBox1 Text="{TemplateBinding TextBoxText, Mode=TwoWay}"/>
+                </StackPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
 </Styles>
