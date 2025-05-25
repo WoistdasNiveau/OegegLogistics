@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:OegegLogistics.Shared.Components">
+    <Design.PreviewWith>
+        <controls:NumberTextBox />
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type controls:NumberTextBox}" 
+                  BasedOn="{StaticResource {x:Type TextBox}}"
+                  TargetType="{x:Type controls:NumberTextBox}">
+        <Style Selector="^.revealPasswordButton[AcceptsReturn=False][IsReadOnly=False]:not(TextBox:empty)">
+            <Setter Property="InnerRightContent" />
+        </Style>
+
+        <Style Selector="^.clearButton[AcceptsReturn=False][IsReadOnly=False]:focus:not(TextBox:empty)">
+            <Setter Property="InnerRightContent" />
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

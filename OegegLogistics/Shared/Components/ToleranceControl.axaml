@@ -21,7 +21,7 @@
                                Grid.Column="0"
                                Content="{TemplateBinding LabelText, Mode=TwoWay}"
                                HorizontalAlignment="Left"/>
-                        <TextBox Grid.Row="1"
+                        <controls:NumberTextBox Grid.Row="1"
                                  Grid.Column="0"
                                  HorizontalAlignment="Stretch"
                                  Text="{TemplateBinding Tolerance, Mode=TwoWay}"/>

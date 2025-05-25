@@ -57,6 +57,7 @@
             <components:LabelTextComponent Grid.Row="4"
                                            Grid.Column="0"
                                            Grid.ColumnSpan="3"
+                                           Classes="numbers"
                                            VerticalAlignment="Stretch"
                                            HorizontalAlignment="Stretch"
                                            LabelText="Fortschritt"

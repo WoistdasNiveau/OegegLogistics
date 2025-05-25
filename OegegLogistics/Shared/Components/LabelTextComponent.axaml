@@ -23,7 +23,7 @@
             <ControlTemplate>
                 <StackPanel Orientation="Vertical">
                     <Label Content="{TemplateBinding LabelText}"/>
-                    <controls:NumberTextBox1 Text="{TemplateBinding TextBoxText, Mode=TwoWay}"/>
+                    <controls:NumberTextBox Text="{TemplateBinding TextBoxText, Mode=TwoWay}"/>
                 </StackPanel>
             </ControlTemplate>
         </Setter>
