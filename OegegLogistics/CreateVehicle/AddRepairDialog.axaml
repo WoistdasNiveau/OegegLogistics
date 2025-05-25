@@ -4,24 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:components="clr-namespace:OegegLogistics.Shared.Components"
              xmlns:models="clr-namespace:OegegLogistics.Models"
-             xmlns:converters="clr-namespace:OegegLogistics.Shared.Converters"
              xmlns:createVehicle="clr-namespace:OegegLogistics.CreateVehicle"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="OegegLogistics.CreateVehicle.AddRepairDialog"
-             x:DataType="models:RepairModel">
+             x:DataType="createVehicle:AddRepairsViewModel">
     
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <converters:ToleranceTypeToStringConverter x:Key="ToleranceTypeToStringConverter"/>
-        </ResourceDictionary>
-    </UserControl.Resources>
     
-    <Border x:Name="Border">
+    <Grid RowDefinitions="Auto, *, Auto"
+          Margin="10">
+    <Border x:Name="Border"
+            Grid.Row="1">
         <Grid RowDefinitions="Auto, *">
             <TextBlock Text="Ausbesserung hinzufügen"
                        Classes="Title"
                        HorizontalAlignment="Left"/>
-            <Grid RowDefinitions="auto, 20, auto"
+            <Grid RowDefinitions="auto, 20, auto, 20, Auto"
                   Grid.Row="1"
                   ColumnDefinitions="*,10,*"
                   HorizontalAlignment="Stretch"
@@ -31,91 +28,47 @@
                                            VerticalAlignment="Stretch"
                                            HorizontalAlignment="Stretch"
                                            LabelText="Bezeichnung"
-                                           TextBoxText="{Binding Type}"/>
-            
-            <components:LabelTextComponent Grid.Row="2"
-                                           Grid.Column="0"
-                                           VerticalAlignment="Stretch"
-                                           HorizontalAlignment="Stretch"
-                                           LabelText="Beschreibung"
-                                           TextBoxText="{Binding Description}"/>
+                                           TextBoxText="{Binding  NewRepair.Type, Mode=TwoWay}"/>
             
             <components:LabelTextComponent Grid.Row="0"
                                            Grid.Column="2"
                                            VerticalAlignment="Stretch"
                                            HorizontalAlignment="Stretch"
-                                           LabelText="Kilometerlimit"
-                                           TextBoxText="{Binding KilometerLimit}"/>
+                                           LabelText="Beschreibung"
+                                           TextBoxText="{Binding NewRepair.Description}"/>
             
-            <StackPanel Grid.Row="2"
-                        Grid.Column="2"
-                        Orientation="Vertical"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch">
-                <Grid RowDefinitions="Auto, *"
-                      ColumnDefinitions="*, Auto">
-                    <Label Grid.Row="0"
-                           Grid.Column="0"
-                           Content="Toleranz"
-                           HorizontalAlignment="Left"/>
-                    <TextBox Grid.Row="1"
-                             Grid.Column="0"
-                             HorizontalAlignment="Stretch"
-                             Text="{Binding Tolerance}"/>
-                    <ComboBox Grid.Row="1"
-                              Grid.Column="1"
-                              Name="toleranceTypeBox"
-                              SelectedItem="{Binding ToleranceType}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Converter={StaticResource ToleranceTypeToStringConverter}}" />
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                </Grid>
-                </StackPanel>
+            <components:LabelTextComponent Grid.Row="2"
+                                           Grid.Column="0"
+                                           VerticalAlignment="Stretch"
+                                           HorizontalAlignment="Stretch"
+                                           LabelText="Kilometerlimit"
+                                           TextBoxText="{Binding NewRepair.KilometerLimit}"/>
+            
+            <components:ToleranceControl Grid.Row="2"
+                                         Grid.Column="2"
+                                         HorizontalAlignment="Stretch"
+                                         VerticalAlignment="Stretch"
+                                         LabelText="Toleranz"
+                                         x:Name="ToleranceControl"
+                                         Tolerance="{Binding NewRepair.Tolerance}"
+                                         SelectedItem="{Binding  NewRepair.ToleranceType}"/>
+            
+            <components:LabelTextComponent Grid.Row="4"
+                                           Grid.Column="0"
+                                           Grid.ColumnSpan="3"
+                                           VerticalAlignment="Stretch"
+                                           HorizontalAlignment="Stretch"
+                                           LabelText="Fortschritt"
+                                           TextBoxText="{Binding NewRepair.KilometerProgress}"/>
         </Grid>
         </Grid>
     </Border>
-    <!--
-    <Grid RowDefinitions="*, *"
-          ColumnDefinitions="*"
-          HorizontalAlignment="Center"
-          VerticalAlignment="Center">
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Grid.Row="0"
-                    Spacing="10">
-            <components:LabelTextComponent LabelText="Bezeichnung"
-                                           TextBoxText="{Binding Type}"
-                                           HorizontalAlignment="Stretch"/>
-            <components:LabelTextComponent LabelText="Beschreibung"
-                                           TextBoxText="{Binding Description}"
-                                           HorizontalAlignment="Stretch"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Grid.Row="1"
-                    Spacing="10">
-            <components:LabelTextComponent LabelText="Kilometerlimit"
-                                           TextBoxText="{Binding KilometerLimit}"/>
-            <StackPanel Orientation="Horizontal"
-                        Spacing="5">
-                <components:LabelTextComponent LabelText="Toleranz"
-                                               TextBoxText="{Binding Tolerance}"/>
-                <ComboBox Name="toleranceTypeBox"
-                          SelectedItem="{Binding ToleranceType}"
-                          VerticalAlignment="Center">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource ToleranceTypeToStringConverter}}" />
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </StackPanel>
-        </StackPanel> 
-        
-    </Grid>-->
+        <Grid Grid.Row="2"
+              ColumnDefinitions="*, *">
+            <Button Content="Hinzufügen"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Command="{Binding SaveRepairCommand}"/>
+        </Grid>
+        </Grid>
 </UserControl>

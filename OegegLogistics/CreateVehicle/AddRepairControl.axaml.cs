@@ -4,6 +4,7 @@ using System.Linq;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Data;
 using OegegLogistics.ViewModels.Enums;
 
 namespace OegegLogistics.CreateVehicle;
@@ -13,7 +14,8 @@ public class AddRepairControl : TemplatedControl
     #region StyledProperties
 
     public static readonly StyledProperty<string> RepairTypeProperty = AvaloniaProperty.Register<AddRepairControl, string>(
-        nameof(RepairType));
+        nameof(RepairType),
+        defaultBindingMode: BindingMode.TwoWay);
 
     public string RepairType
     {

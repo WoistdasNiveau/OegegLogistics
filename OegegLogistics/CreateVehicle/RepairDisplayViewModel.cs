@@ -10,14 +10,17 @@ public partial class RepairDisplayViewModel : ObservableObject
     private string _type;
     
     [ObservableProperty]
-    private string _name;
+    private string _description;
     
     [ObservableProperty]
-    private int _kilometerLimit;
+    private uint _kilometerLimit;
     
     [ObservableProperty]
-    private int _tolerance;
+    private uint _tolerance;
     
     [ObservableProperty]
     private ToleranceType _toleranceType;
+
+    [ObservableProperty]
+    private uint _kilometerProgress;
 }

@@ -12,10 +12,13 @@ public partial class AddRepairsViewModel : BaseCreateVehicleViewModel
 {
     // == Observable Properties ==
     [ObservableProperty]
-    private ObservableCollection<RepairModel> _repairs = new ObservableCollection<RepairModel>();
-    
+    private ObservableCollection<RepairDisplayViewModel> _repairs = new ObservableCollection<RepairDisplayViewModel>();
+
     [ObservableProperty]
-    private RepairModel? _selectedRepair;
+    private RepairDisplayViewModel? _newRepair;
+    
+    // == private fields ==
+    private Window? _openedAddRepairDialog;
     
     // == constructors ==
     public AddRepairsViewModel(CreateVehicleData createVehicleData, NavigationService navigationService) : base(navigationService, createVehicleData)
@@ -24,26 +27,34 @@ public partial class AddRepairsViewModel : BaseCreateVehicleViewModel
     
     // == Relay Commands ==
     [RelayCommand]
-    public async Task AddRepair()
+    public async Task OpenAddRepairDialog()
     {
-        RepairModel repairModel = new RepairModel();
-        await NavigationService.ShowDialogAsync<AddRepairDialog>(repairModel);
-        Repairs.Add(repairModel);
+        NewRepair = new RepairDisplayViewModel();
+        _openedAddRepairDialog = await NavigationService.ShowDialogAsync<AddRepairDialog>(this);
     }
 
     [RelayCommand]
-    public async Task EditRepair(RepairModel repairModel)
+    public void SaveRepair()
     {
-        
-    }
-
-    [RelayCommand]
-    public void RemoveRepair()
-    {
-        if(SelectedRepair is null)
+        if (NewRepair == null)
             return;
+        Repairs.Add(NewRepair);
+        NewRepair = new RepairDisplayViewModel();
         
-        Repairs.Remove(SelectedRepair);
+        _openedAddRepairDialog?.Close();
+        _openedAddRepairDialog = null;
+    }
+
+    [RelayCommand]
+    public async Task EditRepair(RepairDisplayViewModel repairModel)
+    {
+        
+    }
+
+    [RelayCommand]
+    public void RemoveRepair(RepairDisplayViewModel repairModel)
+    {
+        Repairs.Remove(repairModel);
     }
     
     // == public methods ==

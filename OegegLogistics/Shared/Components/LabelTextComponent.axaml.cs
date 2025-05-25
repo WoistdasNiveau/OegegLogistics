@@ -1,6 +1,8 @@
-﻿using Avalonia;
+﻿using System;
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Data;
 
 namespace OegegLogistics.Shared.Components;
 
@@ -16,7 +18,8 @@ public class LabelTextComponent : TemplatedControl
     }
 
     public static readonly StyledProperty<string> TextBoxTextProperty = AvaloniaProperty.Register<LabelTextComponent, string>(
-        nameof(TextBoxText));
+        nameof(TextBoxText),
+        defaultBindingMode: BindingMode.TwoWay);
 
     public string TextBoxText
     {

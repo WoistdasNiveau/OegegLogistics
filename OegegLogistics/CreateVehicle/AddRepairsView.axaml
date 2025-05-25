@@ -35,12 +35,19 @@
                 <DataGridTextColumn Header="Toleranztyp"
                                     Binding="{Binding ToleranceType, Converter={StaticResource ToleranceTypeToStringConverter}}"
                                     Width="*"/>
+                
+                <DataGridTextColumn Header="Fortschritt"
+                                    Binding="{Binding KilometerProgress}"
+                                    Width="*"/>
+                
                 <DataGridTemplateColumn>
                     <DataGridTemplateColumn.HeaderTemplate>
                         <DataTemplate>
                             <Button Content="+"
-                                    Command="{Binding ((createVehicle:AddRepairsViewModel)DataContext).AddRepairCommand,
-                                        RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"/>
+                                    Command="{Binding ((createVehicle:AddRepairsViewModel)DataContext).OpenAddRepairDialogCommand,
+                                        RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
@@ -48,10 +55,13 @@
                             <Button Content="x"
                                     Command="{Binding ((createVehicle:AddRepairsViewModel)DataContext).RemoveRepairCommand,
                                         RelativeSource={RelativeSource FindAncestor, AncestorType=UserControl}}"
-                                    CommandParameter="{Binding .}"/>
+                                    CommandParameter="{Binding .}"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+                
             </DataGrid.Columns>
         </DataGrid>
     </StackPanel>

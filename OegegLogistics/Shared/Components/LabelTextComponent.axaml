@@ -12,7 +12,7 @@
                     <Label Content="{TemplateBinding LabelText}"
                            Target="{Binding #TextBlock}"/>
                     <TextBox Name="TextBlock"
-                             Text="{TemplateBinding TextBoxText}"/>
+                             Text="{TemplateBinding TextBoxText, Mode=TwoWay}"/>
                 </StackPanel>
             </ControlTemplate>
         </Setter>

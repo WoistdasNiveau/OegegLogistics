@@ -15,8 +15,8 @@ public partial class AddRepairDialog : UserControl
         InitializeComponent();
         
         List<ToleranceType> toleranceTypes = Enum.GetValues<ToleranceType>().ToList();
-        toleranceTypeBox.ItemsSource = toleranceTypes;
-        toleranceTypes.First(t => t == ToleranceType.Km);
+        ToleranceControl.ItemsSource = toleranceTypes;
+        //toleranceTypes.First(t => t == ToleranceType.Km);
         
         SizeChanged += OnSizeChanged;
     }

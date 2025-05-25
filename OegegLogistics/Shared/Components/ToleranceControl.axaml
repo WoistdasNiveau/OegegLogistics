@@ -1,0 +1,44 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:OegegLogistics.Shared.Components"
+        xmlns:converters="clr-namespace:OegegLogistics.Shared.Converters">
+    <Design.PreviewWith>
+        <controls:ToleranceControl />
+    </Design.PreviewWith>
+
+    <Style Selector="controls|ToleranceControl">
+        <Style.Resources>
+            <converters:ToleranceTypeToStringConverter x:Key="ToleranceTypeToStringConverter"/>
+        </Style.Resources>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <StackPanel Orientation="Vertical"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch">
+                    <Grid RowDefinitions="Auto, *"
+                          ColumnDefinitions="*, Auto">
+                        <Label Grid.Row="0"
+                               Grid.Column="0"
+                               Content="{TemplateBinding LabelText, Mode=TwoWay}"
+                               HorizontalAlignment="Left"/>
+                        <TextBox Grid.Row="1"
+                                 Grid.Column="0"
+                                 HorizontalAlignment="Stretch"
+                                 Text="{TemplateBinding Tolerance, Mode=TwoWay}"/>
+                        <ComboBox Grid.Row="1"
+                                  Grid.Column="1"
+                                  Name="toleranceTypeBox"
+                                  ItemsSource="{TemplateBinding ItemsSource}"
+                                  SelectedItem="{TemplateBinding SelectedItem, Mode=TwoWay}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Converter={StaticResource ToleranceTypeToStringConverter}}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </Grid>
+                </StackPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

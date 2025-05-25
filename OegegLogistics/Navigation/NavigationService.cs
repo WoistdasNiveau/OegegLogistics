@@ -61,7 +61,7 @@ public class NavigationService
         }
     }
 
-    public async Task ShowDialogAsync<U>(object? dataContext = default) where U : UserControl
+    public async Task<Window> ShowDialogAsync<U>(BaseViewModel? dataContext = default) where U : UserControl
     {
         try
         {
@@ -72,7 +72,8 @@ public class NavigationService
                 control.DataContext = dataContext;
             dialog.Content = control;
             
-            await dialog.ShowDialog(window);
+            dialog.ShowDialog(window);
+            return dialog;
         }
         catch (Exception e)
         {
