@@ -11,14 +11,18 @@
     <UserControl.Resources>
         <converters:ToleranceTypeToStringConverter x:Key="ToleranceTypeToStringConverter"/>
     </UserControl.Resources>
-    <StackPanel>
+    <StackPanel Margin="10, 20"
+                Spacing="30">
             <TextBlock Text="Fristausbesserungen definieren:"
-                       HorizontalAlignment="Left"
-                       VerticalAlignment="Center"/>
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Top"
+                       Classes="Title"/>
         <DataGrid ItemsSource="{Binding Repairs}"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
-                  DoubleTapped="DataGridCell_DoubleTapped">
+                  DoubleTapped="DataGridCell_DoubleTapped"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Bezeichnung"
                                     Binding="{Binding Type}"

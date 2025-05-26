@@ -8,9 +8,9 @@ using OegegLogistics.ViewModels.Enums;
 
 namespace OegegLogistics.CreateVehicle;
 
-public partial class AddRepairDialog : UserControl
+public partial class EditRepairDialog : UserControl
 {
-    public AddRepairDialog()
+    public EditRepairDialog()
     {
         InitializeComponent();
         

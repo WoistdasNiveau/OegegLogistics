@@ -88,6 +88,23 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="Shared/Components/NumberTextBox.axaml"/>
             </ResourceDictionary.MergedDictionaries>
+            
+            <Pen x:Key="MyPen" 
+                 Thickness="1" 
+                 Brush="{DynamicResource SystemChromeLowColor}" />
+            <DrawingBrush x:Key="DiagonalLines" 
+                          Stretch="Uniform" 
+                          TileMode="Tile" 
+                          Opacity=".25"
+                          TransformOrigin="0.5 0.5"
+                          SourceRect="0 0 10 10"
+                          DestinationRect="0 0 10 10">
+                <DrawingBrush.Drawing>
+                    <GeometryDrawing Brush="{DynamicResource SystemChromeLowColor}" >
+                        <StreamGeometry>M0 10L10 0H5L0 5M10 10V5L5 10</StreamGeometry>
+                    </GeometryDrawing>
+                </DrawingBrush.Drawing>
+            </DrawingBrush>
         </ResourceDictionary>
     </Application.Resources>
              

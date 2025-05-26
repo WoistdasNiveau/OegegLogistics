@@ -2,10 +2,12 @@
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
+using Avalonia.Media;
 using Microsoft.Extensions.DependencyInjection;
 using Mvvm.Navigation;
 using OegegLogistics.CreateVehicle;
 using OegegLogistics.Shared;
+using OegegLogistics.Shared.Windows;
 
 namespace OegegLogistics.Navigation;
 
@@ -66,11 +68,12 @@ public class NavigationService
         try
         {
             Window window = (TopLevel.GetTopLevel(_navigator.CurrentView as UserControl) as Window)!;
-            Window dialog = new Window();
+            BaseWindow dialog = new BaseWindow();
             UserControl control = _serviceProvider.GetRequiredService<U>();
             if(dataContext != null)
                 control.DataContext = dataContext;
-            dialog.Content = control;
+            
+            dialog.ContentHost.Content = control;
             
             dialog.ShowDialog(window);
             return dialog;

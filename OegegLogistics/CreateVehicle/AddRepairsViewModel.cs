@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -15,7 +16,7 @@ public partial class AddRepairsViewModel : BaseCreateVehicleViewModel
     private ObservableCollection<RepairDisplayViewModel> _repairs = new ObservableCollection<RepairDisplayViewModel>();
 
     [ObservableProperty]
-    private RepairDisplayViewModel? _newRepair;
+    private RepairDisplayViewModel? _selectedRepair;
     
     // == private fields ==
     private Window? _openedAddRepairDialog;
@@ -27,28 +28,22 @@ public partial class AddRepairsViewModel : BaseCreateVehicleViewModel
     
     // == Relay Commands ==
     [RelayCommand]
-    public async Task OpenAddRepairDialog()
+    public async Task OpenAddRepairDialog(RepairDisplayViewModel? repairModel)
     {
-        NewRepair = new RepairDisplayViewModel();
-        _openedAddRepairDialog = await NavigationService.ShowDialogAsync<AddRepairDialog>(this);
+        SelectedRepair = repairModel ?? new RepairDisplayViewModel();
+        _openedAddRepairDialog = await NavigationService.ShowDialogAsync<EditRepairDialog>(this);
+        _openedAddRepairDialog.Closed += OpenedAddRepairDialogOnClosed;
     }
 
     [RelayCommand]
     public void SaveRepair()
     {
-        if (NewRepair == null)
+        if (SelectedRepair == null)
             return;
-        Repairs.Add(NewRepair);
-        NewRepair = new RepairDisplayViewModel();
+        if(!Repairs.Contains(SelectedRepair))
+            Repairs.Add(SelectedRepair);
         
         _openedAddRepairDialog?.Close();
-        _openedAddRepairDialog = null;
-    }
-
-    [RelayCommand]
-    public async Task EditRepair(RepairDisplayViewModel repairModel)
-    {
-        
     }
 
     [RelayCommand]
@@ -62,5 +57,13 @@ public partial class AddRepairsViewModel : BaseCreateVehicleViewModel
     public override async Task Return()
     {
         await NavigationService.NavigateBackAsync();
+    }
+    
+    // == private methods ==
+    private void OpenedAddRepairDialogOnClosed(object? sender, EventArgs e)
+    {
+        SelectedRepair = null;
+        _openedAddRepairDialog!.Closed -= OpenedAddRepairDialogOnClosed;
+        _openedAddRepairDialog = null;
     }
 }

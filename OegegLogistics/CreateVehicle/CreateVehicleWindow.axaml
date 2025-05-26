@@ -10,7 +10,8 @@
         Title="CreateVehicleWindow">
         
         <Grid x:Name="root"
-              RowDefinitions="*,Auto">
+              RowDefinitions="*,Auto"
+              Background="{DynamicResource DiagonalLines}">
                 <ContentControl Grid.Row="0"
                                 Content="{Binding Navigator.CurrentView}"/>
                 <Grid ColumnDefinitions="*,*"

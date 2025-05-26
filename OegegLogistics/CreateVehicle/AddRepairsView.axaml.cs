@@ -24,10 +24,10 @@ public partial class AddRepairsView : UserControl
         if (e.Source is not Border border)
             return;
         
-        RepairModel? repairModel = border.GetVisualAncestors()
+        RepairDisplayViewModel? repairModel = border.GetVisualAncestors()
             .OfType<DataGridRow>()
-            .FirstOrDefault()?.DataContext as RepairModel;
+            .FirstOrDefault()?.DataContext as RepairDisplayViewModel;
         
-        ((AddRepairsViewModel)DataContext!).EditRepairCommand.ExecuteAsync(repairModel);
+        ((AddRepairsViewModel)DataContext!).OpenAddRepairDialogCommand.ExecuteAsync(repairModel);
     }
 }

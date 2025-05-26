@@ -20,28 +20,7 @@
     <Window.Resources>
         <Pen x:Key="MyPen" 
              Thickness="1" 
-             Brush="{DynamicResource SystemChromeLowColor}" /> <!-- Change this for light/dark-->
-    
-        <!--<DrawingBrush x:Key="DiagonalLines"  
-                      Stretch="UniformToFill" 
-                      TileMode="Tile" Opacity="0.25" 
-                      DestinationRect="0,0,4,4">
-            <DrawingBrush.Transform>
-                <RotateTransform Angle="20"></RotateTransform>
-            </DrawingBrush.Transform>
-            <DrawingBrush.Drawing>
-                <GeometryDrawing Pen="{StaticResource MyPen}">
-                    <GeometryDrawing.Geometry>
-                        <GeometryGroup FillRule="EvenOdd" >
-                            <GeometryCollection >
-                                <LineGeometry StartPoint="0,0" EndPoint="0,3"/>
-                                <LineGeometry StartPoint="2,0" EndPoint="2,3"/>
-                            </GeometryCollection>
-                        </GeometryGroup>
-                    </GeometryDrawing.Geometry>
-                </GeometryDrawing>
-            </DrawingBrush.Drawing>
-        </DrawingBrush> -->
+             Brush="{DynamicResource SystemChromeLowColor}" />
         
         <DrawingBrush x:Key="DiagonalLines" 
                       Stretch="Uniform" 
