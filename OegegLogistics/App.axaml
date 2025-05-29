@@ -13,6 +13,7 @@
         </FluentTheme>
         <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
         <StyleInclude Source="Shared/Components/SwitchPageComponent.axaml"/>
+        <StyleInclude Source="Shared/Components/ErrorComponent.axaml"/>
         <StyleInclude Source="Shared/Components/LabelTextComponent.axaml"/>
         <StyleInclude Source="Shared/Components/ToleranceControl.axaml"/>
         <StyleInclude Source="Shared/Components/UicNumberControl.axaml"/>
@@ -87,6 +88,7 @@
         </StreamGeometry>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="Shared/Components/NumberTextBox.axaml"/>
+                <ResourceInclude Source="Shared/Components/UicMaskedTextBox.axaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <Pen x:Key="MyPen" 

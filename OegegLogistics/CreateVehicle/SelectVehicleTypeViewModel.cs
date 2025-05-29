@@ -31,22 +31,17 @@ public partial class SelectVehicleTypeViewModel : BaseCreateVehicleViewModel
     
     partial void OnUicNumberChanged(string? oldValue, string newValue)
     {
-        IsContinueButtonEnabled = newValue.Replace(" ","")
-            .Replace("-","")
-            .Trim().Length == 12;
-        /*
-        string value = newValue.Substring(0, newValue.Length - 1).Replace(" ", "").Replace("_", "").Replace("-", "").Trim();
-        if (string.IsNullOrWhiteSpace(value) || isComputing || value.Length != 11)
+        string value = newValue.Replace(" ", "")
+            .Replace("-", "")
+            .Trim();
+
+        if (value.Length != 12)
         {
             IsContinueButtonEnabled = false;
             return;
-        } 
+        }
 
-        isComputing = true;
-        string controlNumber = value.ComputeLuhnCheckDigit().ToString();
-        UicNumber = newValue.Substring(0, newValue.Length - 1) + controlNumber;
-        isComputing = false;
-        */
+        IsContinueButtonEnabled = true;
     } 
     
     // == Relay Commands ==

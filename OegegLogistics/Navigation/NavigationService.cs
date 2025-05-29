@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Mvvm.Navigation;
 using OegegLogistics.CreateVehicle;
 using OegegLogistics.Shared;
+using OegegLogistics.Shared.Components;
 using OegegLogistics.Shared.Windows;
 
 namespace OegegLogistics.Navigation;
@@ -74,6 +75,25 @@ public class NavigationService
                 control.DataContext = dataContext;
             
             dialog.ContentHost.Content = control;
+            
+            dialog.ShowDialog(window);
+            return dialog;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+    
+    public async Task<Window> ShowErrorDialogAsync()
+    {
+        try
+        {
+            Window window = (TopLevel.GetTopLevel(_navigator.CurrentView as UserControl) as Window)!;
+            BaseWindow dialog = new BaseWindow();
+            dialog.Title = "Error";
+            dialog.ContentHost.Content = new ErrorComponent();
             
             dialog.ShowDialog(window);
             return dialog;
