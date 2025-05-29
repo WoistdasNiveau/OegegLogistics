@@ -15,6 +15,7 @@
         <StyleInclude Source="Shared/Components/SwitchPageComponent.axaml"/>
         <StyleInclude Source="Shared/Components/LabelTextComponent.axaml"/>
         <StyleInclude Source="Shared/Components/ToleranceControl.axaml"/>
+        <StyleInclude Source="Shared/Components/UicNumberControl.axaml"/>
         <StyleInclude Source="CreateVehicle/UICNumberComponent.axaml"/>
         
         <Style Selector="TextBox.pageNumber, Button.pageNumber, Label.pageNumber">
@@ -86,7 +87,6 @@
         </StreamGeometry>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="Shared/Components/NumberTextBox.axaml"/>
-                <ResourceInclude Source="Shared/Components/UicMaskedTextbox.axaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <Pen x:Key="MyPen" 

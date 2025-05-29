@@ -1,0 +1,36 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="using:OegegLogistics.Shared.Components">
+    <Design.PreviewWith>
+        <controls:UicNumberControl />
+    </Design.PreviewWith>
+
+    <Style Selector="controls|UicNumberControl">
+        <!-- Set Defaults -->
+        <Setter Property="Template">
+            <ControlTemplate>
+                <StackPanel Orientation="Horizontal"
+                             Spacing="10">
+                    <MaskedTextBox Text="{TemplateBinding Text}"
+                                   Mask="00 00 0000 000"
+                                   PromptChar="0"
+                                   Name="MaskedTextBox"
+                                   Classes="UicNumber"
+                                   VerticalAlignment="Center"
+                                   Padding="0"
+                                   Margin="0"/>
+                    <TextBlock Text="-"
+                               VerticalAlignment="Center"
+                               Classes="UicNumber"
+                               Padding="0"
+                               Margin="0"/>
+                    <TextBlock Text="{TemplateBinding SelfCheckNumber}"
+                               VerticalAlignment="Center"
+                               Classes="UicNumber"
+                               Padding="0"
+                               Margin="0"/>
+                </StackPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

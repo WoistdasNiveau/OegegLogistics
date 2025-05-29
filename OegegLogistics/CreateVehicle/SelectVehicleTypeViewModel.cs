@@ -28,9 +28,13 @@ public partial class SelectVehicleTypeViewModel : BaseCreateVehicleViewModel
         IsContinueButtonEnabled = false;
     }
     
-    /*
+    
     partial void OnUicNumberChanged(string? oldValue, string newValue)
     {
+        IsContinueButtonEnabled = newValue.Replace(" ","")
+            .Replace("-","")
+            .Trim().Length == 12;
+        /*
         string value = newValue.Substring(0, newValue.Length - 1).Replace(" ", "").Replace("_", "").Replace("-", "").Trim();
         if (string.IsNullOrWhiteSpace(value) || isComputing || value.Length != 11)
         {
@@ -42,7 +46,8 @@ public partial class SelectVehicleTypeViewModel : BaseCreateVehicleViewModel
         string controlNumber = value.ComputeLuhnCheckDigit().ToString();
         UicNumber = newValue.Substring(0, newValue.Length - 1) + controlNumber;
         isComputing = false;
-    } */
+        */
+    } 
     
     // == Relay Commands ==
     [RelayCommand]

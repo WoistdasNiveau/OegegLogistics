@@ -24,24 +24,23 @@
                 </Viewbox>
 
                 
-                <components:UicMaskedTextbox ZIndex="3"
+               <!-- <components:UicNumberControl ZIndex="3"
                                              x:Name="OverlayTextBox"
-                                             Text="{Binding UicNumber}"
-                                             Mask="00 00 0000 000 - \0"
-                                             Classes="UicNumber"/>
+                                             UicNumber="{Binding UicNumber}"
+                                             Classes="UicNumber"/> -->
                 <!--<MaskedTextBox ZIndex="3"
                                x:Name="OverlayTextBox"
                                Text="{Binding UicNumber, Mode=TwoWay}"
                                Mask="00 00 0000 000 - \0"
                                Classes="UicNumber"/> -->
-                <!--<TextBox Watermark="00 00 0000 000 - 0"
+                <TextBox Watermark="00 00 0000 000 - 0"
                          x:Name="OverlayTextBox"
                          Classes="UicNumber"
                          MaxLength="16"
                          KeyUp="OverlayTextBox_OnKeyUp"
                          KeyDown="OverlayTextBox_OnKeyDown"
                          ZIndex="3"
-                         Text="{Binding UicNumber}"/> -->
+                         Text="{Binding UicNumber}"/>
             </Canvas>
             
             <Grid.RenderTransform>

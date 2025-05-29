@@ -154,12 +154,14 @@ public partial class SelectVehicleTypeView : UserControl
         Canvas.SetTop(OverlayTextBox, y);
     }
 
+
     private void OverlayTextBox_OnKeyUp(object? sender, KeyEventArgs e)
     {
         bool indexToLast = OverlayTextBox.CaretIndex == OverlayTextBox?.Text?.Length;
-        string text = Regex.Replace(OverlayTextBox?.Text?.Replace(" ", "").Replace("-", "") ?? string.Empty, "[a-zA-Z]", "");
-        string newText= string.Empty;
-        
+        string text = Regex.Replace(OverlayTextBox?.Text?.Replace(" ", "").Replace("-", "") ?? string.Empty, "[a-zA-Z]",
+            "");
+        string newText = string.Empty;
+
         for (int i = 0; i < text.Length; i++)
         {
             if (i == 2 || i == 4 || i == 8 && text[i] != ' ')
@@ -170,12 +172,15 @@ public partial class SelectVehicleTypeView : UserControl
             {
                 newText += " - ";
             }
+
             newText += text[i];
         }
+
         OverlayTextBox.Text = newText;
-        if(indexToLast)
+        if (indexToLast)
             OverlayTextBox.CaretIndex = OverlayTextBox.Text?.Length ?? 0;
     }
+    
 
     private void OverlayTextBox_OnKeyDown(object? sender, KeyEventArgs e)
     {
