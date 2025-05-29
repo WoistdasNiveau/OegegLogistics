@@ -24,22 +24,25 @@ public partial class SelectVehicleTypeViewModel : BaseCreateVehicleViewModel
 
     public SelectVehicleTypeViewModel(CreateVehicleData createVehicleData, NavigationService navigationService) : base(navigationService, createVehicleData)
     {
-        
+        IsReturnButtonVisible = false;
+        IsContinueButtonEnabled = false;
     }
     
+    /*
     partial void OnUicNumberChanged(string? oldValue, string newValue)
     {
-        if (string.IsNullOrWhiteSpace(newValue) || isComputing)
-            return;
         string value = newValue.Substring(0, newValue.Length - 1).Replace(" ", "").Replace("_", "").Replace("-", "").Trim();
-        if(value.Length != 11)
+        if (string.IsNullOrWhiteSpace(value) || isComputing || value.Length != 11)
+        {
+            IsContinueButtonEnabled = false;
             return;
+        } 
 
         isComputing = true;
         string controlNumber = value.ComputeLuhnCheckDigit().ToString();
         UicNumber = newValue.Substring(0, newValue.Length - 1) + controlNumber;
         isComputing = false;
-    }
+    } */
     
     // == Relay Commands ==
     [RelayCommand]

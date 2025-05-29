@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:createVehicle="clr-namespace:OegegLogistics.CreateVehicle"
+             xmlns:components="clr-namespace:OegegLogistics.Shared.Components"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="OegegLogistics.CreateVehicle.SelectVehicleTypeView"
              x:DataType="createVehicle:SelectVehicleTypeViewModel">
@@ -22,11 +23,17 @@
                          Path="/Assets/Images/Svg/4010.svg"/>
                 </Viewbox>
 
-                <MaskedTextBox ZIndex="3"
+                
+                <components:UicMaskedTextbox ZIndex="3"
+                                             x:Name="OverlayTextBox"
+                                             Text="{Binding UicNumber}"
+                                             Mask="00 00 0000 000 - \0"
+                                             Classes="UicNumber"/>
+                <!--<MaskedTextBox ZIndex="3"
                                x:Name="OverlayTextBox"
-                               Text="{Binding UicNumber}"
+                               Text="{Binding UicNumber, Mode=TwoWay}"
                                Mask="00 00 0000 000 - \0"
-                               Classes="UicNumber"/>
+                               Classes="UicNumber"/> -->
                 <!--<TextBox Watermark="00 00 0000 000 - 0"
                          x:Name="OverlayTextBox"
                          Classes="UicNumber"

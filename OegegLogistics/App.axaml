@@ -86,6 +86,7 @@
         </StreamGeometry>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="Shared/Components/NumberTextBox.axaml"/>
+                <ResourceInclude Source="Shared/Components/UicMaskedTextbox.axaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <Pen x:Key="MyPen" 
