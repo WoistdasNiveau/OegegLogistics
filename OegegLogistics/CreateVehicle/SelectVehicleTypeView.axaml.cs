@@ -14,6 +14,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Media;
 using Avalonia.Styling;
 using Mvvm.Navigation;
+using OegegLogistics.ViewModels.Enums;
 using Svg;
 
 namespace OegegLogistics.CreateVehicle;
@@ -25,7 +26,7 @@ public partial class SelectVehicleTypeView : UserControl
     private double _width;
     private double _height;
     private IServiceProvider _serviceProvider;
-    private bool _isLocoShowing;
+    private AnimationState _animationState = AnimationState.Idle;
     private double _relativeTextBoxX = 0.47;
     private double _relativeTextBoxY = 0.61;
 
@@ -61,6 +62,7 @@ public partial class SelectVehicleTypeView : UserControl
         _zoomAnimation.PlaybackDirection = PlaybackDirection.Reverse;
         await _zoomAnimation.RunAsync(SvgGrid);
         selectBorder.IsVisible = true;
+        _animationState = AnimationState.Idle;
     }
 
     private void OnSizeChanged(object? sender, SizeChangedEventArgs e)
@@ -124,18 +126,26 @@ public partial class SelectVehicleTypeView : UserControl
 
     private async void InputElement_OnPointerEntered(object? sender, PointerEventArgs e)
     {
-        if(_isLocoShowing)
+        if (_animationState != AnimationState.Idle)
             return;
-
+        
+        _animationState = AnimationState.SlideRunning;
         _slideAnimation.PlaybackDirection = PlaybackDirection.Normal;
         await _slideAnimation.RunAsync(SvgGrid);
-        _isLocoShowing = true;
+        
+        _animationState = AnimationState.SlideCompleted;
     }
 
     private async void LocomotiveTapped(object? sender, TappedEventArgs e)
     {
+        if (_animationState != AnimationState.SlideCompleted)
+            return;
+        
+        _animationState = AnimationState.ZoomRunning;
         _zoomAnimation.PlaybackDirection = PlaybackDirection.Normal;
         await _zoomAnimation.RunAsync(SvgGrid);
+        
+        _animationState = AnimationState.ZoomCompleted;
         selectBorder.IsVisible = false;
     }
     
@@ -152,54 +162,5 @@ public partial class SelectVehicleTypeView : UserControl
 
         Canvas.SetLeft(OverlayTextBox, x);
         Canvas.SetTop(OverlayTextBox, y);
-    }
-
-
-    private void OverlayTextBox_OnKeyUp(object? sender, KeyEventArgs e)
-    {
-        bool indexToLast = OverlayTextBox.CaretIndex == OverlayTextBox?.Text?.Length;
-        string text = Regex.Replace(OverlayTextBox?.Text?.Replace(" ", "").Replace("-", "") ?? string.Empty, "[a-zA-Z]",
-            "");
-        string newText = string.Empty;
-
-        for (int i = 0; i < text.Length; i++)
-        {
-            if (i == 2 || i == 4 || i == 8 && text[i] != ' ')
-            {
-                newText += " ";
-            }
-            else if (i == 11)
-            {
-                newText += " - ";
-            }
-
-            newText += text[i];
-        }
-
-        OverlayTextBox.Text = newText;
-        if (indexToLast)
-            OverlayTextBox.CaretIndex = OverlayTextBox.Text?.Length ?? 0;
-    }
-    
-
-    private void OverlayTextBox_OnKeyDown(object? sender, KeyEventArgs e)
-    {
-        if (e.Key == Key.Back || e.Key == Key.Delete || e.Key == Key.Tab ||
-            e.Key == Key.Left || e.Key == Key.Right || e.Key == Key.Enter)
-        {
-            base.OnKeyDown(e);
-        }
-        else
-        {
-            var keyString = e.Key.ToString();
-            if (!Regex.IsMatch(keyString, @"^D[0-9]$") && !Regex.IsMatch(keyString, @"^NumPad[0-9]$"))
-            {
-                e.Handled = true;
-            }
-            else
-            {
-                base.OnKeyDown(e);
-            }
-        }
     }
 }
