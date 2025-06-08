@@ -8,8 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Mvvm.Navigation;
 using OegegLogistics.Main;
+using OegegLogistics.Shared.Windows;
 using OegegLogistics.Vehicles;
-using MainWindow = OegegLogistics.Main.MainWindow;
 
 namespace OegegLogistics;
 
@@ -51,7 +51,10 @@ public partial class App : Application
             // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 
             // More info: https://docs.avaloniaui.net/docs/guides/development-guides/data-validation#manage-validationplugins
             DisableAvaloniaDataAnnotationValidation();
-            desktop.MainWindow = provider.GetRequiredService<MainWindow>();
+            BaseWindow window = provider.GetService<BaseWindow>();
+            MainView mainView = provider.GetService<MainView>();
+            window.ContentHost.Content = mainView;
+            desktop.MainWindow = window;
         }
 
         base.OnFrameworkInitializationCompleted();

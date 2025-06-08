@@ -22,32 +22,13 @@
                     <Svg x:Name="Svg"
                          Path="/Assets/Images/Svg/4010.svg"/>
                 </Viewbox>
-
-                
-               <!-- <components:UicNumberControl ZIndex="3"
-                                             x:Name="OverlayTextBox"
-                                             UicNumber="{Binding UicNumber}"
-                                             Classes="UicNumber"/> -->
-                <!--<components:UicMaskedTextBox ZIndex="3"
-                               x:Name="OverlayTextBox"
-                               Text="{Binding UicNumber, Mode=TwoWay}"
-                               Mask="00 00 0000 000 - \0"
-                               Classes="UicNumber"/> -->
                
                <MaskedTextBox Mask="00 00 0000 000 - 0"
                               x:Name="OverlayTextBox"
                               Classes="UicNumber"
                               ZIndex="3"
                               Text="{Binding UicNumber}"
-                               PromptChar="0"/>
-                <!--<TextBox Watermark="00 00 0000 000 - 0"
-                         x:Name="OverlayTextBox"
-                         Classes="UicNumber"
-                         MaxLength="16"
-                         KeyUp="OverlayTextBox_OnKeyUp"
-                         KeyDown="OverlayTextBox_OnKeyDown"
-                         ZIndex="3"
-                         Text="{Binding UicNumber}"/> -->
+                              PromptChar="_"/>
             </Canvas>
             
             <Grid.RenderTransform>

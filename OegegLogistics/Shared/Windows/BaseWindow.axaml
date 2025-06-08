@@ -6,7 +6,7 @@
         x:Class="OegegLogistics.Shared.Windows.BaseWindow"
         Title="BaseWindow">
     
-    <Grid Background="{StaticResource DiagonalLines}">
-        <ContentPresenter x:Name="ContentHost"/>
+    <Grid Background="{DynamicResource DiagonalLines}">
+        <ContentControl x:Name="ContentHost"/>
     </Grid>
 </Window>

@@ -90,7 +90,7 @@ public class NavigationService
     {
         try
         {
-            Window window = (TopLevel.GetTopLevel(_navigator.CurrentView as UserControl) as Window)!;
+            Window window = GetTopLevelWindow();
             BaseWindow dialog = new BaseWindow();
             dialog.Title = "Error";
             dialog.ContentHost.Content = new ErrorComponent();
@@ -104,4 +104,7 @@ public class NavigationService
             throw;
         }
     }
+    
+    // == private methods ==
+    private Window GetTopLevelWindow() => (TopLevel.GetTopLevel(_navigator.CurrentView as UserControl) as Window)!;
 }

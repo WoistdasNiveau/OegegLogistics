@@ -5,6 +5,7 @@ using OegegLogistics.Main;
 using OegegLogistics.Navigation;
 using OegegLogistics.Shared;
 using OegegLogistics.Shared.Services;
+using OegegLogistics.Shared.Windows;
 using OegegLogistics.Vehicles;
 
 namespace OegegLogistics
@@ -14,7 +15,7 @@ namespace OegegLogistics
     {
         public static IServiceCollection AddWindows(this IServiceCollection services)
         {
-            services.AddTransient<MainWindow>();
+            services.AddTransient<BaseWindow>();
             services.AddTransient<CreateVehicleWindow>();
 
             return services;
@@ -22,6 +23,7 @@ namespace OegegLogistics
 
         public static IServiceCollection AddViews(this IServiceCollection services)
         {
+            services.AddTransient<MainView>();
             services.AddTransient<VehiclesView>();
             services.AddTransient<SelectVehicleTypeView>();
             services.AddTransient<SetCurrentKilometersView>();
@@ -33,7 +35,7 @@ namespace OegegLogistics
 
         public static IServiceCollection AddViewModels(this IServiceCollection services)
         {
-            services.AddTransient<MainWindowViewModel>();
+            services.AddTransient<MainViewModel>();
             services.AddTransient<VehiclesViewModel>();
             services.AddTransient<CreateVehicleWindowViewModel>();
             services.AddTransient<SetCurrentKilometersViewModel>();

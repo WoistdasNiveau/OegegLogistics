@@ -11,19 +11,16 @@ using OegegLogistics.ViewModels;
 
 namespace OegegLogistics.Main;
 
-[ViewFor<MainWindowViewModel>]
-public partial class MainWindowViewModel : BaseViewModel
+[ViewFor<MainViewModel>]
+public partial class MainViewModel : BaseViewModel
 {
     private readonly NavigationService _navigationService;
     
-    public MainWindowViewModel(VehiclesView vehiclesView, NavigationService navigationService) : base(navigationService)
+    
+    public MainViewModel(NavigationService navigationService) : base(navigationService)
     {
-        _vehiclesView = vehiclesView;
         _navigationService = navigationService;
     }
-
-    [ObservableProperty]
-    public VehiclesView _vehiclesView;
     
     // == Commands ==
     [RelayCommand]

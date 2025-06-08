@@ -1,42 +1,12 @@
-<Window xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:vm="using:OegegLogistics.ViewModels"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:views="clr-namespace:OegegLogistics.Main"
-        xmlns:vehicles="clr-namespace:OegegLogistics.Vehicles"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        x:Class="OegegLogistics.Main.MainWindow"
-        x:DataType="views:MainWindowViewModel"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="OegegLogistics">
-
-    <Design.DataContext>
-        <!-- This only sets the DataContext for the previewer in an IDE,
-             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-        <views:MainWindowViewModel/>
-    </Design.DataContext>
-
-    <Window.Resources>
-        <Pen x:Key="MyPen" 
-             Thickness="1" 
-             Brush="{DynamicResource SystemChromeLowColor}" />
-        
-        <DrawingBrush x:Key="DiagonalLines" 
-                      Stretch="Uniform" 
-                      TileMode="Tile" 
-                      Opacity=".25"
-                      TransformOrigin="0.5 0.5"
-                      SourceRect="0 0 10 10"
-                      DestinationRect="0 0 10 10">
-            <DrawingBrush.Drawing>
-                <GeometryDrawing Brush="{DynamicResource SystemChromeLowColor}" >
-                    <StreamGeometry>M0 10L10 0H5L0 5M10 10V5L5 10</StreamGeometry>
-                </GeometryDrawing>
-            </DrawingBrush.Drawing>
-        </DrawingBrush>
-    </Window.Resources>
-
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:main="clr-namespace:OegegLogistics.Main"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="OegegLogistics.Main.MainView"
+             x:DataType="main:MainViewModel">
+    
     <SplitView IsPaneOpen="True"
                DisplayMode="CompactInline"
                OpenPaneLength="225">
@@ -68,7 +38,6 @@
         </SplitView.Pane>
         <Grid VerticalAlignment="Stretch"
               HorizontalAlignment="Stretch"
-              Background="{StaticResource DiagonalLines}"
               RowDefinitions="0.05*, 0.9*">
             <Border Grid.Row="0"
                     Background="{DynamicResource SystemChromeLowColor}"
@@ -114,7 +83,8 @@
                     </StackPanel>
                 </Grid>
             </Border>
-            <ContentControl Grid.Row="1" Content="{Binding VehiclesView}"/>
+            <ContentControl Grid.Row="1" 
+                            x:Name="ContentControl"/>
         </Grid>
     </SplitView>
-</Window>
+</UserControl>

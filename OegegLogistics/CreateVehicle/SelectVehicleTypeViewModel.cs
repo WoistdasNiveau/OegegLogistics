@@ -33,6 +33,7 @@ public partial class SelectVehicleTypeViewModel : BaseCreateVehicleViewModel
     {
         string value = newValue.Replace(" ", "")
             .Replace("-", "")
+            .Replace("_","")
             .Trim();
 
         if (value.Length != 12)
